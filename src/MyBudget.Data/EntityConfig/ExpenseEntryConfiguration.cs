@@ -9,7 +9,7 @@ namespace MyBudget.Data.EntityConfig
         public void Configure(EntityTypeBuilder<ExpenseEntry> builder)
         {
             builder.Property(x => x.CreationDate).IsRequired();
-            
+
             builder.Property(x => x.Amount)
                 .HasPrecision(2)
                 .IsRequired();

@@ -9,7 +9,7 @@ namespace MyBudget.Data.EntityConfig
         public void Configure(EntityTypeBuilder<Expense> builder)
         {
             builder.Property(x => x.ExpenseType).IsRequired();
-            
+
             builder.Property(x => x.Source)
                 .HasMaxLength(100)
                 .IsRequired();
