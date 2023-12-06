@@ -1,25 +1,18 @@
 ﻿namespace MyBudget.Application.Entities
 {
-    public class BaseExpense : BaseEntity
+    public class Expense : BaseEntity
     {
+        public ExpenseType ExpenseType { get; set; }
         public string Source { get; set; } = string.Empty;
+        public decimal? Amount { get; set; }
         public DateOnly EffectiveDate { get; set; }
+        public DateOnly? ExpirationDate { get; set; }
     }
 
-    public class VariableExpense : BaseExpense
+    public enum ExpenseType
     {
-        public bool IsActive { get; set; }
-    }
-
-    public class StableExpense : BaseExpense
-    {
-        public decimal Amount { get; set; }
-        public bool IsActive { get; set; }
-    }
-
-    public class FixedExpense : BaseExpense
-    {
-        public decimal Amount { get; set; }
-        public DateOnly ExpirationDate { get; set; }
+        Variable = 1,
+        Stable = 2,
+        Fixed = 3
     }
 }
