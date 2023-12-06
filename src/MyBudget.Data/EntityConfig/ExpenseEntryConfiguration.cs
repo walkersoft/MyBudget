@@ -9,14 +9,12 @@ namespace MyBudget.Data.EntityConfig
         public void Configure(EntityTypeBuilder<ExpenseEntry> builder)
         {
             builder.Property(x => x.CreationDate).IsRequired();
-            builder.Property(x => x.Expense).IsRequired();
             
             builder.Property(x => x.Amount)
                 .HasPrecision(2)
                 .IsRequired();
 
-            builder.HasOne(x => x.Expense)
-                .WithMany();
+            builder.HasOne(x => x.Expense);
 
             builder.Navigation(x => x.Expense).AutoInclude();
         }

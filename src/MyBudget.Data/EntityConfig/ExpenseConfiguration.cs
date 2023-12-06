@@ -16,10 +16,6 @@ namespace MyBudget.Data.EntityConfig
 
             builder.Property(x => x.Amount)
                 .HasPrecision(2);
-
-            builder.HasOne<ExpenseCategory>()
-                .WithMany()
-                .HasForeignKey(x => x.CategoryId);
         }
     }
 }

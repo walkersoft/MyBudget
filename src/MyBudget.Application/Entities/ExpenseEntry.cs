@@ -1,9 +1,9 @@
 ﻿namespace MyBudget.Application.Entities
 {
-    public class ExpenseEntry(DateOnly creationDate, Expense expense, decimal amount) : BaseEntity
+    public class ExpenseEntry : BaseEntity
     {
-        public DateOnly CreationDate { get; private set; } = creationDate;
-        public Expense Expense { get; private set; } = expense;
-        public decimal Amount { get; private set; } = amount;
+        public Expense Expense { get; set; }
+        public DateOnly CreationDate { get; set; }
+        public decimal Amount { get; set; }
     }
 }

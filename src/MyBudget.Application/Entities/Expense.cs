@@ -7,7 +7,7 @@
         public decimal? Amount { get; set; }
         public DateOnly EffectiveDate { get; set; }
         public DateOnly? ExpirationDate { get; set; }
-        public Guid? CategoryId { get; set; }
+        public Guid? ExpenseCategoryId { get; set; }
     }
 
     public enum ExpenseType
