@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using MyBudget.Application.Common;
 using MyBudget.Application.Entities;
 
 namespace MyBudget.Application.Features.Expenses
@@ -11,11 +12,20 @@ namespace MyBudget.Application.Features.Expenses
         decimal? Amount
     ) : IRequest<Expense>;
 
-    internal class CreateExpenseHandler() : IRequestHandler<CreateExpense, Expense>
+    internal class CreateExpenseHandler(IAppDataContext context) : IRequestHandler<CreateExpense, Expense>
     {
-        public Task<Expense> Handle(CreateExpense request, CancellationToken cancellationToken)
+        public async Task<Expense> Handle(CreateExpense request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var expense = new Expense()
+            {
+                ExpenseType = request.ExpenseType,
+                Source = request.Source,
+                EffectiveDate = request.EffectiveDate,
+                ExpirationDate = request.ExpirationDate,
+                Amount = request.Amount
+            };
+
+            return await context.CreateExpenseAsync(expense);
         }
     }
 }

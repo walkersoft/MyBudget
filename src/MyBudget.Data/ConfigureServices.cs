@@ -8,7 +8,7 @@ namespace MyBudget.Data
     {
         public static void ConfigureDataContext(this IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("C:\\temp\\BudgetDB.db"));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=C:\\temp\\BudgetDB.db"));
             services.AddSingleton<IAppDataContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
         }
     }
