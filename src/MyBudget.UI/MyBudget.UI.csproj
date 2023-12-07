@@ -28,5 +28,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MyBudget.Application\MyBudget.Application.csproj" />
+    <ProjectReference Include="..\MyBudget.Data\MyBudget.Data.csproj" />
   </ItemGroup>
 </Project>

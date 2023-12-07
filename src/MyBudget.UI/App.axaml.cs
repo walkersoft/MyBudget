@@ -2,6 +2,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Microsoft.Extensions.DependencyInjection;
 using MyBudget.Application;
+using MyBudget.Data;
 using MyBudget.UI.ViewModels;
 using MyBudget.UI.Views;
 using System;
@@ -36,6 +37,7 @@ public partial class App : Avalonia.Application
     {
         var services = new ServiceCollection();
         services.ConfigureBudgetApplication();
+        services.ConfigureDataContext();
 
         services.AddSingleton<BudgetApplication>();
 
