@@ -2,7 +2,7 @@
 using MyBudget.Application.Entities;
 using MyBudget.Application.Features.Expenses;
 
-namespace MyBudget.Application.Common
+namespace MyBudget.Application
 {
     public class BudgetApplication(IMediator mediator)
     {

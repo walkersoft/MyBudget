@@ -2,7 +2,6 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Microsoft.Extensions.DependencyInjection;
 using MyBudget.Application;
-using MyBudget.Application.Common;
 using MyBudget.UI.ViewModels;
 using MyBudget.UI.Views;
 using System;
