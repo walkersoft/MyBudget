@@ -7,15 +7,17 @@ namespace MyBudget.Data
 {
     public class ApplicationDbContext : DbContext, IAppDataContext
     {
+        public ApplicationDbContext(DbContextOptions options) : base(options) { }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlite("Data Source=C:\\temp\\BudgetDB.db");
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlite("Data Source=C:\\temp\\BudgetDB.db");
+        //}
 
         public async Task<Expense> CreateExpenseAsync(Expense expense)
         {
