@@ -2,6 +2,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Microsoft.Extensions.DependencyInjection;
 using MyBudget.Application;
+using MyBudget.Application.Common;
 using MyBudget.UI.ViewModels;
 using MyBudget.UI.Views;
 using System;
@@ -10,7 +11,7 @@ namespace MyBudget.UI;
 
 public partial class App : Avalonia.Application
 {
-    public static IServiceProvider ServiceProvider { get; private set; }
+    public static IServiceProvider Services { get; private set; }
 
     public override void Initialize()
     {
@@ -34,9 +35,11 @@ public partial class App : Avalonia.Application
 
     private void ConfigureServices()
     {
-        var serviceCollection = new ServiceCollection();
-        serviceCollection.ConfigureBudgetApplication();
+        var services = new ServiceCollection();
+        services.ConfigureBudgetApplication();
 
-        ServiceProvider = serviceCollection.BuildServiceProvider();
+        services.AddSingleton<BudgetApplication>();
+
+        Services = services.BuildServiceProvider();
     }
 }
