@@ -4,7 +4,7 @@ using MyBudget.Data;
 
 namespace MyBudget.Application.Tests
 {
-    internal abstract class TestBench : IDisposable
+    abstract public class TestBench : IDisposable
     {
         private readonly IServiceProvider serviceProvider;
         private readonly ApplicationDbContext context;
