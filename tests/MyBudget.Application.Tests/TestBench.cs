@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MyBudget.Data;
 
@@ -8,6 +9,7 @@ namespace MyBudget.Application.Tests
     {
         private readonly IServiceProvider serviceProvider;
         private readonly ApplicationDbContext context;
+        private readonly SqliteConnection connection;
 
         protected readonly BudgetApplication app;
 
@@ -19,8 +21,10 @@ namespace MyBudget.Application.Tests
             services.ConfigureDataContext();
 
             // Replace DB context with in-memory provider
+            connection = new SqliteConnection("Filename=:memory:");
+            connection.Open();
             services.Remove(services.Single(s => s.ServiceType == typeof(DbContextOptions<ApplicationDbContext>)));
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=:memory:;Version=3"));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connection));
             
             // Build service container
             serviceProvider = services.BuildServiceProvider();
@@ -33,6 +37,8 @@ namespace MyBudget.Application.Tests
 
         void IDisposable.Dispose()
         {
+            connection.Close();
+            connection.Dispose();
             context.Database.EnsureDeleted();
             context.Dispose();
             GC.SuppressFinalize(this);
