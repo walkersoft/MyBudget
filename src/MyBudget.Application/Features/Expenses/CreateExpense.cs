@@ -8,8 +8,8 @@ namespace MyBudget.Application.Features.Expenses
         ExpenseType ExpenseType,
         string Source,
         DateOnly EffectiveDate,
-        DateOnly? ExpirationDate,
-        decimal? Amount
+        DateOnly? ExpirationDate = null,
+        decimal? Amount = null
     ) : IRequest<Expense>;
 
     internal class CreateExpenseHandler(IAppDataContext context) : IRequestHandler<CreateExpense, Expense>
