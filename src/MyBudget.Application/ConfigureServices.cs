@@ -8,6 +8,7 @@ namespace MyBudget.Application
         public static void ConfigureBudgetApplication(this IServiceCollection services)
         {
             services.AddMediatR(config => config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+            services.AddSingleton<BudgetApplication>();
         }
     }
 }

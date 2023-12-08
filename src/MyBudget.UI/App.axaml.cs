@@ -24,8 +24,8 @@ public partial class App : Avalonia.Application
         {
             ConfigureServices();
 
-            //var app = Services.GetService<BudgetApplication>();
-            //var expense = app.CreateExpenseAsync().Result;
+            var app = Services.GetService<BudgetApplication>();
+            var expense = app.CreateExpenseAsync().Result;
 
             desktop.MainWindow = new MainWindow
             {
@@ -41,8 +41,6 @@ public partial class App : Avalonia.Application
         var services = new ServiceCollection();
         services.ConfigureBudgetApplication();
         services.ConfigureDataContext();
-
-        services.AddSingleton<BudgetApplication>();
 
         Services = services.BuildServiceProvider();
     }
