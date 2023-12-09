@@ -1,8 +1,25 @@
-﻿namespace MyBudget.UI.ViewModels;
+﻿using ReactiveUI;
+using System.Diagnostics;
+using System.Reactive.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
+
+namespace MyBudget.UI.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
-#pragma warning disable CA1822 // Mark members as static
-    public string Greeting => "Welcome to Avalonia!";
-#pragma warning restore CA1822 // Mark members as static
+    public ICommand OpenExpenseEditorCommand { get; }
+    public Interaction<ExpenseEditorViewModel, Task> ShowExpenseEditor { get; }
+    
+    public MainWindowViewModel()
+    {
+        ShowExpenseEditor = new Interaction<ExpenseEditorViewModel, Task>();
+
+        OpenExpenseEditorCommand = ReactiveCommand.CreateFromTask(async () =>
+        {
+            var editor = new ExpenseEditorViewModel();
+            await ShowExpenseEditor.Handle(editor);
+            Debug.WriteLine("This happened after the window.");
+        });
+    }
 }
