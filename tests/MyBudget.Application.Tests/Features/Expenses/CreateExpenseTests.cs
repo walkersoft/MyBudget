@@ -7,7 +7,7 @@ namespace MyBudget.Application.Tests.Features.Expenses
         [Fact]
         public async Task ValidExpense_WhenCreated_HasNewId()
         {
-            var expense = await app.CreateExpenseAsync();
+            var expense = await app.CreateExpenseAsync("Test", DateOnly.FromDateTime(DateTime.Today));
 
             expense.Should().NotBeNull();
             expense.Id.Should().NotBeEmpty();
