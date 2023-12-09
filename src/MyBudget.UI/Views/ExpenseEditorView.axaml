@@ -1,0 +1,86 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="MyBudget.UI.Views.ExpenseEditorView">
+  <DockPanel Margin="15">
+    <DockPanel DockPanel.Dock="Top"
+               Margin="0 0 0 10">
+      <Label Content="Edit Expense"
+             FontSize="24" />
+      <StackPanel Orientation="Horizontal"
+                  DockPanel.Dock="Right"
+                  HorizontalAlignment="Right">
+        <Button Content="Create" />
+        <Button Content="Save" IsVisible="False" />
+        <Button Content="Cancel" />
+      </StackPanel>
+    </DockPanel>
+    <Grid>
+      <Grid.Styles>
+        <Style Selector="Label">
+          <Setter Property="Margin" Value="0 0 0 5" />
+        </Style>
+        <Style Selector="ComboBox">
+          <Setter Property="Margin" Value="0 0 0 5" />
+        </Style>
+        <Style Selector="TextBox">
+          <Setter Property="Margin" Value="0 0 0 5" />
+        </Style>
+        <Style Selector="NumericUpDown">
+          <Setter Property="Margin" Value="0 0 0 5" />
+        </Style>
+        <Style Selector="CalendarDatePicker">
+          <Setter Property="Margin" Value="0 0 0 5" />
+        </Style>
+      </Grid.Styles>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="140" />
+        <ColumnDefinition Width="200" />
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+      <Label Grid.Column="0" Grid.Row="0"
+             VerticalContentAlignment="Center"
+             Content="Expense Type" />
+      <Label Grid.Column="0" Grid.Row="1"
+             VerticalContentAlignment="Center"
+             Content="Source" />
+      <Label Grid.Column="0" Grid.Row="2"
+             VerticalContentAlignment="Center"
+             Content="Amount" />
+      <Label Grid.Column="0" Grid.Row="3"
+             VerticalContentAlignment="Center"
+             Content="Effective Date" />
+      <Label Grid.Column="0" Grid.Row="4"
+             VerticalContentAlignment="Center"
+             Content="Expiration Date" />
+      <ComboBox Grid.Column="1" Grid.Row="0"
+                PlaceholderText="Select Type..."
+                HorizontalAlignment="Stretch">
+        <ComboBoxItem>Variable</ComboBoxItem>
+        <ComboBoxItem>Stable</ComboBoxItem>
+        <ComboBoxItem>Fixed</ComboBoxItem>
+      </ComboBox>
+      <TextBox Grid.Column="1" Grid.Row="1"
+               Watermark="e.g. Grocery, Mortgage..." 
+               HorizontalAlignment="Stretch"/>
+      <NumericUpDown Grid.Column="1" Grid.Row="2"
+                     Minimum="0"
+                     HorizontalAlignment="Stretch"
+                     ShowButtonSpinner="False"/>
+      <CalendarDatePicker Grid.Column="1" Grid.Row="3"
+                          HorizontalAlignment="Stretch"
+                          SelectedDateFormat="Short" />
+      <CalendarDatePicker Grid.Column="1" Grid.Row="4"
+                          HorizontalAlignment="Stretch"
+                          SelectedDateFormat="Short" />
+    </Grid>
+  </DockPanel>
+</UserControl>
