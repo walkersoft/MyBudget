@@ -24,9 +24,6 @@ public partial class App : Avalonia.Application
         {
             ConfigureServices();
 
-            var app = Services.GetService<BudgetApplication>();
-            var expense = app.CreateExpenseAsync().Result;
-
             desktop.MainWindow = new MainWindow
             {
                 DataContext = new MainWindowViewModel(),
