@@ -32,7 +32,7 @@
             <TextBlock Text="Save" />
           </StackPanel>
         </Button>
-        <Button>
+        <Button IsVisible="False">
           <StackPanel Orientation="Horizontal" Spacing="5">
             <icons:MaterialIcon Kind="CloseCircleOutline" />
             <TextBlock Text="Cancel" />
