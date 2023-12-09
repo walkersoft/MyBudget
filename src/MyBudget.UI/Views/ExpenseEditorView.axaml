@@ -2,24 +2,47 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:icons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              mc:Ignorable="d"
              x:Class="MyBudget.UI.Views.ExpenseEditorView">
   <DockPanel Margin="15">
     <DockPanel DockPanel.Dock="Top"
                Margin="0 0 0 10">
+      <DockPanel.Styles>
+        <Style Selector="Button">
+          <Setter Property="Width" Value="90" />
+          <Setter Property="HorizontalContentAlignment" Value="Center" />
+          <Setter Property="Margin" Value="5 0 0 0" />
+        </Style>
+      </DockPanel.Styles>
       <Label Content="Edit Expense"
              FontSize="24" />
       <StackPanel Orientation="Horizontal"
                   DockPanel.Dock="Right"
                   HorizontalAlignment="Right">
-        <Button Content="Create" />
-        <Button Content="Save" IsVisible="False" />
-        <Button Content="Cancel" />
+        <Button>
+          <StackPanel Orientation="Horizontal" Spacing="5">
+            <icons:MaterialIcon Kind="ReceiptTextPlus" />
+            <TextBlock Text="Create" />
+          </StackPanel>
+        </Button>
+        <Button IsVisible="False">
+          <StackPanel Orientation="Horizontal" Spacing="5">
+            <icons:MaterialIcon Kind="ContentSaveCheckOutline" />
+            <TextBlock Text="Save" />
+          </StackPanel>
+        </Button>
+        <Button>
+          <StackPanel Orientation="Horizontal" Spacing="5">
+            <icons:MaterialIcon Kind="CloseCircleOutline" />
+            <TextBlock Text="Cancel" />
+          </StackPanel>
+        </Button>
       </StackPanel>
     </DockPanel>
     <Grid>
       <Grid.Styles>
-        <Style Selector="Label">
+        <Style Selector="Label">      
           <Setter Property="Margin" Value="0 0 0 5" />
         </Style>
         <Style Selector="ComboBox">
@@ -36,7 +59,7 @@
         </Style>
       </Grid.Styles>
       <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="140" />
+        <ColumnDefinition Width="150" />
         <ColumnDefinition Width="200" />
       </Grid.ColumnDefinitions>
       <Grid.RowDefinitions>
@@ -77,7 +100,7 @@
                      ShowButtonSpinner="False"/>
       <CalendarDatePicker Grid.Column="1" Grid.Row="3"
                           HorizontalAlignment="Stretch"
-                          SelectedDateFormat="Short" />
+                          SelectedDateFormat="Short"/>
       <CalendarDatePicker Grid.Column="1" Grid.Row="4"
                           HorizontalAlignment="Stretch"
                           SelectedDateFormat="Short" />
