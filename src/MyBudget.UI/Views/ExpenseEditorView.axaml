@@ -3,8 +3,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:icons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:vm="using:MyBudget.UI.ViewModels"
              mc:Ignorable="d"
-             x:Class="MyBudget.UI.Views.ExpenseEditorView">
+             x:Class="MyBudget.UI.Views.ExpenseEditorView"
+             x:DataType="vm:ExpenseEditorViewModel">
   <DockPanel Margin="15">
     <DockPanel DockPanel.Dock="Top"
                Margin="0 0 0 10">
@@ -26,7 +28,7 @@
             <TextBlock Text="Create" />
           </StackPanel>
         </Button>
-        <Button IsVisible="False">
+        <Button Command="{Binding SaveExpenseCommand}">
           <StackPanel Orientation="Horizontal" Spacing="5">
             <icons:MaterialIcon Kind="ContentSaveCheckOutline" />
             <TextBlock Text="Save" />
@@ -93,17 +95,19 @@
       </ComboBox>
       <TextBox Grid.Column="1" Grid.Row="1"
                Watermark="e.g. Grocery, Mortgage..." 
+               HorizontalAlignment="Stretch"
+               Text="{Binding ExpenseSource}"/>
+      <TextBox Grid.Column="1" Grid.Row="2"
+               Watermark="e.g. 123.45"
                HorizontalAlignment="Stretch"/>
-      <NumericUpDown Grid.Column="1" Grid.Row="2"
-                     Minimum="0"
-                     HorizontalAlignment="Stretch"
-                     ShowButtonSpinner="False"/>
       <CalendarDatePicker Grid.Column="1" Grid.Row="3"
                           HorizontalAlignment="Stretch"
-                          SelectedDateFormat="Short"/>
+                          SelectedDateFormat="Short"
+                          SelectedDate="{Binding EffectiveDate}"/>
       <CalendarDatePicker Grid.Column="1" Grid.Row="4"
                           HorizontalAlignment="Stretch"
-                          SelectedDateFormat="Short" />
+                          SelectedDateFormat="Short"
+                          SelectedDate="{Binding ExpirationDate}"/>
     </Grid>
   </DockPanel>
 </UserControl>
