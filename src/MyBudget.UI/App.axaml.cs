@@ -44,4 +44,9 @@ public partial class App : Avalonia.Application
 
         Services = services.BuildServiceProvider();
     }
+
+    public static BudgetApplication GetBudgetApp()
+    {
+        return Services.GetRequiredService<BudgetApplication>();
+    }
 }
