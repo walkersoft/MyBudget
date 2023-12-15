@@ -2,9 +2,6 @@ using MyBudget.Application;
 using MyBudget.Application.Entities;
 using ReactiveUI;
 using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Reactive;
 using System.Windows.Input;
 
 namespace MyBudget.UI.ViewModels
@@ -22,14 +19,14 @@ namespace MyBudget.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref selectedExpenseType, value);
         }
 
-		private string expenseSource;
+		private string expenseSource = string.Empty;
 		public string ExpenseSource
 		{
 			get => expenseSource;
 			set => this.RaiseAndSetIfChanged(ref expenseSource, value);
 		}
 
-		private string amount;
+		private string amount = string.Empty;
 		public string Amount
 		{
 			get => amount;

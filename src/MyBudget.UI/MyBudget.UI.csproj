@@ -41,9 +41,4 @@
       <SubType>Designer</SubType>
     </AvaloniaXaml>
   </ItemGroup>
-
-
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
 </Project>

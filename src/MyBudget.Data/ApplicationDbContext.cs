@@ -12,12 +12,8 @@ namespace MyBudget.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            base.OnModelCreating(modelBuilder);
         }
-
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlite("Data Source=C:\\temp\\BudgetDB.db");
-        //}
 
         public async Task<Expense> CreateExpenseAsync(Expense expense)
         {
