@@ -3,14 +3,24 @@ using MyBudget.Application.Entities;
 using ReactiveUI;
 using System;
 using System.Diagnostics;
+using System.Linq;
+using System.Reactive;
 using System.Windows.Input;
 
 namespace MyBudget.UI.ViewModels
 {
 	public class ExpenseEditorViewModel : ViewModelBase
 	{
-        private readonly BudgetApplication app;
+        private readonly BudgetApplication app = App.GetBudgetApp();
+
 		public ICommand SaveExpenseCommand { get; }
+
+        private int selectedExpenseType;
+        public int SelectedExpenseType
+        {
+            get => selectedExpenseType;
+            set => this.RaiseAndSetIfChanged(ref selectedExpenseType, value);
+        }
 
 		private string expenseSource;
 		public string ExpenseSource
@@ -42,17 +52,28 @@ namespace MyBudget.UI.ViewModels
 
         public ExpenseEditorViewModel()
         {
-            app = App.GetBudgetApp();
-			SaveExpenseCommand = ReactiveCommand.CreateFromTask(async () =>
-			{
-				var expense = await app.CreateExpenseAsync(
-					ExpenseType.Variable,
-					ExpenseSource,
-					DateOnly.FromDateTime(EffectiveDate.Value),
-					ExpirationDate.HasValue ? DateOnly.FromDateTime(ExpirationDate.Value) : null
-				);
-				Debug.WriteLine(expense.Id);
-			});
+            SaveExpenseCommand = ReactiveCommand.CreateFromTask(async () =>
+            {
+                var parsedAmount = decimal.TryParse(Amount, out decimal parsedResult);
+                await app.CreateExpenseAsync(
+                    GetExpenseType(),
+                    ExpenseSource,
+                    DateOnly.FromDateTime(EffectiveDate.Value),
+                    ExpirationDate.HasValue ? DateOnly.FromDateTime(ExpirationDate.Value) : null,
+                    parsedAmount ? parsedResult : null
+                );
+            });
+        }
+
+        private ExpenseType GetExpenseType()
+        {
+            return SelectedExpenseType switch
+            {
+                0 => ExpenseType.Variable,
+                1 => ExpenseType.Stable,
+                2 => ExpenseType.Fixed,
+                _ => throw new ArgumentException("Invalid expense type selected.")
+            };
         }
     }
 }

@@ -88,7 +88,8 @@
              Content="Expiration Date" />
       <ComboBox Grid.Column="1" Grid.Row="0"
                 PlaceholderText="Select Type..."
-                HorizontalAlignment="Stretch">
+                HorizontalAlignment="Stretch"
+                SelectedIndex="{Binding SelectedExpenseType}">
         <ComboBoxItem>Variable</ComboBoxItem>
         <ComboBoxItem>Stable</ComboBoxItem>
         <ComboBoxItem>Fixed</ComboBoxItem>
@@ -99,7 +100,8 @@
                Text="{Binding ExpenseSource}"/>
       <TextBox Grid.Column="1" Grid.Row="2"
                Watermark="e.g. 123.45"
-               HorizontalAlignment="Stretch"/>
+               HorizontalAlignment="Stretch"
+               Text="{Binding Amount}"/>
       <CalendarDatePicker Grid.Column="1" Grid.Row="3"
                           HorizontalAlignment="Stretch"
                           SelectedDateFormat="Short"
