@@ -19,11 +19,11 @@ namespace MyBudget.UI.ViewModels
 			set => this.RaiseAndSetIfChanged(ref expenseSource, value);
 		}
 
-		private decimal amount;
+		private string amount;
 		public string Amount
 		{
-			get => amount.ToString();
-			set => this.RaiseAndSetIfChanged(ref amount, decimal.Parse(value));
+			get => amount;
+			set => this.RaiseAndSetIfChanged(ref amount, value);
 		}
 
 		private DateTime? effectiveDate;
@@ -46,6 +46,7 @@ namespace MyBudget.UI.ViewModels
 			SaveExpenseCommand = ReactiveCommand.CreateFromTask(async () =>
 			{
 				var expense = await app.CreateExpenseAsync(
+					ExpenseType.Variable,
 					ExpenseSource,
 					DateOnly.FromDateTime(EffectiveDate.Value),
 					ExpirationDate.HasValue ? DateOnly.FromDateTime(ExpirationDate.Value) : null
