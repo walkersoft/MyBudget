@@ -22,5 +22,10 @@ namespace MyBudget.Data
 
             return expense;
         }
+
+        public async Task<IEnumerable<Expense>> GetAllExpensesAsync()
+        {
+            return await Set<Expense>().ToListAsync();
+        }
     }
 }

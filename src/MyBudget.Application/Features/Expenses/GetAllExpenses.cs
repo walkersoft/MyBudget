@@ -13,9 +13,9 @@ namespace MyBudget.Application.Features.Expenses
 
     internal class GetAllExpensesHandler(IAppDataContext context) : IRequestHandler<GetAllExpenses, IEnumerable<Expense>>
     {
-        public Task<IEnumerable<Expense>> Handle(GetAllExpenses request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Expense>> Handle(GetAllExpenses request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return await context.GetAllExpensesAsync();
         }
     }
 }
