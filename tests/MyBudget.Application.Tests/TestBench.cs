@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using MyBudget.Application.Entities;
 using MyBudget.Data;
 
 namespace MyBudget.Application.Tests
@@ -25,7 +26,7 @@ namespace MyBudget.Application.Tests
             connection.Open();
             services.Remove(services.Single(s => s.ServiceType == typeof(DbContextOptions<ApplicationDbContext>)));
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connection));
-            
+
             // Build service container
             serviceProvider = services.BuildServiceProvider();
 
@@ -42,6 +43,15 @@ namespace MyBudget.Application.Tests
             context.Database.EnsureDeleted();
             context.Dispose();
             GC.SuppressFinalize(this);
+        }
+
+        protected async Task<Expense> CreateVariableExpenseAsync()
+        {
+            return await app.CreateExpenseAsync(
+                ExpenseType.Variable,
+                "Acme Corp.",
+                DateOnly.FromDateTime(DateTime.Today)
+            );
         }
     }
 }

@@ -8,11 +8,7 @@ namespace MyBudget.Application.Tests.Features.Expenses
         [Fact]
         public async Task ValidExpense_WhenCreated_HasNewId()
         {
-            var expense = await app.CreateExpenseAsync(
-                ExpenseType.Variable,
-                "Acme Corp.",
-                DateOnly.FromDateTime(DateTime.Today)
-            );
+            var expense = await CreateVariableExpenseAsync();
 
             expense.Should().NotBeNull();
             expense.Id.Should().NotBeEmpty();

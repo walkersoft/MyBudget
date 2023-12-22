@@ -10,5 +10,15 @@ namespace MyBudget.Application.Tests.Features.Expenses
             var results = await app.GetAllExpensesAsync();
             results.Count().Should().Be(0);
         }
+
+        [Fact]
+        public async Task GivenExpensesExist_WhenFetched_ReturnsAll()
+        {
+            await CreateVariableExpenseAsync();
+
+            var results = await app.GetAllExpensesAsync();
+
+            results.Count().Should().Be(1);
+        }
     }
 }
