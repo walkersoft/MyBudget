@@ -6,7 +6,8 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="MyBudget.UI.Views.ExpenseEditorWindow"
         Title="ExpenseEditorWindow">
-  <Panel>
-    <views:ExpenseEditorView />
-  </Panel>
+  <DockPanel>
+    <views:ExpenseEditorView DockPanel.Dock="Left" />
+    <views:ExpenseListView />
+  </DockPanel>
 </Window>

@@ -3,21 +3,27 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="MyBudget.UI.Views.ExpenseListView">
-  <DockPanel Margin="15">
-    <DockPanel DockPanel.Dock="Top">
-      <Label Content="Existing Expenses"
-             FontSize="24" />
-    </DockPanel>
-    <DataGrid>
+             x:Class="MyBudget.UI.Views.ExpenseListView"
+             xmlns:vm="using:MyBudget.UI.ViewModels"
+             x:DataType="vm:ExpenseListViewModel">
+  
+  <UserControl.DataContext>
+    <vm:ExpenseListViewModel/>
+  </UserControl.DataContext>
+  
+  <StackPanel Orientation="Vertical" Margin="15">
+    <Label DockPanel.Dock="Top"
+           Content="Existing Expenses"
+           FontSize="24" />
+    <DataGrid ItemsSource="{Binding Expenses}"
+              Margin="10">
       <DataGrid.Columns>
-        <DataGridTextColumn Header="Source" Width="100"/>
-        <DataGridTextColumn Header="Category" Width="100"/>
-        <DataGridTextColumn Header="Type" Width="100"/>
-        <DataGridTextColumn Header="Amount" Width="100"/>
-        <DataGridTextColumn Header="Effective Date" Width="100"/>
-        <DataGridTextColumn Header="Expires On" Width="100"/>
+        <DataGridTextColumn Width="140" Header="Source" Binding="{Binding Source}"/>
+        <DataGridTextColumn Width="110" Header="Type" Binding="{Binding ExpenseType}"/>
+        <DataGridTextColumn Width="120" Header="Amount" Binding="{Binding Amount, StringFormat=C}"/>
+        <DataGridTextColumn Width="120" Header="Eff. Date" Binding="{Binding EffectiveDate}"/>
+        <DataGridTextColumn Width="120" Header="Exp. Date" Binding="{Binding ExpirationDate}"/>
       </DataGrid.Columns>
     </DataGrid>
-  </DockPanel>
+  </StackPanel>
 </UserControl>

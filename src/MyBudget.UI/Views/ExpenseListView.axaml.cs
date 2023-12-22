@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using MyBudget.UI.ViewModels;
 
 namespace MyBudget.UI.Views
 {
@@ -7,6 +8,7 @@ namespace MyBudget.UI.Views
         public ExpenseListView()
         {
             InitializeComponent();
+            //DataContext = new ExpenseListViewModel();
         }
     }
 }
