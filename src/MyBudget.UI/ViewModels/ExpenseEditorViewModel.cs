@@ -1,7 +1,10 @@
+using MediatR;
 using MyBudget.Application;
 using MyBudget.Application.Entities;
+using MyBudget.UI.Messages;
 using ReactiveUI;
 using System;
+using System.Reactive.Concurrency;
 using System.Windows.Input;
 
 namespace MyBudget.UI.ViewModels
@@ -52,13 +55,18 @@ namespace MyBudget.UI.ViewModels
             SaveExpenseCommand = ReactiveCommand.CreateFromTask(async () =>
             {
                 var parsedAmount = decimal.TryParse(Amount, out decimal parsedResult);
-                await app.CreateExpenseAsync(
+                var expense = await app.CreateExpenseAsync(
                     GetExpenseType(),
                     ExpenseSource,
                     DateOnly.FromDateTime(EffectiveDate.Value),
                     ExpirationDate.HasValue ? DateOnly.FromDateTime(ExpirationDate.Value) : null,
                     parsedAmount ? parsedResult : null
                 );
+
+                if (expense.Id != Guid.Empty)
+                {
+                    RxApp.MainThreadScheduler.Schedule(() => MessageBus.Current.SendMessage(new ExpensesChanged()));
+                }
             });
         }
 
