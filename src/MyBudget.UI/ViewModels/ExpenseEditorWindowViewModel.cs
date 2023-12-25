@@ -1,10 +1,8 @@
-using System;
-using System.Collections.Generic;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace MyBudget.UI.ViewModels
 {
-	public class ExpenseEditorWindowViewModel : ViewModelBase
+	public partial class ExpenseEditorWindowViewModel : ObservableObject
 	{
 	}
 }

@@ -1,5 +1,5 @@
 ﻿using Avalonia.Controls;
-using MediatR;
+using CommunityToolkit.Mvvm.ComponentModel;
 using MyBudget.Application;
 using MyBudget.Application.Entities;
 using MyBudget.UI.Messages;
@@ -7,12 +7,11 @@ using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.Reactive;
 using System.Reactive.Concurrency;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace MyBudget.UI.ViewModels
 {
-    public class ExpenseListViewModel : ViewModelBase
+    public class ExpenseListViewModel : ObservableObject
     {
         private readonly BudgetApplication app;
 

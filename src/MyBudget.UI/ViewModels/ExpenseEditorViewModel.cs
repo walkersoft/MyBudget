@@ -1,4 +1,4 @@
-using MediatR;
+using CommunityToolkit.Mvvm.ComponentModel;
 using MyBudget.Application;
 using MyBudget.Application.Entities;
 using MyBudget.UI.Messages;
@@ -9,46 +9,22 @@ using System.Windows.Input;
 
 namespace MyBudget.UI.ViewModels
 {
-	public class ExpenseEditorViewModel : ViewModelBase
+	public partial class ExpenseEditorViewModel : ObservableObject
 	{
         private readonly BudgetApplication app = App.GetBudgetApp();
 
 		public ICommand SaveExpenseCommand { get; }
 
+        [ObservableProperty]
         private int selectedExpenseType;
-        public int SelectedExpenseType
-        {
-            get => selectedExpenseType;
-            set => this.RaiseAndSetIfChanged(ref selectedExpenseType, value);
-        }
-
-		private string expenseSource = string.Empty;
-		public string ExpenseSource
-		{
-			get => expenseSource;
-			set => this.RaiseAndSetIfChanged(ref expenseSource, value);
-		}
-
-		private string amount = string.Empty;
-		public string Amount
-		{
-			get => amount;
-			set => this.RaiseAndSetIfChanged(ref amount, value);
-		}
-
-		private DateTime? effectiveDate;
-		public DateTime? EffectiveDate
-		{
-			get => effectiveDate;
-			set => this.RaiseAndSetIfChanged(ref effectiveDate, value);
-		}
-
+        [ObservableProperty]
+        private string expenseSource = string.Empty;
+        [ObservableProperty]
+        private string amount = string.Empty;
+        [ObservableProperty]
+        private DateTime? effectiveDate;
+        [ObservableProperty]
         private DateTime? expirationDate;
-        public DateTime? ExpirationDate
-        {
-            get => expirationDate;
-            set => this.RaiseAndSetIfChanged(ref expirationDate, value);
-        }
 
         public ExpenseEditorViewModel()
         {
