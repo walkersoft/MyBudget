@@ -2,11 +2,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="380" d:DesignHeight="450"
+             mc:Ignorable="d"
              xmlns:icons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:vm="using:MyBudget.UI.ViewModels"
              x:Class="MyBudget.UI.Views.CategoryEditorView"
-             x:DataType="vm:CategoryEditorViewModel">
+             x:DataType="vm:CategoryEditorViewModel"
+             MinWidth="360">
   
   <UserControl.DataContext>
     <vm:CategoryEditorViewModel />
