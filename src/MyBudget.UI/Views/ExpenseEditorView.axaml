@@ -43,10 +43,11 @@
         </Button>
       </StackPanel>
     </DockPanel>
-    <Grid>
+    <Grid ColumnDefinitions="Auto, *"
+          RowDefinitions="Auto, Auto, Auto, Auto, Auto">
       <Grid.Styles>
         <Style Selector="Label">      
-          <Setter Property="Margin" Value="0 0 0 5" />
+          <Setter Property="Margin" Value="0 0 10 5" />
         </Style>
         <Style Selector="ComboBox">
           <Setter Property="Margin" Value="0 0 0 5" />
@@ -61,17 +62,6 @@
           <Setter Property="Margin" Value="0 0 0 5" />
         </Style>
       </Grid.Styles>
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="150" />
-        <ColumnDefinition Width="200" />
-      </Grid.ColumnDefinitions>
-      <Grid.RowDefinitions>
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
-      </Grid.RowDefinitions>
       <Label Grid.Column="0" Grid.Row="0"
              VerticalContentAlignment="Center"
              Content="Expense Type" />
