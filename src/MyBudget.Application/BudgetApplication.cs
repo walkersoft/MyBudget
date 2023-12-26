@@ -23,5 +23,9 @@ namespace MyBudget.Application
         {
             return await mediator.Send(new GetAllExpenses());
         }
+        public Task<ExpenseCategory> CreateCategoryAsync(string v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

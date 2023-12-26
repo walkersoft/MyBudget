@@ -53,5 +53,10 @@ namespace MyBudget.Application.Tests
                 DateOnly.FromDateTime(DateTime.Today)
             );
         }
+
+        protected async Task<ExpenseCategory> CreateCategoryAsync()
+        {
+            return await app.CreateCategoryAsync("Test Category");
+        }
     }
 }
