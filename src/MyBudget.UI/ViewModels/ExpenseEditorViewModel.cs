@@ -1,11 +1,10 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using MyBudget.Application;
 using MyBudget.Application.Entities;
 using MyBudget.UI.Messages;
-using ReactiveUI;
 using System;
-using System.Reactive.Concurrency;
 using System.Threading.Tasks;
 
 namespace MyBudget.UI.ViewModels
@@ -38,7 +37,7 @@ namespace MyBudget.UI.ViewModels
 
             if (expense.Id != Guid.Empty)
             {
-                RxApp.MainThreadScheduler.Schedule(() => MessageBus.Current.SendMessage(new ExpensesChanged()));
+                WeakReferenceMessenger.Default.Send(new ExpensesChanged());
             }
         }
 

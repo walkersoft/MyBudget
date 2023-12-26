@@ -1,17 +1,15 @@
 ﻿using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
 using MyBudget.Application;
 using MyBudget.Application.Entities;
 using MyBudget.UI.Messages;
-using ReactiveUI;
 using System.Collections.ObjectModel;
-using System.Reactive;
-using System.Reactive.Concurrency;
 using System.Threading.Tasks;
 
 namespace MyBudget.UI.ViewModels
 {
-    public class ExpenseListViewModel : ObservableObject
+    public class ExpenseListViewModel : ObservableObject, IRecipient<ExpensesChanged>
     {
         private readonly BudgetApplication app;
 
@@ -22,11 +20,9 @@ namespace MyBudget.UI.ViewModels
             if (!Design.IsDesignMode)
             {
                 app = App.GetBudgetApp();
-                RxApp.MainThreadScheduler.Schedule(async () => await LoadExpensesAsync());
+                WeakReferenceMessenger.Default.RegisterAll(this);
+                LoadExpensesAsync();
             }
-
-            MessageBus.Current.Listen<ExpensesChanged>()
-                .Subscribe(new AnonymousObserver<ExpensesChanged>(async _ => await LoadExpensesAsync()));
         }
 
         private async Task LoadExpensesAsync()
@@ -38,6 +34,11 @@ namespace MyBudget.UI.ViewModels
             {
                 Expenses.Add(expense);
             }
+        }
+
+        void IRecipient<ExpensesChanged>.Receive(ExpensesChanged message)
+        {
+            LoadExpensesAsync();
         }
     }
 }
