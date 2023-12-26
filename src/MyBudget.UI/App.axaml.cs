@@ -9,7 +9,7 @@ using System;
 
 namespace MyBudget.UI;
 
-public partial class App : Avalonia.Application
+public class App : Avalonia.Application
 {
     public static IServiceProvider Services { get; private set; }
 
