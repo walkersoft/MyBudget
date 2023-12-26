@@ -1,20 +1,18 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using MyBudget.Application;
 using MyBudget.Application.Entities;
 using MyBudget.UI.Messages;
 using ReactiveUI;
 using System;
 using System.Reactive.Concurrency;
-using System.Windows.Input;
+using System.Threading.Tasks;
 
 namespace MyBudget.UI.ViewModels
 {
 	public partial class ExpenseEditorViewModel : ObservableObject
 	{
         private readonly BudgetApplication app = App.GetBudgetApp();
-
-		public ICommand SaveExpenseCommand { get; }
-
         [ObservableProperty]
         private int selectedExpenseType;
         [ObservableProperty]
@@ -26,24 +24,22 @@ namespace MyBudget.UI.ViewModels
         [ObservableProperty]
         private DateTime? expirationDate;
 
-        public ExpenseEditorViewModel()
+        [RelayCommand]
+        private async Task SaveExpense()
         {
-            SaveExpenseCommand = ReactiveCommand.CreateFromTask(async () =>
-            {
-                var parsedAmount = decimal.TryParse(Amount, out decimal parsedResult);
-                var expense = await app.CreateExpenseAsync(
-                    GetExpenseType(),
-                    ExpenseSource,
-                    DateOnly.FromDateTime(EffectiveDate.Value),
-                    ExpirationDate.HasValue ? DateOnly.FromDateTime(ExpirationDate.Value) : null,
-                    parsedAmount ? parsedResult : null
-                );
+            var parsedAmount = decimal.TryParse(Amount, out decimal parsedResult);
+            var expense = await app.CreateExpenseAsync(
+                GetExpenseType(),
+                ExpenseSource,
+                DateOnly.FromDateTime(EffectiveDate.Value),
+                ExpirationDate.HasValue ? DateOnly.FromDateTime(ExpirationDate.Value) : null,
+                parsedAmount ? parsedResult : null
+            );
 
-                if (expense.Id != Guid.Empty)
-                {
-                    RxApp.MainThreadScheduler.Schedule(() => MessageBus.Current.SendMessage(new ExpensesChanged()));
-                }
-            });
+            if (expense.Id != Guid.Empty)
+            {
+                RxApp.MainThreadScheduler.Schedule(() => MessageBus.Current.SendMessage(new ExpensesChanged()));
+            }
         }
 
         private ExpenseType GetExpenseType()
