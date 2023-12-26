@@ -6,9 +6,23 @@
         mc:Ignorable="d"
         x:Class="MyBudget.UI.Views.ExpenseEditorWindow"
         Title="ExpenseEditorWindow">
-  <Grid ColumnDefinitions="Auto, *, Auto">
+  <Grid ColumnDefinitions="Auto, Auto, *, Auto, Auto">
     <views:ExpenseEditorView Grid.Column="0"/>
-    <views:ExpenseListView Grid.Column="1"/>
-    <views:CategoryEditorView Grid.Column="2" />
+    
+    <Rectangle Grid.Column="1"
+               VerticalAlignment="Stretch" 
+               Width="1"
+               Margin="5, 20"
+               Fill="Gray"/>
+    
+    <views:ExpenseListView Grid.Column="2"/>
+
+    <Rectangle Grid.Column="3"
+               VerticalAlignment="Stretch"
+               Width="1"
+               Margin="5, 20"
+               Fill="Gray"/>
+    
+    <views:CategoryEditorView Grid.Column="4" />
   </Grid>
 </Window>
