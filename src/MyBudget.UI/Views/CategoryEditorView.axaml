@@ -7,6 +7,11 @@
              xmlns:vm="using:MyBudget.UI.ViewModels"
              x:Class="MyBudget.UI.Views.CategoryEditorView"
              x:DataType="vm:CategoryEditorViewModel">
+  
+  <UserControl.DataContext>
+    <vm:CategoryEditorViewModel />
+  </UserControl.DataContext>
+  
   <Grid Margin="15" RowDefinitions="Auto, Auto">
     <Grid Grid.Row="0" ColumnDefinitions="Auto, *" Margin="0 0 0 10">
       <Label Grid.Column="0" FontSize="24" Content="Edit Category" />
