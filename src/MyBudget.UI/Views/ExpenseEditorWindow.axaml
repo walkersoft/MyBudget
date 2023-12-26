@@ -9,5 +9,6 @@
   <DockPanel>
     <views:ExpenseEditorView DockPanel.Dock="Left" />
     <views:ExpenseListView />
+    <views:CategoryEditorView />
   </DockPanel>
 </Window>
