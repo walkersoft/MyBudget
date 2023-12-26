@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MyBudget.UI.ViewModels
 {
-	public partial class ExpenseEditorViewModel : ObservableObject
+	public partial class ExpenseEditorViewModel : ViewModelBase
 	{
         private readonly BudgetApplication app = App.GetBudgetApp();
         [ObservableProperty]

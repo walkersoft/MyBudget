@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyBudget.UI.ViewModels;
 
-public partial class MainWindowViewModel : ObservableObject
+public partial class MainWindowViewModel : ViewModelBase
 {
     public Interaction<ExpenseEditorViewModel, Unit> ShowExpenseEditor { get; }
     

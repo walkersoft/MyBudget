@@ -1,5 +1,4 @@
 ﻿using Avalonia.Controls;
-using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using MyBudget.Application;
 using MyBudget.Application.Entities;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MyBudget.UI.ViewModels
 {
-    public class ExpenseListViewModel : ObservableObject, IRecipient<ExpensesChanged>
+    public class ExpenseListViewModel : ViewModelBase, IRecipient<ExpensesChanged>
     {
         private readonly BudgetApplication app;
 
