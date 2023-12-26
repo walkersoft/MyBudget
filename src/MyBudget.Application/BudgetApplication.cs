@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using MyBudget.Application.Entities;
+using MyBudget.Application.Features.Cateogry;
 using MyBudget.Application.Features.Expenses;
 
 namespace MyBudget.Application
@@ -23,9 +24,10 @@ namespace MyBudget.Application
         {
             return await mediator.Send(new GetAllExpenses());
         }
-        public Task<ExpenseCategory> CreateCategoryAsync(string v)
+
+        public async Task<ExpenseCategory> CreateCategoryAsync(string categoryName)
         {
-            throw new NotImplementedException();
+            return await mediator.Send(new CreateCategory(categoryName));
         }
     }
 }

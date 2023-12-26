@@ -6,5 +6,6 @@ namespace MyBudget.Application.Common
     {
         Task<Expense> CreateExpenseAsync(Expense expense);
         Task<IEnumerable<Expense>> GetAllExpensesAsync();
+        Task<ExpenseCategory> CreateCategoryAsync(ExpenseCategory category);
     }
 }

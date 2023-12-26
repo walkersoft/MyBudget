@@ -27,5 +27,13 @@ namespace MyBudget.Data
         {
             return await Set<Expense>().ToListAsync();
         }
+
+        public async Task<ExpenseCategory> CreateCategoryAsync(ExpenseCategory category)
+        {
+            Set<ExpenseCategory>().Add(category);
+            await SaveChangesAsync();
+
+            return category;
+        }
     }
 }
