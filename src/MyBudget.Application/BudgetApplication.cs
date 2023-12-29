@@ -32,7 +32,8 @@ namespace MyBudget.Application
 
         public async Task<IEnumerable<ExpenseCategory>> GetAllCategoriesAsync()
         {
-            return await mediator.Send(new GetAllCategories());
+            var categories = await mediator.Send(new GetAllCategories());
+            return categories.OrderBy(c => c.Name);
         }
     }
 }
