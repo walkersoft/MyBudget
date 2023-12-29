@@ -22,7 +22,10 @@
                Width="1"
                Margin="5, 20"
                Fill="Gray"/>
-    
-    <views:CategoryEditorView Grid.Column="4" />
+
+    <Grid Grid.Column="4" RowDefinitions="Auto, *">
+      <views:CategoryEditorView Grid.Row="0"/>
+      <views:CategoryListView Grid.Row="1"/>
+    </Grid>
   </Grid>
 </Window>
