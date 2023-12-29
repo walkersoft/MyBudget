@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:vm="using:MyBudget.UI.ViewModels"
+             x:Class="MyBudget.UI.CategoryListView"
+             MinWidth="360">
+  <UserControl.DataContext>
+    <vm:CategoryListViewModel/>
+  </UserControl.DataContext>
+
+  <StackPanel Orientation="Vertical" Margin="15">
+    <Label Content="Existing Categories" FontSize="24" />
+    <DataGrid Margin="10">
+      <DataGrid.Columns>
+        <DataGridTextColumn Width="160" Header="Name" />
+        <DataGridTextColumn Header="Assignments" />
+      </DataGrid.Columns>
+    </DataGrid>
+  </StackPanel>
+</UserControl>
