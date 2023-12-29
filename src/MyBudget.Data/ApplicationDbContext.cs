@@ -35,5 +35,10 @@ namespace MyBudget.Data
 
             return category;
         }
+
+        public async Task<IEnumerable<ExpenseCategory>> GetAllCategoriesAsync()
+        {
+            return await Set<ExpenseCategory>().ToListAsync();
+        }
     }
 }
