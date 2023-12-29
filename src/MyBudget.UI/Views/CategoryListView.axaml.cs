@@ -1,8 +1,6 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 
-namespace MyBudget.UI;
+namespace MyBudget.UI.Views;
 
 public partial class CategoryListView : UserControl
 {

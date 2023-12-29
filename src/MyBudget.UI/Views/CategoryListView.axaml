@@ -4,19 +4,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:vm="using:MyBudget.UI.ViewModels"
-             x:Class="MyBudget.UI.CategoryListView"
+             x:Class="MyBudget.UI.Views.CategoryListView"
+             x:DataType="vm:CategoryListViewModel"
              MinWidth="360">
+  
   <UserControl.DataContext>
     <vm:CategoryListViewModel/>
   </UserControl.DataContext>
 
-  <StackPanel Orientation="Vertical" Margin="15">
-    <Label Content="Existing Categories" FontSize="24" />
-    <DataGrid Margin="10">
+  <DockPanel Margin="15">
+    <Label Content="Existing Categories" FontSize="24" DockPanel.Dock="Top" />
+    <DataGrid ItemsSource="{Binding Categories}"
+              Margin="10">
       <DataGrid.Columns>
-        <DataGridTextColumn Width="160" Header="Name" />
-        <DataGridTextColumn Header="Assignments" />
+        <DataGridTextColumn Width="160" Header="Name" Binding="{Binding Name}" />
+        <DataGridTextColumn Header="Assignments" Binding="{Binding Assignments}"/>
       </DataGrid.Columns>
     </DataGrid>
-  </StackPanel>
+  </DockPanel>
 </UserControl>
