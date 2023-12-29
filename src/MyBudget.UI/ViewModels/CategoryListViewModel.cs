@@ -1,6 +1,8 @@
 ﻿using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
 using MyBudget.Application;
+using MyBudget.UI.Messages;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,7 +11,7 @@ namespace MyBudget.UI.ViewModels
 {
     public record CategoryListing(string Name, int Assignments);
 
-    public partial class CategoryListViewModel : ViewModelBase
+    public partial class CategoryListViewModel : ViewModelBase, IRecipient<CategoriesChanged>
     {
         private readonly BudgetApplication app;
 
@@ -21,6 +23,7 @@ namespace MyBudget.UI.ViewModels
             if (!Design.IsDesignMode)
             {
                 app = App.GetBudgetApp();
+                WeakReferenceMessenger.Default.RegisterAll(this);
                 LoadCategoriesAsync();
             }
         }
@@ -38,6 +41,11 @@ namespace MyBudget.UI.ViewModels
                     expenses.Count(x => x.ExpenseCategoryId == category.Id)
                 ));
             }
+        }
+
+        void IRecipient<CategoriesChanged>.Receive(CategoriesChanged message)
+        {
+            LoadCategoriesAsync();
         }
     }
 }

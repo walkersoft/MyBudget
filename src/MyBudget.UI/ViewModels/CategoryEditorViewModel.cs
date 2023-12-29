@@ -1,7 +1,9 @@
 ﻿using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using MyBudget.Application;
+using MyBudget.UI.Messages;
 using System.Threading.Tasks;
 
 namespace MyBudget.UI.ViewModels
@@ -25,6 +27,7 @@ namespace MyBudget.UI.ViewModels
         private async Task SaveCategory()
         {
             await app.CreateCategoryAsync(CategoryName);
+            WeakReferenceMessenger.Default.Send(new CategoriesChanged());
         }
     }
 }
