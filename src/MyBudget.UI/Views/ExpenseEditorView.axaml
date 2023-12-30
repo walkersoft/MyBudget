@@ -44,7 +44,7 @@
       </StackPanel>
     </DockPanel>
     <Grid ColumnDefinitions="Auto, *"
-          RowDefinitions="Auto, Auto, Auto, Auto, Auto">
+          RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto">
       <Grid.Styles>
         <Style Selector="Label">      
           <Setter Property="Margin" Value="0 0 10 5" />
@@ -77,6 +77,9 @@
       <Label Grid.Column="0" Grid.Row="4"
              VerticalContentAlignment="Center"
              Content="Expiration Date" />
+      <Label Grid.Column="0" Grid.Row="5"
+             VerticalContentAlignment="Center"
+             Content="Category" />
       <ComboBox Grid.Column="1" Grid.Row="0"
                 PlaceholderText="Select Type..."
                 HorizontalAlignment="Stretch"
@@ -101,6 +104,18 @@
                           HorizontalAlignment="Stretch"
                           SelectedDateFormat="Short"
                           SelectedDate="{Binding ExpirationDate}"/>
+
+      <ComboBox Grid.Column="1" Grid.Row="5"
+                PlaceholderText="Select Type..."
+                HorizontalAlignment="Stretch"
+                SelectedItem="{Binding SelectedExpenseCategory}"
+                ItemsSource="{Binding ExpenseCategories}">
+        <ComboBox.ItemTemplate>
+          <DataTemplate>
+            <TextBlock Text="{Binding Name}" />
+          </DataTemplate>
+        </ComboBox.ItemTemplate>
+      </ComboBox>
     </Grid>
   </DockPanel>
 </UserControl>

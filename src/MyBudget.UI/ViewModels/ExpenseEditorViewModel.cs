@@ -1,3 +1,4 @@
+using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -5,13 +6,17 @@ using MyBudget.Application;
 using MyBudget.Application.Entities;
 using MyBudget.UI.Messages;
 using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace MyBudget.UI.ViewModels
 {
 	public partial class ExpenseEditorViewModel : ViewModelBase
 	{
-        private readonly BudgetApplication app = App.GetBudgetApp();
+        private readonly BudgetApplication app;
+
+        [ObservableProperty]
+        private ExpenseCategory? selectedExpenseCategory;
         [ObservableProperty]
         private int selectedExpenseType;
         [ObservableProperty]
@@ -23,10 +28,27 @@ namespace MyBudget.UI.ViewModels
         [ObservableProperty]
         private DateTime? expirationDate;
 
+        public ObservableCollection<ExpenseCategory> ExpenseCategories { get; private set; } = [];
+
+        public ExpenseEditorViewModel()
+        {
+            if (!Design.IsDesignMode)
+            {
+                app = App.GetBudgetApp();
+                LoadExpenseCategories();
+            }
+        }
+
+        private async Task LoadExpenseCategories()
+        {
+            ExpenseCategories = new ObservableCollection<ExpenseCategory>(await app.GetAllCategoriesAsync());
+        }
+
         [RelayCommand]
         private async Task SaveExpense()
         {
             var parsedAmount = decimal.TryParse(Amount, out decimal parsedResult);
+            var category = SelectedExpenseCategory;
             var expense = await app.CreateExpenseAsync(
                 GetExpenseType(),
                 ExpenseSource,
