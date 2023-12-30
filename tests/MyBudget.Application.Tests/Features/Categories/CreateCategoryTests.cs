@@ -12,5 +12,18 @@ namespace MyBudget.Application.Tests.Features.Categories
             category.Should().NotBeNull();
             category.Id.Should().NotBeEmpty();
         }
+
+        [Fact]
+        public async Task ValidCategoryAssignedToExpense_WhenFetched_ContainsExpense()
+        {
+            var category = await CreateCategoryAsync();
+
+            await CreateVariableExpenseAsync(category.Id);
+            var categories = await app.GetAllCategoriesAsync();
+            var expense = categories.First().Expenses[0];
+
+            categories.First().Expenses.Count.Should().Be(1);
+            expense.ExpenseCategoryId.Should().Be(category.Id);
+        }
     }
 }

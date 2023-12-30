@@ -9,7 +9,8 @@ namespace MyBudget.Application.Features.Expenses
         string Source,
         DateOnly EffectiveDate,
         DateOnly? ExpirationDate = null,
-        decimal? Amount = null
+        decimal? Amount = null,
+        Guid? ExpenseCategoryId = null
     ) : IRequest<Expense>;
 
     internal class CreateExpenseHandler(IAppDataContext context) : IRequestHandler<CreateExpense, Expense>
@@ -22,7 +23,8 @@ namespace MyBudget.Application.Features.Expenses
                 Source = request.Source,
                 EffectiveDate = request.EffectiveDate,
                 ExpirationDate = request.ExpirationDate,
-                Amount = request.Amount
+                Amount = request.Amount,
+                ExpenseCategoryId = request.ExpenseCategoryId,
             };
 
             return await context.CreateExpenseAsync(expense);

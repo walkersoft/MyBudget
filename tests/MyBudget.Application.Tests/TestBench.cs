@@ -45,12 +45,13 @@ namespace MyBudget.Application.Tests
             GC.SuppressFinalize(this);
         }
 
-        protected async Task<Expense> CreateVariableExpenseAsync()
+        protected async Task<Expense> CreateVariableExpenseAsync(Guid? categoryId = null)
         {
             return await app.CreateExpenseAsync(
                 ExpenseType.Variable,
                 "Acme Corp.",
-                DateOnly.FromDateTime(DateTime.Today)
+                DateOnly.FromDateTime(DateTime.Today),
+                expenseCategoryId: categoryId
             );
         }
 
