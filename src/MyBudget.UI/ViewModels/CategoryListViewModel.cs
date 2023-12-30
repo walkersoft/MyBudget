@@ -23,7 +23,7 @@ namespace MyBudget.UI.ViewModels
             if (!Design.IsDesignMode)
             {
                 app = App.GetBudgetApp();
-                WeakReferenceMessenger.Default.RegisterAll(this);
+                Messenger.RegisterAll(this);
                 LoadCategoriesAsync();
             }
         }

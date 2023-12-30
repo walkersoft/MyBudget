@@ -59,7 +59,7 @@ namespace MyBudget.UI.ViewModels
 
             if (expense.Id != Guid.Empty)
             {
-                WeakReferenceMessenger.Default.Send(new ExpensesChanged());
+                Messenger.Send(new ExpensesChanged());
             }
         }
 

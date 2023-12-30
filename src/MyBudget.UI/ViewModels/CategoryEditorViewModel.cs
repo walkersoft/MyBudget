@@ -27,7 +27,7 @@ namespace MyBudget.UI.ViewModels
         private async Task SaveCategory()
         {
             await app.CreateCategoryAsync(CategoryName);
-            WeakReferenceMessenger.Default.Send(new CategoriesChanged());
+            Messenger.Send(new CategoriesChanged());
         }
     }
 }
