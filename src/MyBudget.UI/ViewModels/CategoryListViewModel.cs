@@ -11,7 +11,7 @@ namespace MyBudget.UI.ViewModels
 {
     public readonly record struct CategoryListing(string Name, int Assignments);
 
-    public partial class CategoryListViewModel : ViewModelBase, IRecipient<CategoriesChanged>
+    public partial class CategoryListViewModel : ViewModelBase, IRecipient<CategoriesChanged>, IRecipient<ExpensesChanged>
     {
         private readonly BudgetApplication app;
 
@@ -44,6 +44,11 @@ namespace MyBudget.UI.ViewModels
         }
 
         void IRecipient<CategoriesChanged>.Receive(CategoriesChanged message)
+        {
+            LoadCategoriesAsync();
+        }
+
+        void IRecipient<ExpensesChanged>.Receive(ExpensesChanged message)
         {
             LoadCategoriesAsync();
         }
