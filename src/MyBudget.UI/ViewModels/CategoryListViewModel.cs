@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MyBudget.UI.ViewModels
 {
-    public record CategoryListing(string Name, int Assignments);
+    public readonly record struct CategoryListing(string Name, int Assignments);
 
     public partial class CategoryListViewModel : ViewModelBase, IRecipient<CategoriesChanged>
     {
