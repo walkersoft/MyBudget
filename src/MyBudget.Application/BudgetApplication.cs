@@ -7,14 +7,15 @@ namespace MyBudget.Application
 {
     public class BudgetApplication(IMediator mediator)
     {
-        public Task<Expense> CreateExpenseAsync(ExpenseType expenseType, string source, DateOnly effectiveDate, DateOnly? expirationDate = null, decimal? amount = null)
+        public Task<Expense> CreateExpenseAsync(ExpenseType expenseType, string source, DateOnly effectiveDate, DateOnly? expirationDate = null, decimal? amount = null, Guid? expenseCategoryId = null)
         {
             var request = new CreateExpense(
                 ExpenseType: expenseType,
                 Source: source,
                 EffectiveDate: effectiveDate,
                 ExpirationDate: expirationDate,
-                Amount: amount
+                Amount: amount,
+                ExpenseCategoryId: expenseCategoryId
             );
 
             return mediator.Send(request);
