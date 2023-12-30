@@ -3,16 +3,27 @@ using CommunityToolkit.Mvvm.Messaging;
 using MyBudget.Application;
 using MyBudget.Application.Entities;
 using MyBudget.UI.Messages;
+using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MyBudget.UI.ViewModels
 {
+    public readonly record struct ExpenseListing(
+        string Source,
+        ExpenseType ExpenseType,
+        DateOnly EffectiveDate,
+        DateOnly? ExpirationDate,
+        decimal? Amount,
+        string? ExpenseCategory
+    );
+
     public class ExpenseListViewModel : ViewModelBase, IRecipient<ExpensesChanged>
     {
         private readonly BudgetApplication app;
 
-        public ObservableCollection<Expense> Expenses { get; } = new();
+        public ObservableCollection<ExpenseListing> Expenses { get; } = [];
 
         public ExpenseListViewModel()
         {
@@ -26,12 +37,20 @@ namespace MyBudget.UI.ViewModels
 
         private async Task LoadExpensesAsync()
         {
-            var expenses = new ObservableCollection<Expense>(await app.GetAllExpensesAsync());
+            var expenses = await app.GetAllExpensesAsync();
+            var categories = await app.GetAllCategoriesAsync();
 
             Expenses.Clear();
             foreach (var expense in expenses)
             {
-                Expenses.Add(expense);
+                Expenses.Add(new ExpenseListing(
+                    expense.Source,
+                    expense.ExpenseType,
+                    expense.EffectiveDate,
+                    expense.ExpirationDate,
+                    expense.Amount,
+                    categories.FirstOrDefault(c => expense.ExpenseCategoryId == c.Id)?.Name
+                ));
             }
         }
 

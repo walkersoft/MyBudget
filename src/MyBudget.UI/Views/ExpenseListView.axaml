@@ -2,7 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d"
              x:Class="MyBudget.UI.Views.ExpenseListView"
              xmlns:vm="using:MyBudget.UI.ViewModels"
              x:DataType="vm:ExpenseListViewModel">
@@ -18,8 +18,9 @@
     <DataGrid ItemsSource="{Binding Expenses}"
               Margin="10">
       <DataGrid.Columns>
-        <DataGridTextColumn Width="140" Header="Source" Binding="{Binding Source}"/>
+        <DataGridTextColumn Width="160" Header="Source" Binding="{Binding Source}"/>
         <DataGridTextColumn Width="110" Header="Type" Binding="{Binding ExpenseType}"/>
+        <DataGridTextColumn Width="160" Header="Category" Binding="{Binding ExpenseCategory}"/>
         <DataGridTextColumn Width="120" Header="Amount" Binding="{Binding Amount, StringFormat=C}"/>
         <DataGridTextColumn Width="120" Header="Eff. Date" Binding="{Binding EffectiveDate}"/>
         <DataGridTextColumn Width="120" Header="Exp. Date" Binding="{Binding ExpirationDate}"/>

@@ -48,13 +48,13 @@ namespace MyBudget.UI.ViewModels
         private async Task SaveExpense()
         {
             var parsedAmount = decimal.TryParse(Amount, out decimal parsedResult);
-            var category = SelectedExpenseCategory;
             var expense = await app.CreateExpenseAsync(
                 GetExpenseType(),
                 ExpenseSource,
                 DateOnly.FromDateTime(EffectiveDate.Value),
                 ExpirationDate.HasValue ? DateOnly.FromDateTime(ExpirationDate.Value) : null,
-                parsedAmount ? parsedResult : null
+                parsedAmount ? parsedResult : null,
+                SelectedExpenseCategory?.Id
             );
 
             if (expense.Id != Guid.Empty)
