@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using MyBudget.Application.Pipeline;
 using System.Reflection;
 
 namespace MyBudget.Application
@@ -7,7 +8,11 @@ namespace MyBudget.Application
     {
         public static void ConfigureBudgetApplication(this IServiceCollection services)
         {
-            services.AddMediatR(config => config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+            services.AddMediatR(config => {
+                config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+                config.AddOpenBehavior(typeof(ValidationBehavior<,>));
+            });
+
             services.AddSingleton<BudgetApplication>();
         }
     }
