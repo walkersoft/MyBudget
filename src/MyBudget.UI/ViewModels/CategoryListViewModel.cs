@@ -24,7 +24,7 @@ namespace MyBudget.UI.ViewModels
             {
                 app = App.GetBudgetApp();
                 Messenger.RegisterAll(this);
-                LoadCategoriesAsync();
+                Messenger.Send(new CategoriesChanged());
             }
         }
 
@@ -43,14 +43,8 @@ namespace MyBudget.UI.ViewModels
             }
         }
 
-        void IRecipient<CategoriesChanged>.Receive(CategoriesChanged message)
-        {
-            LoadCategoriesAsync();
-        }
+        async void IRecipient<CategoriesChanged>.Receive(CategoriesChanged message) => await LoadCategoriesAsync();
 
-        void IRecipient<ExpensesChanged>.Receive(ExpensesChanged message)
-        {
-            LoadCategoriesAsync();
-        }
+        async void IRecipient<ExpensesChanged>.Receive(ExpensesChanged message) => await LoadCategoriesAsync();
     }
 }
