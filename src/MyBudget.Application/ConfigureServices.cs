@@ -16,8 +16,9 @@ namespace MyBudget.Application
                 config.AddOpenBehavior(typeof(ValidationBehavior<,>));
             });
 
-            // Manually scan the assembly for validators since internal class won't be
-            // picked up by FluentValidations
+            // Manually scan the assembly for validators since internal classes won't be
+            // picked up by FluentValidations automatically
+            // https://github.com/FluentValidation/FluentValidation/issues/924#issuecomment-432563178
             var types = Assembly.GetExecutingAssembly().GetTypes();
             new AssemblyScanner(types).ForEach(pair => services.AddTransient(pair.InterfaceType, pair.ValidatorType));
         }
