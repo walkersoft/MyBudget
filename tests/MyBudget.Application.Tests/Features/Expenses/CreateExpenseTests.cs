@@ -50,5 +50,31 @@ namespace MyBudget.Application.Tests.Features.Expenses
 
             await action.Should().ThrowAsync<ValidationException>();
         }
+
+        [Fact]
+        public async Task FixedExpenseWithoutExpirationDate_WhenCreated_ThrowsException()
+        {
+            var action = async () => await app.CreateExpenseAsync(
+                ExpenseType.Fixed,
+                "Source",
+                DateOnly.FromDateTime(DateTime.Today),
+                default
+            );
+
+            await action.Should().ThrowAsync<ValidationException>();
+        }
+
+        [Fact]
+        public async Task FixedExpenseWithNonFutureExpirationDate_WhenCreated_ThrowsException()
+        {
+            var action = async () => await app.CreateExpenseAsync(
+                ExpenseType.Fixed,
+                "Source",
+                DateOnly.FromDateTime(DateTime.Today),
+                DateOnly.FromDateTime(DateTime.Today)
+            );
+
+            await action.Should().ThrowAsync<ValidationException>();
+        }
     }
 }
