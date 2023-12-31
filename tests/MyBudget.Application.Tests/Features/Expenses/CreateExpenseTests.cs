@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using FluentValidation;
 using MyBudget.Application.Entities;
 
 namespace MyBudget.Application.Tests.Features.Expenses
@@ -12,6 +13,18 @@ namespace MyBudget.Application.Tests.Features.Expenses
 
             expense.Should().NotBeNull();
             expense.Id.Should().NotBeEmpty();
+        }
+
+        [Fact]
+        public async Task ExpenseWithInvalidType_WhenCreated_ThrowsException()
+        {
+            var action = async () => await app.CreateExpenseAsync(
+                (ExpenseType)500,
+                "Source",
+                DateOnly.FromDateTime(DateTime.Today)
+            );
+
+            await action.Should().ThrowAsync<ValidationException>();
         }
     }
 }
