@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using FluentValidation;
 
 namespace MyBudget.Application.Tests.Features.Categories
 {
@@ -24,6 +25,13 @@ namespace MyBudget.Application.Tests.Features.Categories
 
             categories.First().Expenses.Count.Should().Be(1);
             expense.ExpenseCategoryId.Should().Be(category.Id);
+        }
+
+        [Fact]
+        public async Task CategoryWithoutName_WhenCreated_ThrowsException()
+        {
+            var action = async () => await app.CreateCategoryAsync("");
+            await action.Should().ThrowAsync<ValidationException>();
         }
     }
 }

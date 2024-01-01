@@ -1,10 +1,19 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 using MyBudget.Application.Common;
 using MyBudget.Application.Entities;
 
 namespace MyBudget.Application.Features.Cateogry
 {
-    internal record CreateCategory(string Name) : IRequest<ExpenseCategory>;
+    internal readonly record struct CreateCategory(string Name) : IRequest<ExpenseCategory>;
+
+    internal class CreateCategoryValidator : AbstractValidator<CreateCategory>
+    {
+        public CreateCategoryValidator()
+        {
+            RuleFor(x => x.Name).NotEmpty().WithMessage("Category name must not be empty.");
+        }
+    }
 
     internal class CreateCategoryHandler(IAppDataContext context) : IRequestHandler<CreateCategory, ExpenseCategory>
     {
