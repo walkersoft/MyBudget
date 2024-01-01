@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.Messaging;
 
 namespace MyBudget.UI.ViewModels;
 
-public partial class ViewModelBase : ObservableValidator
+public class ViewModelBase : ObservableValidator
 {
     protected static WeakReferenceMessenger Messenger => WeakReferenceMessenger.Default;
     public bool ValidationEnabled { get; set; }
