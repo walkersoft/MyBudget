@@ -27,8 +27,7 @@
     </Grid>
     <Grid Grid.Row="1" ColumnDefinitions="Auto, *">
       <Label Grid.Column="0"
-             Margin="0 0 5 0"
-             VerticalAlignment="Center"
+             Margin="0 4 5 0"
              Content="Category Name"/>
       <StackPanel Grid.Column="1">
         
