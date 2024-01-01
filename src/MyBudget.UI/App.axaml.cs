@@ -1,4 +1,5 @@
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using Microsoft.Extensions.DependencyInjection;
 using MyBudget.Application;
@@ -6,6 +7,7 @@ using MyBudget.Data;
 using MyBudget.UI.ViewModels;
 using MyBudget.UI.Views;
 using System;
+using System.Linq;
 
 namespace MyBudget.UI;
 
@@ -20,6 +22,11 @@ public class App : Avalonia.Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        BindingPlugins.DataValidators
+            .OfType<DataAnnotationsValidationPlugin>()
+            .ToList()
+            .ForEach(v => BindingPlugins.DataValidators.Remove(v));
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             ConfigureServices();
