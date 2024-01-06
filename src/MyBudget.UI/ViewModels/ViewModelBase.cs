@@ -8,4 +8,10 @@ public class ViewModelBase : ObservableValidator
     protected static WeakReferenceMessenger Messenger => WeakReferenceMessenger.Default;
     public bool ValidationEnabled { get; set; }
     protected bool CanExecute => !ValidationEnabled || (ValidationEnabled && !HasErrors);
+    
+    protected void ResetValidation()
+    {
+        ValidationEnabled = false;
+        ClearErrors();
+    }
 }

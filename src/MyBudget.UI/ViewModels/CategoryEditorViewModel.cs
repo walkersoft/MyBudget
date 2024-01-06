@@ -37,6 +37,13 @@ namespace MyBudget.UI.ViewModels
             }
         }
 
+        private void ResetForm()
+        {
+            CategoryName = string.Empty;
+            ResetValidation();
+            SaveCategoryCommand.NotifyCanExecuteChanged();
+        }
+
         [RelayCommand(CanExecute = nameof(CanExecute))]
         private async Task SaveCategory()
         {
@@ -46,6 +53,7 @@ namespace MyBudget.UI.ViewModels
             {
                 await app.CreateCategoryAsync(CategoryName);
                 Messenger.Send(new CategoriesChanged());
+                ResetValidation();
             }
         }
 
@@ -53,6 +61,10 @@ namespace MyBudget.UI.ViewModels
         private void ActivateEditor() => IsEditing = true;
 
         [RelayCommand]
-        private void DeactivateEditor() => IsEditing = false;
+        private void DeactivateEditor()
+        {
+            ResetForm();
+            IsEditing = false;
+        }
     }
 }

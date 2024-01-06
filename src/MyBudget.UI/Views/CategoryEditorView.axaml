@@ -16,7 +16,7 @@
   <Grid Margin="15" RowDefinitions="Auto, Auto">
     <Grid Grid.Row="0" ColumnDefinitions="Auto, *" Margin="0 0 0 10">
       <Label Grid.Column="0" FontSize="24" Content="Edit Category" />
-      <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+      <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="5">
         <Button Command="{Binding ActivateEditorCommand}" IsVisible="{Binding !IsEditing}">
           <StackPanel Orientation="Horizontal" Spacing="5">
             <icons:MaterialIcon Kind="ReceiptTextPlus" />
@@ -43,7 +43,7 @@
              Content="Category Name"/>
       <StackPanel Grid.Column="1">
         
-      <TextBox Text="{Binding CategoryName}" />
+      <TextBox Text="{Binding CategoryName}" IsEnabled="{Binding IsEditing}" />
         
       </StackPanel>
     </Grid>
