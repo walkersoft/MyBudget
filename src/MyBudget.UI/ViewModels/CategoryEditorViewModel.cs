@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using MyBudget.Application;
@@ -11,6 +12,9 @@ namespace MyBudget.UI.ViewModels
     public partial class CategoryEditorViewModel : ViewModelBase
     {
         private readonly BudgetApplication app;
+
+        [ObservableProperty]
+        private bool isEditing = false;
 
         private string categoryName = string.Empty;
 
