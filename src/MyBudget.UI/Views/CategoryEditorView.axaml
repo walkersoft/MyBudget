@@ -17,7 +17,7 @@
     <Grid Grid.Row="0" ColumnDefinitions="Auto, *" Margin="0 0 0 10">
       <Label Grid.Column="0" FontSize="24" Content="Edit Category" />
       <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-        <Button IsVisible="{Binding !IsEditing}">
+        <Button Command="{Binding ActivateEditorCommand}" IsVisible="{Binding !IsEditing}">
           <StackPanel Orientation="Horizontal" Spacing="5">
             <icons:MaterialIcon Kind="ReceiptTextPlus" />
             <TextBlock Text="Create" />
@@ -29,7 +29,7 @@
             <TextBlock Text="Save" />
           </StackPanel>
         </Button>
-        <Button IsVisible="{Binding IsEditing}">
+        <Button Command="{Binding DeactivateEditorCommand}" IsVisible="{Binding IsEditing}">
           <StackPanel Orientation="Horizontal" Spacing="5">
             <icons:MaterialIcon Kind="CloseCircleOutline" />
             <TextBlock Text="Cancel" />

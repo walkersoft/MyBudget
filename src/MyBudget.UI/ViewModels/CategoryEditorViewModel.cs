@@ -48,5 +48,11 @@ namespace MyBudget.UI.ViewModels
                 Messenger.Send(new CategoriesChanged());
             }
         }
+
+        [RelayCommand]
+        private void ActivateEditor() => IsEditing = true;
+
+        [RelayCommand]
+        private void DeactivateEditor() => IsEditing = false;
     }
 }
