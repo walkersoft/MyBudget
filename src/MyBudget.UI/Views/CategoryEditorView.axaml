@@ -19,8 +19,20 @@
       <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
         <Button Command="{Binding SaveCategoryCommand}">
           <StackPanel Orientation="Horizontal" Spacing="5">
+            <icons:MaterialIcon Kind="ReceiptTextPlus" />
+            <TextBlock Text="Create" />
+          </StackPanel>
+        </Button>
+        <Button Command="{Binding SaveCategoryCommand}">
+          <StackPanel Orientation="Horizontal" Spacing="5">
             <icons:MaterialIcon Kind="ContentSaveCheckOutline"/>
             <TextBlock Text="Save" />
+          </StackPanel>
+        </Button>
+        <Button Command="{Binding SaveCategoryCommand}">
+          <StackPanel Orientation="Horizontal" Spacing="5">
+            <icons:MaterialIcon Kind="CloseCircleOutline" />
+            <TextBlock Text="Cancel" />
           </StackPanel>
         </Button>
       </StackPanel>
