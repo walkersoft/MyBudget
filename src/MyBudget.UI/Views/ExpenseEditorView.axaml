@@ -23,19 +23,19 @@
       <StackPanel Orientation="Horizontal"
                   DockPanel.Dock="Right"
                   HorizontalAlignment="Right">
-        <Button>
+        <Button Command="{Binding ActivateEditorCommand}" IsVisible="{Binding !IsEditing}">
           <StackPanel Orientation="Horizontal" Spacing="5">
             <icons:MaterialIcon Kind="ReceiptTextPlus" />
             <TextBlock Text="Create" />
           </StackPanel>
         </Button>
-        <Button Command="{Binding SaveExpenseCommand}">
+        <Button Command="{Binding SaveExpenseCommand}" IsVisible="{Binding IsEditing}">
           <StackPanel Orientation="Horizontal" Spacing="5">
             <icons:MaterialIcon Kind="ContentSaveCheckOutline" />
             <TextBlock Text="Save" />
           </StackPanel>
         </Button>
-        <Button IsVisible="False">
+        <Button Command="{Binding DeactivateEditorCommand}" IsVisible="{Binding IsEditing}">
           <StackPanel Orientation="Horizontal" Spacing="5">
             <icons:MaterialIcon Kind="CloseCircleOutline" />
             <TextBlock Text="Cancel" />
@@ -83,7 +83,8 @@
       <ComboBox Grid.Column="1" Grid.Row="0"
                 PlaceholderText="Select Type..."
                 HorizontalAlignment="Stretch"
-                SelectedIndex="{Binding SelectedExpenseType}">
+                SelectedIndex="{Binding SelectedExpenseType}"
+                IsEnabled="{Binding IsEditing}">
         <ComboBoxItem>Variable</ComboBoxItem>
         <ComboBoxItem>Stable</ComboBoxItem>
         <ComboBoxItem>Fixed</ComboBoxItem>
@@ -91,25 +92,30 @@
       <TextBox Grid.Column="1" Grid.Row="1"
                Watermark="e.g. Grocery, Mortgage..." 
                HorizontalAlignment="Stretch"
-               Text="{Binding ExpenseSource}"/>
+               Text="{Binding ExpenseSource}"
+               IsEnabled="{Binding IsEditing}"/>
       <TextBox Grid.Column="1" Grid.Row="2"
                Watermark="e.g. 123.45"
                HorizontalAlignment="Stretch"
-               Text="{Binding Amount}"/>
+               Text="{Binding Amount}"
+               IsEnabled="{Binding IsEditing}"/>
       <CalendarDatePicker Grid.Column="1" Grid.Row="3"
                           HorizontalAlignment="Stretch"
                           SelectedDateFormat="Short"
-                          SelectedDate="{Binding EffectiveDate}"/>
+                          SelectedDate="{Binding EffectiveDate}"
+                          IsEnabled="{Binding IsEditing}"/>
       <CalendarDatePicker Grid.Column="1" Grid.Row="4"
                           HorizontalAlignment="Stretch"
                           SelectedDateFormat="Short"
-                          SelectedDate="{Binding ExpirationDate}"/>
+                          SelectedDate="{Binding ExpirationDate}"
+                          IsEnabled="{Binding IsEditing}"/>
 
       <ComboBox Grid.Column="1" Grid.Row="5"
                 PlaceholderText="Select Type..."
                 HorizontalAlignment="Stretch"
                 SelectedItem="{Binding SelectedExpenseCategory}"
-                ItemsSource="{Binding ExpenseCategories}">
+                ItemsSource="{Binding ExpenseCategories}"
+                IsEnabled="{Binding IsEditing}">
         <ComboBox.ItemTemplate>
           <DataTemplate>
             <TextBlock Text="{Binding Name}" />

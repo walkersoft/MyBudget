@@ -16,6 +16,9 @@ namespace MyBudget.UI.ViewModels
         private readonly BudgetApplication app;
 
         [ObservableProperty]
+        private bool isEditing = false;
+
+        [ObservableProperty]
         private ExpenseCategory? selectedExpenseCategory;
         [ObservableProperty]
         private int selectedExpenseType;
@@ -72,6 +75,15 @@ namespace MyBudget.UI.ViewModels
                 2 => ExpenseType.Fixed,
                 _ => throw new ArgumentException("Invalid expense type selected.")
             };
+        }
+
+        [RelayCommand]
+        private void ActivateEditor() => IsEditing = true;
+
+        [RelayCommand]
+        private void DeactivateEditor()
+        {
+            IsEditing = false;
         }
     }
 }
