@@ -24,10 +24,10 @@ namespace MyBudget.UI.ViewModels
         private ExpenseCategory? selectedExpenseCategory;
         
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(SaveExpenseCommand))]
         private int selectedExpenseType;
         
         [ObservableProperty]
-        [NotifyDataErrorInfo]
         [NotifyCanExecuteChangedFor(nameof(SaveExpenseCommand))]
         [Required(ErrorMessage = "Expense source is required.")]
         private string expenseSource = string.Empty;
@@ -36,7 +36,6 @@ namespace MyBudget.UI.ViewModels
         private string amount = string.Empty;
 
         [ObservableProperty]
-        [NotifyDataErrorInfo]
         [NotifyCanExecuteChangedFor(nameof(SaveExpenseCommand))]
         [Required(ErrorMessage = "Effective date is required for this expense type")]
         [CustomValidation(typeof(ExpenseEditorViewModel), nameof(IsValidEffectiveDate))]
@@ -44,6 +43,7 @@ namespace MyBudget.UI.ViewModels
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(SaveExpenseCommand))]
+        [CustomValidation(typeof(ExpenseEditorViewModel), nameof(IsValidExpirationDate))]
         private DateTime? expirationDate;
 
         public ObservableCollection<ExpenseCategory> ExpenseCategories { get; private set; } = [];
@@ -115,6 +115,23 @@ namespace MyBudget.UI.ViewModels
             if (instance.ExpirationDate.HasValue && effectiveDate > instance.ExpirationDate.Value)
             {
                 return new("Cannot be after expiration date.");
+            }
+
+            return ValidationResult.Success;
+        }
+
+        public static ValidationResult IsValidExpirationDate(DateTime? expirationDate, ValidationContext context)
+        {
+            var instance = (ExpenseEditorViewModel)context.ObjectInstance;
+
+            if (instance.GetExpenseType() == ExpenseType.Fixed && !expirationDate.HasValue)
+            {
+                return new("Expiration date is required for this expense type.");
+            }
+
+            if (instance.EffectiveDate.HasValue && expirationDate.HasValue && expirationDate.Value < instance.EffectiveDate.Value)
+            {
+                return new("Cannot be before effective date.");
             }
 
             return ValidationResult.Success;
