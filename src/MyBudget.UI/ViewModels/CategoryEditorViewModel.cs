@@ -42,7 +42,7 @@ namespace MyBudget.UI.ViewModels
         {
             ValidationEnabled = true;
             ValidateAllProperties();
-            if (CanExecute)
+            if (CanExecute())
             {
                 await app.CreateCategoryAsync(CategoryName);
                 Messenger.Send(new CategoriesChanged());

@@ -7,6 +7,8 @@ using MyBudget.Application.Entities;
 using MyBudget.UI.Messages;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
+using System.Drawing.Design;
 using System.Threading.Tasks;
 
 namespace MyBudget.UI.ViewModels
@@ -20,15 +22,28 @@ namespace MyBudget.UI.ViewModels
 
         [ObservableProperty]
         private ExpenseCategory? selectedExpenseCategory;
+        
         [ObservableProperty]
         private int selectedExpenseType;
+        
         [ObservableProperty]
+        [NotifyDataErrorInfo]
+        [NotifyCanExecuteChangedFor(nameof(SaveExpenseCommand))]
+        [Required(ErrorMessage = "Expense source is required.")]
         private string expenseSource = string.Empty;
+
         [ObservableProperty]
         private string amount = string.Empty;
+
         [ObservableProperty]
+        [NotifyDataErrorInfo]
+        [NotifyCanExecuteChangedFor(nameof(SaveExpenseCommand))]
+        [Required(ErrorMessage = "Effective date is required for this expense type")]
+        [CustomValidation(typeof(ExpenseEditorViewModel), nameof(IsValidEffectiveDate))]
         private DateTime? effectiveDate;
+
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(SaveExpenseCommand))]
         private DateTime? expirationDate;
 
         public ObservableCollection<ExpenseCategory> ExpenseCategories { get; private set; } = [];
@@ -47,22 +62,29 @@ namespace MyBudget.UI.ViewModels
             ExpenseCategories = new ObservableCollection<ExpenseCategory>(await app.GetAllCategoriesAsync());
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(CanExecute))]
         private async Task SaveExpense()
         {
-            var parsedAmount = decimal.TryParse(Amount, out decimal parsedResult);
-            var expense = await app.CreateExpenseAsync(
-                GetExpenseType(),
-                ExpenseSource,
-                DateOnly.FromDateTime(EffectiveDate.Value),
-                ExpirationDate.HasValue ? DateOnly.FromDateTime(ExpirationDate.Value) : null,
-                parsedAmount ? parsedResult : null,
-                SelectedExpenseCategory?.Id
-            );
+            ValidationEnabled = true;
+            ValidateAllProperties();
 
-            if (expense.Id != Guid.Empty)
+            if (CanExecute())
             {
-                Messenger.Send(new ExpensesChanged());
+                var parsedAmount = decimal.TryParse(Amount, out decimal parsedResult);
+                var expense = await app.CreateExpenseAsync(
+                    GetExpenseType(),
+                    ExpenseSource,
+                    DateOnly.FromDateTime(EffectiveDate.Value),
+                    ExpirationDate.HasValue ? DateOnly.FromDateTime(ExpirationDate.Value) : null,
+                    parsedAmount ? parsedResult : null,
+                    SelectedExpenseCategory?.Id
+                );
+
+                if (expense.Id != Guid.Empty)
+                {
+                    Messenger.Send(new ExpensesChanged());
+                    ResetValidation();
+                }
             }
         }
 
@@ -84,6 +106,18 @@ namespace MyBudget.UI.ViewModels
         private void DeactivateEditor()
         {
             IsEditing = false;
+        }
+
+        public static ValidationResult IsValidEffectiveDate(DateTime effectiveDate, ValidationContext context)
+        {
+            var instance = (ExpenseEditorViewModel)context.ObjectInstance;
+
+            if (instance.ExpirationDate.HasValue && effectiveDate > instance.ExpirationDate.Value)
+            {
+                return new("Cannot be after expiration date.");
+            }
+
+            return ValidationResult.Success;
         }
     }
 }
