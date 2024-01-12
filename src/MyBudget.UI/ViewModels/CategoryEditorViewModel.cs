@@ -16,18 +16,11 @@ namespace MyBudget.UI.ViewModels
         [ObservableProperty]
         private bool isEditing = false;
 
-        private string categoryName = string.Empty;
-
+        [ObservableProperty]
+        [NotifyDataErrorInfo]
         [Required(ErrorMessage = "Category Name is required.")]
-        public string CategoryName
-        {
-            get => categoryName;
-            set
-            {
-                SetProperty(ref categoryName, value, ValidationEnabled);
-                SaveCategoryCommand.NotifyCanExecuteChanged();
-            }
-        }
+        [NotifyCanExecuteChangedFor(nameof(SaveCategoryCommand))]
+        private string categoryName = string.Empty;
 
         public CategoryEditorViewModel()
         {
