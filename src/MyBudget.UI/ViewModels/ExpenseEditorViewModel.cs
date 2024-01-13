@@ -24,6 +24,7 @@ namespace MyBudget.UI.ViewModels
         private ExpenseCategory? selectedExpenseCategory;
         
         [ObservableProperty]
+        [Required(ErrorMessage = "An expense type is required.")]
         [NotifyCanExecuteChangedFor(nameof(SaveExpenseCommand))]
         private int selectedExpenseType;
         
@@ -33,6 +34,9 @@ namespace MyBudget.UI.ViewModels
         private string expenseSource = string.Empty;
 
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(SaveExpenseCommand))]
+        [CustomValidation(typeof(ExpenseEditorViewModel), nameof(IsAmountRequired))]
+        [CustomValidation(typeof(ExpenseEditorViewModel), nameof(IsAmountValid))]
         private string amount = string.Empty;
 
         [ObservableProperty]
@@ -43,7 +47,7 @@ namespace MyBudget.UI.ViewModels
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(SaveExpenseCommand))]
-        [CustomValidation(typeof(ExpenseEditorViewModel), nameof(IsValidExpirationDate))]
+        [CustomValidation(typeof(ExpenseEditorViewModel), nameof(IsExpirationDateRequiredAndValid))]
         private DateTime? expirationDate;
 
         public ObservableCollection<ExpenseCategory> ExpenseCategories { get; private set; } = [];
@@ -120,7 +124,7 @@ namespace MyBudget.UI.ViewModels
             return ValidationResult.Success;
         }
 
-        public static ValidationResult IsValidExpirationDate(DateTime? expirationDate, ValidationContext context)
+        public static ValidationResult IsExpirationDateRequiredAndValid(DateTime? expirationDate, ValidationContext context)
         {
             var instance = (ExpenseEditorViewModel)context.ObjectInstance;
 
@@ -132,6 +136,28 @@ namespace MyBudget.UI.ViewModels
             if (instance.EffectiveDate.HasValue && expirationDate.HasValue && expirationDate.Value < instance.EffectiveDate.Value)
             {
                 return new("Cannot be before effective date.");
+            }
+
+            return ValidationResult.Success;
+        }
+
+        public static ValidationResult IsAmountRequired(string amount, ValidationContext context)
+        {
+            var instance = (ExpenseEditorViewModel)context.ObjectInstance;
+
+            if (instance.GetExpenseType() != ExpenseType.Variable && string.IsNullOrEmpty(amount))
+            {
+                return new("Amount is required for this expense type.");
+            }
+
+            return ValidationResult.Success;
+        }
+
+        public static ValidationResult IsAmountValid(string amount, ValidationContext context)
+        {
+            if (!string.IsNullOrEmpty(amount) && !decimal.TryParse(amount, out var _))
+            {
+                return new("Amount must be a valid dollar amount.");
             }
 
             return ValidationResult.Success;
