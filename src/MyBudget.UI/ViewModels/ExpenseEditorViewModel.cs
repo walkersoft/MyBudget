@@ -80,14 +80,14 @@ namespace MyBudget.UI.ViewModels
                     ExpenseSource,
                     DateOnly.FromDateTime(EffectiveDate.Value),
                     ExpirationDate.HasValue ? DateOnly.FromDateTime(ExpirationDate.Value) : null,
-                    parsedAmount ? parsedResult : null,
+                    parsedAmount ? Math.Floor(parsedResult * 100) / 100 : null, // truncates decimal to 2 decimal places
                     SelectedExpenseCategory?.Id
                 );
 
                 if (expense.Id != Guid.Empty)
                 {
                     Messenger.Send(new ExpensesChanged());
-                    ResetValidation();
+                    ResetForm();
                 }
             }
         }
@@ -110,6 +110,17 @@ namespace MyBudget.UI.ViewModels
         private void DeactivateEditor()
         {
             IsEditing = false;
+        }
+
+        private void ResetForm()
+        {
+            SelectedExpenseType = 0;
+            ExpenseSource = string.Empty;
+            Amount = string.Empty;
+            EffectiveDate = default;
+            ExpirationDate = default;
+            SelectedExpenseCategory = default;
+            ResetValidation();
         }
 
         public static ValidationResult IsValidEffectiveDate(DateTime effectiveDate, ValidationContext context)
@@ -153,7 +164,7 @@ namespace MyBudget.UI.ViewModels
             return ValidationResult.Success;
         }
 
-        public static ValidationResult IsAmountValid(string amount, ValidationContext context)
+        public static ValidationResult? IsAmountValid(string amount, ValidationContext context)
         {
             if (!string.IsNullOrEmpty(amount) && !decimal.TryParse(amount, out var _))
             {
