@@ -36,5 +36,10 @@ namespace MyBudget.Application
             var categories = await mediator.Send(new GetAllCategories());
             return categories.OrderBy(c => c.Name);
         }
+
+        public async Task DeleteCategoryAsync(Guid id)
+        {
+            await mediator.Send(new DeleteCategory(id));
+        }
     }
 }

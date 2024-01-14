@@ -8,5 +8,6 @@ namespace MyBudget.Application.Common
         Task<IEnumerable<Expense>> GetAllExpensesAsync();
         Task<ExpenseCategory> CreateCategoryAsync(ExpenseCategory category);
         Task<IEnumerable<ExpenseCategory>> GetAllCategoriesAsync();
+        Task DeleteCategoryAsync(Guid id);
     }
 }

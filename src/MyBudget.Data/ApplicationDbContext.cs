@@ -40,5 +40,17 @@ namespace MyBudget.Data
         {
             return await Set<ExpenseCategory>().ToListAsync();
         }
+
+        public async Task DeleteCategoryAsync(Guid id)
+        {
+            var categories = Set<ExpenseCategory>();
+            var entity = await categories.FindAsync(id);
+
+            if (entity != null)
+            {
+                categories.Remove(entity);
+                await SaveChangesAsync();
+            }
+        }
     }
 }
