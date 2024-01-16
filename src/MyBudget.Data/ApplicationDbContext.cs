@@ -44,13 +44,15 @@ namespace MyBudget.Data
         public async Task DeleteCategoryAsync(Guid id)
         {
             var categories = Set<ExpenseCategory>();
-            var entity = await categories.FindAsync(id);
+            var category = await categories.FindAsync(id);
 
-            if (entity != null)
+            if (Set<Expense>().Where(x => x.ExpenseCategoryId == category.Id).Any())
             {
-                categories.Remove(entity);
-                await SaveChangesAsync();
+                throw new ArgumentException($"Cannot delete category with ID: {id} - The category is in use");
             }
+
+            categories.Remove(category);
+            await SaveChangesAsync();
         }
     }
 }

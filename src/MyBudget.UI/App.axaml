@@ -1,6 +1,7 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:icons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:themes="clr-namespace:Material.Styles.Themes;assembly=Material.Styles"
              x:Class="MyBudget.UI.App"
              xmlns:local="using:MyBudget.UI"
              RequestedThemeVariant="Default">
@@ -11,9 +12,8 @@
     </Application.DataTemplates>
   
     <Application.Styles>
-      <FluentTheme />
       <icons:MaterialIconStyles/>
-      <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
+      <themes:MaterialTheme PrimaryColor="LightBlue" SecondaryColor="Orange" />
       <Style Selector="DataValidationErrors">
         <Setter Property="Template">
           <ControlTemplate>
