@@ -18,7 +18,7 @@ namespace MyBudget.UI.ViewModels
 
         [ObservableProperty]
         [NotifyDataErrorInfo]
-        [Required(ErrorMessage = "Category Name is required.")]
+        [Required(ErrorMessage = "Category name is required")]
         [NotifyCanExecuteChangedFor(nameof(SaveCategoryCommand))]
         private string categoryName = string.Empty;
 

@@ -12,29 +12,8 @@
     </Application.DataTemplates>
   
     <Application.Styles>
+      <FluentTheme />
       <icons:MaterialIconStyles/>
-      <themes:MaterialTheme PrimaryColor="LightBlue" SecondaryColor="Orange" />
-      <Style Selector="DataValidationErrors">
-        <Setter Property="Template">
-          <ControlTemplate>
-            <DockPanel LastChildFill="True">
-              <ContentControl DockPanel.Dock="Bottom"
-                              ContentTemplate="{TemplateBinding ErrorTemplate}"
-                              DataContext="{TemplateBinding Owner}"
-                              Content="{Binding (DataValidationErrors.Errors)}"
-                              FontSize="12"
-                              Margin="0 3 0 0"/>
-              <ContentPresenter Name="PART_ContentPresenter"
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="{TemplateBinding CornerRadius}"
-                                ContentTemplate="{TemplateBinding ContentTemplate}"
-                                Content="{TemplateBinding Content}"
-                                Padding="{TemplateBinding Padding}"/>
-            </DockPanel>
-          </ControlTemplate>
-        </Setter>
-      </Style>
+      <themes:MaterialTheme PrimaryColor="Purple" SecondaryColor="Orange" />
     </Application.Styles>
 </Application>
