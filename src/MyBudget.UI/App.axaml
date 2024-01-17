@@ -14,6 +14,6 @@
     <Application.Styles>
       <FluentTheme />
       <icons:MaterialIconStyles/>
-      <themes:MaterialTheme PrimaryColor="Indigo" SecondaryColor="Amber" />
+      <themes:MaterialTheme PrimaryColor="Blue" SecondaryColor="Amber" />
     </Application.Styles>
 </Application>
