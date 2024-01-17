@@ -4,7 +4,7 @@
              xmlns:themes="clr-namespace:Material.Styles.Themes;assembly=Material.Styles"
              x:Class="MyBudget.UI.App"
              xmlns:local="using:MyBudget.UI"
-             RequestedThemeVariant="Default">
+             RequestedThemeVariant="Dark">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
     <Application.DataTemplates>
@@ -14,6 +14,6 @@
     <Application.Styles>
       <FluentTheme />
       <icons:MaterialIconStyles/>
-      <themes:MaterialTheme PrimaryColor="Purple" SecondaryColor="Orange" />
+      <themes:MaterialTheme PrimaryColor="Indigo" SecondaryColor="Amber" />
     </Application.Styles>
 </Application>
