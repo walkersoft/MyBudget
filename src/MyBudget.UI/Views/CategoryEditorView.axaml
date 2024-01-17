@@ -16,7 +16,12 @@
   
   <Grid Margin="15" RowDefinitions="Auto, Auto">
     <Grid Grid.Row="0" ColumnDefinitions="Auto, *" Margin="0 0 0 10">
-      <Label Grid.Column="0" FontSize="24" Content="Edit Category" />
+      
+      <TextBlock Grid.Column="0" 
+                 Classes="Headline5" 
+                 VerticalAlignment="Center" 
+                 Text="Edit Category" />
+      
       <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="5">
         <Button Command="{Binding ActivateEditorCommand}" IsVisible="{Binding !IsEditing}">
           <StackPanel Orientation="Horizontal" Spacing="5">
@@ -30,27 +35,20 @@
             <TextBlock Text="Save" />
           </StackPanel>
         </Button>
-        <Button Command="{Binding DeactivateEditorCommand}" IsVisible="{Binding IsEditing}">
+        <Button Command="{Binding DeactivateEditorCommand}" IsVisible="{Binding IsEditing}" Classes="light accent">
           <StackPanel Orientation="Horizontal" Spacing="5">
             <icons:MaterialIcon Kind="CloseCircleOutline" />
             <TextBlock Text="Cancel" />
           </StackPanel>
         </Button>
       </StackPanel>
+    
     </Grid>
-    <Grid Grid.Row="1" ColumnDefinitions="Auto, *">
-      <Label Grid.Column="0"
-             Margin="0 4 5 0"
-             Content="Category Name"/>
-      <StackPanel Grid.Column="1">
         
-      <TextBox Text="{Binding CategoryName}" 
-               IsEnabled="{Binding IsEditing}" 
-               m:TextFieldAssist.Label="Category Name"
-               UseFloatingWatermark="True">
-      </TextBox>
-        
-      </StackPanel>
-    </Grid>
+    <TextBox Grid.Row="1"
+             Text="{Binding CategoryName}" 
+             IsEnabled="{Binding IsEditing}"
+             m:TextFieldAssist.Label="Category Name"
+             UseFloatingWatermark="True"/>
   </Grid>
 </UserControl>
