@@ -8,7 +8,6 @@ using MyBudget.UI.Messages;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
-using System.Drawing.Design;
 using System.Threading.Tasks;
 
 namespace MyBudget.UI.ViewModels
@@ -43,12 +42,12 @@ namespace MyBudget.UI.ViewModels
         [NotifyCanExecuteChangedFor(nameof(SaveExpenseCommand))]
         [Required(ErrorMessage = "Effective date is required for this expense type")]
         [CustomValidation(typeof(ExpenseEditorViewModel), nameof(IsValidEffectiveDate))]
-        private DateTime? effectiveDate;
+        private DateTimeOffset? effectiveDate;
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(SaveExpenseCommand))]
         [CustomValidation(typeof(ExpenseEditorViewModel), nameof(IsExpirationDateRequiredAndValid))]
-        private DateTime? expirationDate;
+        private DateTimeOffset? expirationDate;
 
         public ObservableCollection<ExpenseCategory> ExpenseCategories { get; private set; } = [];
 
@@ -78,8 +77,8 @@ namespace MyBudget.UI.ViewModels
                 var expense = await app.CreateExpenseAsync(
                     GetExpenseType(),
                     ExpenseSource,
-                    DateOnly.FromDateTime(EffectiveDate.Value),
-                    ExpirationDate.HasValue ? DateOnly.FromDateTime(ExpirationDate.Value) : null,
+                    DateOnly.FromDateTime(DateTime.Parse(EffectiveDate.Value.ToString())),
+                    ExpirationDate.HasValue ? DateOnly.FromDateTime(DateTime.Parse(ExpirationDate.Value.ToString())) : null,
                     parsedAmount ? Math.Floor(parsedResult * 100) / 100 : null, // truncates decimal to 2 decimal places
                     SelectedExpenseCategory?.Id
                 );
@@ -109,6 +108,7 @@ namespace MyBudget.UI.ViewModels
         [RelayCommand]
         private void DeactivateEditor()
         {
+            ResetForm();
             IsEditing = false;
         }
 
@@ -121,9 +121,10 @@ namespace MyBudget.UI.ViewModels
             ExpirationDate = default;
             SelectedExpenseCategory = default;
             ResetValidation();
+            SaveExpenseCommand.NotifyCanExecuteChanged();
         }
 
-        public static ValidationResult IsValidEffectiveDate(DateTime effectiveDate, ValidationContext context)
+        public static ValidationResult IsValidEffectiveDate(DateTimeOffset effectiveDate, ValidationContext context)
         {
             var instance = (ExpenseEditorViewModel)context.ObjectInstance;
 
@@ -135,7 +136,7 @@ namespace MyBudget.UI.ViewModels
             return ValidationResult.Success;
         }
 
-        public static ValidationResult IsExpirationDateRequiredAndValid(DateTime? expirationDate, ValidationContext context)
+        public static ValidationResult IsExpirationDateRequiredAndValid(DateTimeOffset? expirationDate, ValidationContext context)
         {
             var instance = (ExpenseEditorViewModel)context.ObjectInstance;
 
