@@ -15,5 +15,32 @@
       <FluentTheme />
       <icons:MaterialIconStyles/>
       <themes:MaterialTheme PrimaryColor="Blue" SecondaryColor="Amber" />
+      <Style Selector="DataGridRow">
+        <Setter Property="Background" Value="{Binding $parent[DataGrid].RowBackground}" />
+        <Setter Property="Template">
+          <ControlTemplate>
+            <Border x:Name="RowBorder"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="{TemplateBinding CornerRadius}">
+              <DataGridFrozenGrid Name="PART_Root"
+                                  MinHeight="38"
+                                  RowDefinitions="*,Auto,Auto"
+                                  ColumnDefinitions="Auto,*">
+
+                <Rectangle Name="BackgroundRectangle" Grid.RowSpan="2" Grid.ColumnSpan="2" />
+
+                <DataGridRowHeader Grid.RowSpan="3" Name="PART_RowHeader" DataGridFrozenGrid.IsFrozen="True" />
+                <DataGridCellsPresenter Grid.Column="1" Name="PART_CellsPresenter" DataGridFrozenGrid.IsFrozen="True" />
+                <DataGridDetailsPresenter Grid.Row="1" Grid.Column="1" Name="PART_DetailsPresenter" />
+                <Rectangle Grid.Row="2" Grid.Column="1" Margin="0"
+                           VerticalAlignment="Bottom" Height="1" Name="PART_BottomGridLine"
+                           HorizontalAlignment="Stretch" />
+              </DataGridFrozenGrid>
+            </Border>
+          </ControlTemplate>
+        </Setter>
+      </Style>
     </Application.Styles>
 </Application>
