@@ -1,15 +1,17 @@
 ﻿using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
+using DynamicData;
 using MyBudget.Application;
 using MyBudget.UI.Messages;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace MyBudget.UI.ViewModels
 {
-    public readonly record struct CategoryListing(string Name, int Assignments);
+    public readonly record struct CategoryListing(Guid Id, string Name, int Assignments, bool CanDelete);
 
     public partial class CategoryListViewModel : ViewModelBase, IRecipient<CategoriesChanged>, IRecipient<ExpensesChanged>
     {
@@ -34,13 +36,13 @@ namespace MyBudget.UI.ViewModels
             var expenses = await app.GetAllExpensesAsync();
 
             Categories.Clear();
-            foreach (var category in expenseCategories)
+            Categories.AddRange(expenseCategories.Select(category => new CategoryListing()
             {
-                Categories.Add(new CategoryListing(
-                    category.Name,
-                    expenses.Count(x => x.ExpenseCategoryId == category.Id)
-                ));
-            }
+                Id = category.Id,
+                Name = category.Name,
+                Assignments = expenses.Count(x => x.ExpenseCategoryId == category.Id),
+                CanDelete = !expenses.Any(x => x.ExpenseCategoryId == category.Id)
+            }));
         }
 
         async void IRecipient<CategoriesChanged>.Receive(CategoriesChanged message) => await LoadCategoriesAsync();

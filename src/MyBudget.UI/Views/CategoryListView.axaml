@@ -2,6 +2,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:icons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:md="using:Material.Styles.Controls"
              mc:Ignorable="d"
              xmlns:vm="using:MyBudget.UI.ViewModels"
              x:Class="MyBudget.UI.Views.CategoryListView"
@@ -19,6 +21,23 @@
       <DataGrid.Columns>
         <DataGridTextColumn Width="160" Header="Name" Binding="{Binding Name}" />
         <DataGridTextColumn Header="Assignments" Binding="{Binding Assignments}"/>
+        <DataGridTemplateColumn Header="Actions">
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <md:FloatingButton MinWidth="27" 
+                                 MinHeight="27" 
+                                 MaxWidth="27" 
+                                 MaxHeight="27" 
+                                 Classes="Accent Mini" 
+                                 Margin="3"
+                                 IsEnabled="{Binding CanDelete}">
+                <md:FloatingButton.Content>
+                  <icons:MaterialIcon Kind="TrashCan" />
+                </md:FloatingButton.Content>
+              </md:FloatingButton>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
       </DataGrid.Columns>
     </DataGrid>
   </DockPanel>
