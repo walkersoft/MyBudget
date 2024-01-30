@@ -41,5 +41,10 @@ namespace MyBudget.Application
         {
             await mediator.Send(new DeleteCategory(id));
         }
+
+        public async Task DeleteExpenseAsync(Guid id)
+        {
+            await mediator.Send(new DeleteExpense(id));
+        }
     }
 }
