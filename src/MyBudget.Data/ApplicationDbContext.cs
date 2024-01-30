@@ -46,6 +46,11 @@ namespace MyBudget.Data
             var categories = Set<ExpenseCategory>();
             var category = await categories.FindAsync(id);
 
+            if (category is null)
+            {
+                throw new InvalidOperationException($"Cannot delete category with ID: {id} - The category does not exist");
+            }
+
             if (Set<Expense>().Where(x => x.ExpenseCategoryId == category.Id).Any())
             {
                 throw new ArgumentException($"Cannot delete category with ID: {id} - The category is in use");

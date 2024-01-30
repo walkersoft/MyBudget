@@ -11,7 +11,7 @@
              MinWidth="360">
   
   <UserControl.DataContext>
-    <vm:CategoryListViewModel/>
+    <vm:CategoryListViewModel />
   </UserControl.DataContext>
 
   <DockPanel Margin="15">
@@ -24,13 +24,11 @@
         <DataGridTemplateColumn Header="Actions">
           <DataGridTemplateColumn.CellTemplate>
             <DataTemplate>
-              <md:FloatingButton MinWidth="27" 
-                                 MinHeight="27" 
-                                 MaxWidth="27" 
-                                 MaxHeight="27" 
-                                 Classes="Accent Mini" 
-                                 Margin="3"
-                                 IsEnabled="{Binding CanDelete}">
+              <md:FloatingButton MinWidth="27" MinHeight="27" MaxWidth="27" MaxHeight="27" Margin="3"
+                                 Classes="Accent Mini"
+                                 IsEnabled="{Binding CanDelete}"
+                                 Command="{Binding DeleteCategoryCommand}"
+                                 CommandParameter="{Binding Id}">
                 <md:FloatingButton.Content>
                   <icons:MaterialIcon Kind="TrashCan" />
                 </md:FloatingButton.Content>
