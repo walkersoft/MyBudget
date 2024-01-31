@@ -59,5 +59,13 @@ namespace MyBudget.Data
             categories.Remove(category);
             await SaveChangesAsync();
         }
+
+        public async Task DeleteExpenseAsync(Guid id)
+        {
+            var expenses = Set<Expense>();
+            var expense = await expenses.FindAsync(id);
+            expenses.Remove(expense);
+            await SaveChangesAsync();
+        }
     }
 }
