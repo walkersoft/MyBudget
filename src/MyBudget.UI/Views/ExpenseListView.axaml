@@ -3,6 +3,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:md="using:Material.Styles.Controls"
+             xmlns:icons="using:Material.Icons.Avalonia"
              x:Class="MyBudget.UI.Views.ExpenseListView"
              xmlns:vm="using:MyBudget.UI.ViewModels"
              x:DataType="vm:ExpenseListViewModel">
@@ -24,6 +26,21 @@
         <DataGridTextColumn Width="120" Header="Amount" Binding="{Binding Amount, StringFormat=C}"/>
         <DataGridTextColumn Width="120" Header="Eff. Date" Binding="{Binding EffectiveDate}"/>
         <DataGridTextColumn Width="120" Header="Exp. Date" Binding="{Binding ExpirationDate}"/>
+        <DataGridTemplateColumn Header="Actions">
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>              
+              <md:FloatingButton MinWidth="27" MaxWidth="27" MinHeight="27" MaxHeight="27" Margin="3" 
+                                 Classes="Accent Mini"
+                                 IsEnabled="{Binding CanExecute}"
+                                 Command="{Binding DeleteExpenseCommand}"
+                                 CommandParameter="{Binding Id}">
+                <md:FloatingButton.Content>
+                  <icons:MaterialIcon Kind="TrashCan" />
+                </md:FloatingButton.Content>
+              </md:FloatingButton>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
       </DataGrid.Columns>
     </DataGrid>
   </StackPanel>

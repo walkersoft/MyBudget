@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using MyBudget.Application;
 using MyBudget.Application.Entities;
@@ -11,12 +12,14 @@ using System.Threading.Tasks;
 namespace MyBudget.UI.ViewModels
 {
     public readonly record struct ExpenseListing(
+        Guid Id,
         string Source,
         ExpenseType ExpenseType,
         DateOnly EffectiveDate,
         DateOnly? ExpirationDate,
         decimal? Amount,
-        string? ExpenseCategory
+        string? ExpenseCategory,
+        IAsyncRelayCommand<Guid> DeleteExpenseCommand
     );
 
     public class ExpenseListViewModel : ViewModelBase, IRecipient<ExpensesChanged>
@@ -44,14 +47,22 @@ namespace MyBudget.UI.ViewModels
             foreach (var expense in expenses)
             {
                 Expenses.Add(new ExpenseListing(
+                    expense.Id,
                     expense.Source,
                     expense.ExpenseType,
                     expense.EffectiveDate,
                     expense.ExpirationDate,
                     expense.Amount,
-                    categories.FirstOrDefault(c => expense.ExpenseCategoryId == c.Id)?.Name
+                    categories.FirstOrDefault(c => expense.ExpenseCategoryId == c.Id)?.Name,
+                    new AsyncRelayCommand<Guid>(DeleteExpense, _ => true)
                 ));
             }
+        }
+
+        private async Task DeleteExpense(Guid id)
+        {
+            await app.DeleteExpenseAsync(id);
+            Messenger.Send(new ExpensesChanged());
         }
 
         async void IRecipient<ExpensesChanged>.Receive(ExpensesChanged message) => await LoadExpensesAsync();
