@@ -27,7 +27,6 @@
             <DataTemplate>
               <md:FloatingButton MinWidth="27" MinHeight="27" MaxWidth="27" MaxHeight="27" Margin="3"
                                  Classes="Accent Mini"
-                                 IsEnabled="{Binding CanDelete}"
                                  Command="{Binding DeleteCategoryCommand}"
                                  CommandParameter="{Binding Id}">
                 <md:FloatingButton.Content>

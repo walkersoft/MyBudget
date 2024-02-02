@@ -4,15 +4,17 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using DynamicData;
 using MyBudget.Application;
+using MyBudget.Application.Entities;
 using MyBudget.UI.Messages;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace MyBudget.UI.ViewModels
 {
-    public readonly record struct CategoryListing(Guid Id, string Name, int Assignments, bool CanDelete, IAsyncRelayCommand DeleteCategoryCommand);
+    public readonly record struct CategoryListing(Guid Id, string Name, int Assignments, IAsyncRelayCommand DeleteCategoryCommand);
 
     public partial class CategoryListViewModel : ViewModelBase, IRecipient<CategoriesChanged>, IRecipient<ExpensesChanged>
     {
@@ -42,8 +44,7 @@ namespace MyBudget.UI.ViewModels
                 Id = category.Id,
                 Name = category.Name,
                 Assignments = expenses.Count(x => x.ExpenseCategoryId == category.Id),
-                CanDelete = !expenses.Any(x => x.ExpenseCategoryId == category.Id),
-                DeleteCategoryCommand = new AsyncRelayCommand<Guid>(DeleteCategory)
+                DeleteCategoryCommand = new AsyncRelayCommand<Guid>(DeleteCategory, id => CanDeleteCategory(id, expenses))
             }));
         }
 
@@ -52,6 +53,8 @@ namespace MyBudget.UI.ViewModels
             await app.DeleteCategoryAsync(id);
             Messenger.Send(new CategoriesChanged());
         }
+
+        private static bool CanDeleteCategory(Guid id, IEnumerable<Expense> expenses) => !expenses.Any(x => x.ExpenseCategoryId == id);
 
         async void IRecipient<CategoriesChanged>.Receive(CategoriesChanged message) => await LoadCategoriesAsync();
 
