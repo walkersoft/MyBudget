@@ -5,6 +5,7 @@
              xmlns:icons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:md="using:Material.Styles.Controls"
              mc:Ignorable="d"
+             x:Name="CategoryListing"
              xmlns:vm="using:MyBudget.UI.ViewModels"
              x:Class="MyBudget.UI.Views.CategoryListView"
              x:DataType="vm:CategoryListViewModel"
