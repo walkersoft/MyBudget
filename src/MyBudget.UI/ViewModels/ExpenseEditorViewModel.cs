@@ -2,17 +2,19 @@ using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using DynamicData;
 using MyBudget.Application;
 using MyBudget.Application.Entities;
 using MyBudget.UI.Messages;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace MyBudget.UI.ViewModels
 {
-	public partial class ExpenseEditorViewModel : ViewModelBase
+    public partial class ExpenseEditorViewModel : ViewModelBase, IRecipient<CategoriesChanged>
 	{
         private readonly BudgetApplication app;
 
@@ -49,20 +51,23 @@ namespace MyBudget.UI.ViewModels
         [CustomValidation(typeof(ExpenseEditorViewModel), nameof(IsExpirationDateRequiredAndValid))]
         private DateTimeOffset? expirationDate;
 
-        public ObservableCollection<ExpenseCategory> ExpenseCategories { get; private set; } = [];
+        [ObservableProperty]
+        private ObservableCollection<ExpenseCategory> expenseCategories = [];
 
         public ExpenseEditorViewModel()
         {
             if (!Design.IsDesignMode)
             {
                 app = App.GetBudgetApp();
-                LoadExpenseCategories();
+                Messenger.RegisterAll(this);
+                Messenger.Send(new CategoriesChanged());
             }
         }
 
         private async Task LoadExpenseCategories()
         {
-            ExpenseCategories = new ObservableCollection<ExpenseCategory>(await app.GetAllCategoriesAsync());
+            ExpenseCategories.Clear();
+            ExpenseCategories.AddRange(await app.GetAllCategoriesAsync());
         }
 
         [RelayCommand(CanExecute = nameof(CanExecute))]
@@ -123,6 +128,8 @@ namespace MyBudget.UI.ViewModels
             ResetValidation();
             SaveExpenseCommand.NotifyCanExecuteChanged();
         }
+
+        async void IRecipient<CategoriesChanged>.Receive(CategoriesChanged message) => await LoadExpenseCategories();
 
         public static ValidationResult IsValidEffectiveDate(DateTimeOffset effectiveDate, ValidationContext context)
         {
