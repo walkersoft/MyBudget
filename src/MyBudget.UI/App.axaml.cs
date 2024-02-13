@@ -1,6 +1,7 @@
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MyBudget.Application;
 using MyBudget.Data;
@@ -30,7 +31,7 @@ public class App : Avalonia.Application
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             ConfigureServices();
-
+            Services.GetRequiredService<ApplicationDbContext>().Database.Migrate();
             desktop.MainWindow = new MainWindow();
             desktop.MainWindow.DataContext = new MainWindowViewModel(desktop.MainWindow);
         }
