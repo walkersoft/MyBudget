@@ -46,5 +46,15 @@ namespace MyBudget.Application
         {
             await mediator.Send(new DeleteExpense(id));
         }
+
+        public async Task UpdateCategoryAsync(ExpenseCategory category)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<ExpenseCategory> GetCategoryAsync(Guid id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
