@@ -11,8 +11,7 @@ namespace MyBudget.Application.Tests.Features.Categories
             var category = await CreateCategoryAsync();
 
             category.Name = newCategoryName;
-            await app.UpdateCategoryAsync(category);
-            category = await app.GetCategoryAsync(category.Id);
+            category = await app.UpdateCategoryAsync(category);
             
             category.Name.Should().Be(newCategoryName);
         }

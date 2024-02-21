@@ -67,5 +67,16 @@ namespace MyBudget.Data
             expenses.Remove(expense);
             await SaveChangesAsync();
         }
+
+        public async Task<ExpenseCategory> GetCategoryAsync(Guid id) => await Set<ExpenseCategory>().SingleAsync(x => x.Id == id)
+            ?? throw new ArgumentException($"Unable to locate category with ID: {id}");
+
+        public async Task<ExpenseCategory> UpdateCategoryAsync(ExpenseCategory category)
+        {
+            Set<ExpenseCategory>().Update(category);
+            await SaveChangesAsync();
+
+            return category;
+        }
     }
 }
