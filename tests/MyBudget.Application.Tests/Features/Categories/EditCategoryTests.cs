@@ -15,5 +15,17 @@ namespace MyBudget.Application.Tests.Features.Categories
             
             category.Name.Should().Be(newCategoryName);
         }
+
+
+        [Fact]
+        public async Task GivenExistingCategoryWasEdited_WhenSaved_WillSucceed()
+        {
+            var category = await CreateCategoryAsync();
+
+            category.Name = "New Category Name"; 
+            var action = async () => await app.UpdateCategoryAsync(category);
+
+            await action.Should().NotThrowAsync();
+        }
     }
 }
