@@ -5,7 +5,7 @@ namespace MyBudget.Application.Tests.Features.Categories
     public sealed class EditCategoryTests : TestBench
     {
         [Fact]
-        public async Task GivenExistingCategoryWasEdited_WhenSaved_WillSucceed()
+        public async Task GivenExistingCategoryWasEdited_WhenSaved_HasUpdatedData()
         {
             var newCategoryName = "New Category Name";
             var category = await CreateCategoryAsync();
