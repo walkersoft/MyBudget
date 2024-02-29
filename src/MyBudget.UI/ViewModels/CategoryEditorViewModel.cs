@@ -7,7 +7,6 @@ using MyBudget.Application.Entities;
 using MyBudget.UI.Messages;
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
