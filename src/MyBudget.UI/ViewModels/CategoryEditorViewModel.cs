@@ -62,9 +62,15 @@ namespace MyBudget.UI.ViewModels
             IsEditing = false;
         }
 
-        void IRecipient<EditCategory>.Receive(EditCategory message)
+        async void IRecipient<EditCategory>.Receive(EditCategory message)
         {
-            Debug.WriteLine($"Edit category with Id: {message.Id}");
+            var category = await app.GetCategoryAsync(message.Id);
+            if (category != null)
+            {
+                CategoryName = category.Name;
+                ActivateEditor();
+                ResetValidation();
+            }
         }
     }
 }
