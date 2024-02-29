@@ -13,5 +13,13 @@ namespace MyBudget.Application.Tests.Features.Categories
 
             await action.Should().NotThrowAsync();
         }
+
+        [Fact]
+        public async Task GivenNonExistantCategory_WhenFetched_ThrowsException()
+        {
+            var action = async () => await app.GetCategoryAsync(Guid.NewGuid());
+
+            await action.Should().ThrowAsync<ArgumentException>();
+        }
     }
 }
