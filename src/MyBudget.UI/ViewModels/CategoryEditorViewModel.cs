@@ -8,11 +8,12 @@ using MyBudget.UI.Messages;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MyBudget.UI.ViewModels
 {
-    public partial class CategoryEditorViewModel : ViewModelBase, IRecipient<EditCategory>
+    public partial class CategoryEditorViewModel : ViewModelBase, IRecipient<EditCategory>, IRecipient<CategoriesChanged>
     {
         private readonly BudgetApplication app;
         private Guid editingCategoryId = default;
@@ -89,6 +90,19 @@ namespace MyBudget.UI.ViewModels
                 CategoryName = category.Name;
                 ActivateEditor();
                 ResetValidation();
+            }
+        }
+
+        async void IRecipient<CategoriesChanged>.Receive(CategoriesChanged message)
+        {
+            // Reset the form when a category that is being edited has been deleted
+            if (editingCategoryId != default)
+            {
+                var categories = await app.GetAllCategoriesAsync();
+                if (!categories.Select(x => x.Id).Contains(editingCategoryId))
+                {
+                    ResetForm();
+                }
             }
         }
     }
