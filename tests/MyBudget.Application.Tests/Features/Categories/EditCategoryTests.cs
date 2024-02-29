@@ -39,7 +39,7 @@ namespace MyBudget.Application.Tests.Features.Categories
 
             var action = async () => await app.UpdateCategoryAsync(category);
 
-            await action.Should().ThrowAsync<InvalidOperationException>();
+            await action.Should().ThrowAsync<ArgumentException>();
         }
     }
 }
