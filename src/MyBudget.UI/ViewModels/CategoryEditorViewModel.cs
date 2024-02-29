@@ -12,14 +12,10 @@ using System.Threading.Tasks;
 
 namespace MyBudget.UI.ViewModels
 {
-    internal readonly record struct EditingCategory(Guid Id, string CategoryName);
-
     public partial class CategoryEditorViewModel : ViewModelBase, IRecipient<EditCategory>
     {
         private readonly BudgetApplication app;
-        private bool isEditingExisting = false;
-
-        private EditingCategory editingCategory = new();
+        private Guid editingCategoryId = default;
 
         [ObservableProperty]
         private bool isEditorActive = false;
@@ -44,8 +40,7 @@ namespace MyBudget.UI.ViewModels
             CategoryName = string.Empty;
             ResetValidation();
             SaveCategoryCommand.NotifyCanExecuteChanged();
-            isEditingExisting = false;
-            editingCategory = new();
+            editingCategoryId = default;
         }
 
         [RelayCommand(CanExecute = nameof(CanExecute))]
@@ -55,7 +50,7 @@ namespace MyBudget.UI.ViewModels
             ValidateAllProperties();
             if (CanExecute())
             {
-                if (editingCategory.Id == default)
+                if (editingCategoryId == default)
                 {
                     await app.CreateCategoryAsync(CategoryName);
                 }
@@ -63,7 +58,7 @@ namespace MyBudget.UI.ViewModels
                 {
                     var category = new ExpenseCategory()
                     {
-                        Id = editingCategory.Id,
+                        Id = editingCategoryId,
                         Name = CategoryName
                     };
 
@@ -71,7 +66,7 @@ namespace MyBudget.UI.ViewModels
                 }
 
                 Messenger.Send(new CategoriesChanged());
-                ResetValidation();
+                ResetForm();
             }
         }
 
@@ -90,9 +85,8 @@ namespace MyBudget.UI.ViewModels
             var category = await app.GetCategoryAsync(message.Id);
             if (category != null)
             {
-                editingCategory = new(category.Id, category.Name);
+                editingCategoryId = category.Id;
                 CategoryName = category.Name;
-                isEditingExisting = true;
                 ActivateEditor();
                 ResetValidation();
             }
