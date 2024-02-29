@@ -23,19 +23,19 @@
                  Text="Edit Category" />
       
       <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="5">
-        <Button Command="{Binding ActivateEditorCommand}" IsVisible="{Binding !IsEditing}">
+        <Button Command="{Binding ActivateEditorCommand}" IsVisible="{Binding !IsEditorActive}">
           <StackPanel Orientation="Horizontal" Spacing="5">
             <icons:MaterialIcon Kind="ReceiptTextPlus" />
             <TextBlock Text="Create" />
           </StackPanel>
         </Button>
-        <Button Command="{Binding SaveCategoryCommand}" IsVisible="{Binding IsEditing}">
+        <Button Command="{Binding SaveCategoryCommand}" IsVisible="{Binding IsEditorActive}">
           <StackPanel Orientation="Horizontal" Spacing="5">
             <icons:MaterialIcon Kind="ContentSaveCheckOutline"/>
             <TextBlock Text="Save" />
           </StackPanel>
         </Button>
-        <Button Command="{Binding DeactivateEditorCommand}" IsVisible="{Binding IsEditing}" Classes="light accent">
+        <Button Command="{Binding DeactivateEditorCommand}" IsVisible="{Binding IsEditorActive}" Classes="light accent">
           <StackPanel Orientation="Horizontal" Spacing="5">
             <icons:MaterialIcon Kind="CloseCircleOutline" />
             <TextBlock Text="Cancel" />
@@ -47,7 +47,7 @@
         
     <TextBox Grid.Row="1"
              Text="{Binding CategoryName}" 
-             IsEnabled="{Binding IsEditing}"
+             IsEnabled="{Binding IsEditorActive}"
              m:TextFieldAssist.Label="Category Name"
              UseFloatingWatermark="True"/>
   </Grid>
