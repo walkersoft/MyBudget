@@ -28,7 +28,7 @@
               <StackPanel Orientation="Horizontal">                
                 <md:FloatingButton MinWidth="27" MinHeight="27" MaxWidth="27" MaxHeight="27" Margin="3"
                                    Classes="Accent Mini"
-                                   Command="{Binding DeleteCategoryCommand}"
+                                   Command="{Binding EditCategoryCommand}"
                                    CommandParameter="{Binding Id}">
                   <md:FloatingButton.Content>
                     <icons:MaterialIcon Kind="Edit" />

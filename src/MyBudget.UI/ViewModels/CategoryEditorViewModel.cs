@@ -5,11 +5,12 @@ using CommunityToolkit.Mvvm.Messaging;
 using MyBudget.Application;
 using MyBudget.UI.Messages;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace MyBudget.UI.ViewModels
 {
-    public partial class CategoryEditorViewModel : ViewModelBase
+    public partial class CategoryEditorViewModel : ViewModelBase, IRecipient<EditCategory>
     {
         private readonly BudgetApplication app;
 
@@ -27,6 +28,7 @@ namespace MyBudget.UI.ViewModels
             if (!Design.IsDesignMode)
             {
                 app = App.GetBudgetApp();
+                Messenger.RegisterAll(this);
             }
         }
 
@@ -58,6 +60,11 @@ namespace MyBudget.UI.ViewModels
         {
             ResetForm();
             IsEditing = false;
+        }
+
+        void IRecipient<EditCategory>.Receive(EditCategory message)
+        {
+            Debug.WriteLine($"Edit category with Id: {message.Id}");
         }
     }
 }

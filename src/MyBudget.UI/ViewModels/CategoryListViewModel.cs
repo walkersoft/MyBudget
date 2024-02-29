@@ -14,7 +14,13 @@ using System.Threading.Tasks;
 
 namespace MyBudget.UI.ViewModels
 {
-    public readonly record struct CategoryListing(Guid Id, string Name, int Assignments, IAsyncRelayCommand DeleteCategoryCommand);
+    public readonly record struct CategoryListing(
+        Guid Id,
+        string Name,
+        int Assignments,
+        IAsyncRelayCommand DeleteCategoryCommand,
+        IRelayCommand EditCategoryCommand
+    );
 
     public partial class CategoryListViewModel : ViewModelBase, IRecipient<CategoriesChanged>, IRecipient<ExpensesChanged>
     {
@@ -44,7 +50,8 @@ namespace MyBudget.UI.ViewModels
                 Id = category.Id,
                 Name = category.Name,
                 Assignments = expenses.Count(x => x.ExpenseCategoryId == category.Id),
-                DeleteCategoryCommand = new AsyncRelayCommand<Guid>(DeleteCategory, id => CanDeleteCategory(id, expenses))
+                DeleteCategoryCommand = new AsyncRelayCommand<Guid>(DeleteCategory, id => CanDeleteCategory(id, expenses)),
+                EditCategoryCommand = new RelayCommand<Guid>(EditCategory)
             }));
         }
 
@@ -53,6 +60,8 @@ namespace MyBudget.UI.ViewModels
             await app.DeleteCategoryAsync(id);
             Messenger.Send(new CategoriesChanged());
         }
+
+        private void EditCategory(Guid id) => Messenger.Send(new EditCategory(id));
 
         private static bool CanDeleteCategory(Guid id, IEnumerable<Expense> expenses) => !expenses.Any(x => x.ExpenseCategoryId == id);
 
