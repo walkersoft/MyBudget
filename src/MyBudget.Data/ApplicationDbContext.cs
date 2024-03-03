@@ -78,5 +78,8 @@ namespace MyBudget.Data
 
             return category;
         }
+
+        public async Task<Expense> GetExpenseAsync(Guid id) =>
+            await Set<Expense>().SingleAsync(x => x.Id == id);
     }
 }

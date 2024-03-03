@@ -59,7 +59,7 @@ namespace MyBudget.Application
 
         public async Task<Expense> GetExpenseAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await mediator.Send(new GetExpense(id));
         }
     }
 }

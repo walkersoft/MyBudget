@@ -12,5 +12,6 @@ namespace MyBudget.Application.Common
         Task DeleteCategoryAsync(Guid id);
         Task DeleteExpenseAsync(Guid id);
         Task<ExpenseCategory> UpdateCategoryAsync(ExpenseCategory category);
+        Task<Expense> GetExpenseAsync(Guid id);
     }
 }

@@ -7,7 +7,7 @@ namespace MyBudget.Application.Tests.Features.Expenses
         [Fact]
         public async Task GivenExpenseExists_WhenFetched_WillSucceed()
         {
-            var expense = CreateVariableExpenseAsync();
+            var expense = await CreateVariableExpenseAsync();
 
             var action = async () => await app.GetExpenseAsync(expense.Id);
 
