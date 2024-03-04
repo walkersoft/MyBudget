@@ -13,5 +13,13 @@ namespace MyBudget.Application.Tests.Features.Expenses
 
             await action.Should().NotThrowAsync();
         }
+
+        [Fact]
+        public async Task GivenNonExistentExpense_WhenFetched_ThrowsException()
+        {
+            var action = async () => await app.GetExpenseAsync(Guid.NewGuid());
+
+            await action.Should().ThrowAsync<ArgumentException>();
+        }
     }
 }

@@ -80,6 +80,6 @@ namespace MyBudget.Data
         }
 
         public async Task<Expense> GetExpenseAsync(Guid id) =>
-            await Set<Expense>().SingleAsync(x => x.Id == id);
+            await Set<Expense>().SingleOrDefaultAsync(x => x.Id == id) ?? throw new ArgumentException($"Unable to locate category with ID: {id}");
     }
 }
