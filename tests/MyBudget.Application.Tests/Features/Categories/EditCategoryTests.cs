@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using FluentValidation;
 using MyBudget.Application.Entities;
 
 namespace MyBudget.Application.Tests.Features.Categories
@@ -40,6 +41,17 @@ namespace MyBudget.Application.Tests.Features.Categories
             var action = async () => await app.UpdateCategoryAsync(category);
 
             await action.Should().ThrowAsync<ArgumentException>();
+        }
+
+        [Fact]
+        public async Task CategoryUpdatedWithEmptyName_WhenUpdated_ThrowsException()
+        {
+            var category = await CreateCategoryAsync();
+
+            category.Name = string.Empty;
+            var action = async () => await app.UpdateCategoryAsync(category);
+
+            await action.Should().ThrowAsync<ValidationException>();
         }
     }
 }
