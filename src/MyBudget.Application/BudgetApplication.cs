@@ -62,9 +62,9 @@ namespace MyBudget.Application
             return await mediator.Send(new GetExpense(id));
         }
 
-        public async Task UpdateExpenseAsync(Expense expense)
+        public async Task<Expense> UpdateExpenseAsync(Expense expense)
         {
-            throw new NotImplementedException();
+            return await mediator.Send(new UpdateExpense(expense));
         }
     }
 }
