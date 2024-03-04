@@ -1,21 +1,29 @@
-﻿namespace MyBudget.Application.Tests.Features.Expenses
+﻿using MyBudget.Application.Entities;
+
+namespace MyBudget.Application.Tests.Features.Expenses
 {
     public sealed class EditExpenseTests : TestBench
     {
+        private readonly Expense expense;
+
+        public EditExpenseTests()
+        {
+            expense = CreateVariableExpenseAsync().Result;
+        }
+
         [Fact]
-        public async Task GivenExistingExpenseWasEdited_WhenUpdated_WillSucceed()
+        public async Task ExistingExpenseWasEdited_WhenUpdated_WillSucceed()
+        {
+        }
+
+        [Fact]
+        public async Task ExistingExpenseWasEdited_WhenUpdated_HasUpdatedData()
         {
 
         }
 
         [Fact]
-        public async Task GivenExistingExpenseWasEdited_WhenUpdated_HasUpdatedData()
-        {
-
-        }
-
-        [Fact]
-        public async Task GivenExpenseDoesNotExist_WhenUpdated_ThrowsException()
+        public async Task ExpenseDoesNotExist_WhenUpdated_ThrowsException()
         {
 
         }
