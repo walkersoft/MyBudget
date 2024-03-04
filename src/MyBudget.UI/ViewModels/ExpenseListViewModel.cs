@@ -22,7 +22,7 @@ namespace MyBudget.UI.ViewModels
         IAsyncRelayCommand<Guid> DeleteExpenseCommand
     );
 
-    public class ExpenseListViewModel : ViewModelBase, IRecipient<ExpensesChanged>
+    public class ExpenseListViewModel : ViewModelBase, IRecipient<ExpensesChanged>, IRecipient<CategoriesChanged>
     {
         private readonly BudgetApplication app;
 
@@ -66,5 +66,7 @@ namespace MyBudget.UI.ViewModels
         }
 
         async void IRecipient<ExpensesChanged>.Receive(ExpensesChanged message) => await LoadExpensesAsync();
+
+        async void IRecipient<CategoriesChanged>.Receive(CategoriesChanged message) => await LoadExpensesAsync();
     }
 }
