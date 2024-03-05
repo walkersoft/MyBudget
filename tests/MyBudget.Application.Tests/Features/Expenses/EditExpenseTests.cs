@@ -73,10 +73,21 @@ namespace MyBudget.Application.Tests.Features.Expenses
         }
 
         [Fact]
+        public async Task ExpenseUpdatedToFixedWithDefaultFutureExpirationDate_WhenUpdated_ThrowsException()
+        {
+            expense.ExpenseType = ExpenseType.Fixed;
+            expense.Amount = 1m;
+            expense.ExpirationDate = default;
+
+            await action.Should().ThrowAsync<ValidationException>();
+        }
+
+        [Fact]
         public async Task ExpenseUpdatedToFixedWithoutFutureExpirationDate_WhenUpdated_ThrowsException()
         {
             expense.ExpenseType = ExpenseType.Fixed;
-            expense.ExpirationDate = default;
+            expense.Amount = 1m;
+            expense.ExpirationDate = null;
 
             await action.Should().ThrowAsync<ValidationException>();
         }
@@ -113,6 +124,16 @@ namespace MyBudget.Application.Tests.Features.Expenses
         {
             expense.ExpenseType = ExpenseType.Fixed;
             expense.Amount = default;
+
+            await action.Should().ThrowAsync<ValidationException>();
+        }
+
+        [Fact] 
+        public async Task ExpenseUpdatedToFixedWithExpirationBeforeEffective_WhenUpdated_ThrowsExcetion()
+        {
+            expense.ExpenseType = ExpenseType.Fixed;
+            expense.Amount = 1m;
+            expense.ExpirationDate = expense.EffectiveDate.AddDays(-1);
 
             await action.Should().ThrowAsync<ValidationException>();
         }

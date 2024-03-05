@@ -25,5 +25,13 @@ namespace MyBudget.Application.Tests.Features.Categories
 
             await action.Should().ThrowAsync<ArgumentException>();
         }
+
+        [Fact]
+        public async Task CategoryThatDoesNotExist_WhenDeleted_ThrowsException()
+        {
+            var action = async () => await app.DeleteCategoryAsync(Guid.NewGuid());
+
+            await action.Should().ThrowAsync<ArgumentException>();
+        }
     }
 }
