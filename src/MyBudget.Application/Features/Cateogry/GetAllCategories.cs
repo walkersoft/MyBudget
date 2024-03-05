@@ -4,7 +4,7 @@ using MyBudget.Application.Entities;
 
 namespace MyBudget.Application.Features.Cateogry
 {
-    internal record GetAllCategories : IRequest<IEnumerable<ExpenseCategory>>;
+    internal readonly record struct GetAllCategories : IRequest<IEnumerable<ExpenseCategory>>;
 
     internal class GetAllCategoriesHandler(IAppDataContext context) : IRequestHandler<GetAllCategories, IEnumerable<ExpenseCategory>>
     {

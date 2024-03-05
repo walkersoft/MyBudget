@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MyBudget.Application.Features.Expenses
 {
-    internal record GetAllExpenses : IRequest<IEnumerable<Expense>>;
+    internal readonly record struct GetAllExpenses : IRequest<IEnumerable<Expense>>;
 
     internal class GetAllExpensesHandler(IAppDataContext context) : IRequestHandler<GetAllExpenses, IEnumerable<Expense>>
     {
