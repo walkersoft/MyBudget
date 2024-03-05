@@ -5,7 +5,7 @@ using MyBudget.Application.Entities;
 
 namespace MyBudget.Application.Features.Expenses
 {
-    internal record CreateExpense(
+    internal readonly record struct CreateExpense(
         ExpenseType ExpenseType,
         string Source,
         DateOnly EffectiveDate,
@@ -25,8 +25,8 @@ namespace MyBudget.Application.Features.Expenses
 
             // Conditional rules
             RuleFor(x => x.ExpirationDate)
-                .NotNull().When(x => x.ExpenseType == ExpenseType.Fixed).WithMessage("Expiration date is required for fixed expenses.")
-                .GreaterThan(x => x.EffectiveDate).When(x => x.ExpirationDate.HasValue).WithMessage("Expiration date must be after effective date");
+                .GreaterThan(x => x.EffectiveDate).When(x => x.ExpirationDate.HasValue).WithMessage("Expiration date must be after effective date")
+                .NotNull().When(x => x.ExpenseType == ExpenseType.Fixed).WithMessage("Expiration date is required for fixed expenses.");
 
             RuleFor(x => x.Amount)
                 .Cascade(CascadeMode.Stop)

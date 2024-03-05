@@ -17,8 +17,8 @@ internal class UpdateExpenseValidator : AbstractValidator<UpdateExpense>
 
         // Conditional rules
         RuleFor(x => x.Expense.ExpirationDate)
-            .NotNull().When(x => x.Expense.ExpenseType == ExpenseType.Fixed).WithMessage("Expiration date is required for fixed expenses.")
-            .GreaterThan(x => x.Expense.EffectiveDate).When(x => x.Expense.ExpirationDate.HasValue).WithMessage("Expiration date must be after effective date");
+            .GreaterThan(x => x.Expense.EffectiveDate).When(x => x.Expense.ExpirationDate.HasValue).WithMessage("Expiration date must be after effective date")
+            .NotNull().When(x => x.Expense.ExpenseType == ExpenseType.Fixed).WithMessage("Expiration date is required for fixed expenses.");
 
         RuleFor(x => x.Expense.Amount)
             .Cascade(CascadeMode.Stop)
