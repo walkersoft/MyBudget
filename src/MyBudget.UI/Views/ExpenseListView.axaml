@@ -28,15 +28,25 @@
         <DataGridTextColumn Width="120" Header="Exp. Date" Binding="{Binding ExpirationDate}"/>
         <DataGridTemplateColumn Header="Actions">
           <DataGridTemplateColumn.CellTemplate>
-            <DataTemplate>              
-              <md:FloatingButton MinWidth="27" MaxWidth="27" MinHeight="27" MaxHeight="27" Margin="3" 
-                                 Classes="Accent Mini"
-                                 Command="{Binding DeleteExpenseCommand}"
-                                 CommandParameter="{Binding Id}">
-                <md:FloatingButton.Content>
-                  <icons:MaterialIcon Kind="TrashCan" />
-                </md:FloatingButton.Content>
-              </md:FloatingButton>
+            <DataTemplate>
+              <StackPanel Orientation="Horizontal">
+                <md:FloatingButton MinWidth="27" MaxWidth="27" MinHeight="27" MaxHeight="27" Margin="3"
+                                   Classes="Accent Mini"
+                                   Command="{Binding EditExpenseCommand}"
+                                   CommandParameter="{Binding Id}">
+                  <md:FloatingButton.Content>
+                    <icons:MaterialIcon Kind="Edit" />
+                  </md:FloatingButton.Content>
+                </md:FloatingButton>
+                <md:FloatingButton MinWidth="27" MaxWidth="27" MinHeight="27" MaxHeight="27" Margin="3"
+                                   Classes="Accent Mini"
+                                   Command="{Binding DeleteExpenseCommand}"
+                                   CommandParameter="{Binding Id}">
+                  <md:FloatingButton.Content>
+                    <icons:MaterialIcon Kind="TrashCan" />
+                  </md:FloatingButton.Content>
+                </md:FloatingButton>
+              </StackPanel>
             </DataTemplate>
           </DataGridTemplateColumn.CellTemplate>
         </DataGridTemplateColumn>

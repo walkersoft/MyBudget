@@ -7,6 +7,7 @@ using MyBudget.UI.Messages;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MyBudget.UI.ViewModels
@@ -19,7 +20,8 @@ namespace MyBudget.UI.ViewModels
         DateOnly? ExpirationDate,
         decimal? Amount,
         string? ExpenseCategory,
-        IAsyncRelayCommand<Guid> DeleteExpenseCommand
+        IAsyncRelayCommand<Guid> DeleteExpenseCommand,
+        IAsyncRelayCommand<Guid> EditExpenseCommand
     );
 
     public class ExpenseListViewModel : ViewModelBase, IRecipient<ExpensesChanged>, IRecipient<CategoriesChanged>
@@ -54,7 +56,8 @@ namespace MyBudget.UI.ViewModels
                     expense.ExpirationDate,
                     expense.Amount,
                     categories.FirstOrDefault(c => expense.ExpenseCategoryId == c.Id)?.Name,
-                    new AsyncRelayCommand<Guid>(DeleteExpense, _ => true)
+                    new AsyncRelayCommand<Guid>(DeleteExpense, _ => true),
+                    new AsyncRelayCommand<Guid>(EditExpense, _ => true)
                 ));
             }
         }
@@ -64,6 +67,8 @@ namespace MyBudget.UI.ViewModels
             await app.DeleteExpenseAsync(id);
             Messenger.Send(new ExpensesChanged());
         }
+
+        private async Task EditExpense(Guid id) => await Task.Run(() => Thread.Sleep(1));
 
         async void IRecipient<ExpensesChanged>.Receive(ExpensesChanged message) => await LoadExpensesAsync();
 
