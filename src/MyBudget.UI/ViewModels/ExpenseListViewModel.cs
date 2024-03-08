@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using MyBudget.Application;
@@ -24,11 +25,12 @@ namespace MyBudget.UI.ViewModels
         IRelayCommand<Guid> EditExpenseCommand
     );
 
-    public class ExpenseListViewModel : ViewModelBase, IRecipient<ExpensesChanged>, IRecipient<CategoriesChanged>
+    public partial class ExpenseListViewModel : ViewModelBase, IRecipient<ExpensesChanged>, IRecipient<CategoriesChanged>
     {
         private readonly BudgetApplication app;
 
-        public ObservableCollection<ExpenseListing> Expenses { get; } = [];
+        [ObservableProperty]
+        private ObservableCollection<ExpenseListing> expenses = [];
 
         public ExpenseListViewModel()
         {

@@ -81,19 +81,44 @@ namespace MyBudget.UI.ViewModels
             if (CanExecute())
             {
                 var parsedAmount = decimal.TryParse(Amount, out decimal parsedResult);
-                var expense = await app.CreateExpenseAsync(
-                    GetExpenseType(),
-                    ExpenseSource,
-                    DateOnly.FromDateTime(DateTime.Parse(EffectiveDate.Value.ToString())),
-                    ExpirationDate.HasValue ? DateOnly.FromDateTime(DateTime.Parse(ExpirationDate.Value.ToString())) : null,
-                    parsedAmount ? Math.Floor(parsedResult * 100) / 100 : null, // truncates decimal to 2 decimal places
-                    SelectedExpenseCategory?.Id
-                );
-
-                if (expense.Id != Guid.Empty)
+                
+                if (editingExpenseId == default)
                 {
-                    Messenger.Send(new ExpensesChanged());
-                    ResetForm();
+                    var expense = await app.CreateExpenseAsync(
+                        GetExpenseType(),
+                        ExpenseSource,
+                        DateOnly.FromDateTime(DateTime.Parse(EffectiveDate.Value.ToString())),
+                        ExpirationDate.HasValue ? DateOnly.FromDateTime(DateTime.Parse(ExpirationDate.Value.ToString())) : null,
+                        parsedAmount ? Math.Floor(parsedResult * 100) / 100 : null, // truncates decimal to 2 decimal places
+                        SelectedExpenseCategory?.Id
+                    );
+
+                    if (expense.Id != Guid.Empty)
+                    {
+                        Messenger.Send(new ExpensesChanged());
+                        ResetForm();
+                    }
+                }
+                else
+                {
+                    var expense = new Expense()
+                    {
+                        Id = editingExpenseId,
+                        ExpenseType = GetExpenseType(),
+                        Source = ExpenseSource,
+                        Amount = parsedAmount ? Math.Floor(parsedResult * 100) / 100 : null, // truncates decimal to 2 decimal places
+                        EffectiveDate = DateOnly.FromDateTime(DateTime.Parse(EffectiveDate.Value.ToString())),
+                        ExpirationDate = ExpirationDate.HasValue ? DateOnly.FromDateTime(DateTime.Parse(ExpirationDate.Value.ToString())) : null,
+                        ExpenseCategoryId = SelectedExpenseCategory?.Id
+                    };
+
+                    expense = await app.UpdateExpenseAsync(expense);
+                    
+                    if (expense.Id != default)
+                    {
+                        Messenger.Send(new ExpensesChanged());
+                        ResetForm();
+                    }
                 }
             }
         }
@@ -127,6 +152,7 @@ namespace MyBudget.UI.ViewModels
             EffectiveDate = default;
             ExpirationDate = default;
             SelectedExpenseCategory = default;
+            editingExpenseId = default;
             ResetValidation();
             SaveExpenseCommand.NotifyCanExecuteChanged();
         }
@@ -138,7 +164,7 @@ namespace MyBudget.UI.ViewModels
             var expense = await app.GetExpenseAsync(message.Id);
             if (expense != null)
             {
-                SelectedExpenseType = (int)expense.ExpenseType;
+                SelectedExpenseType = (int)expense.ExpenseType - 1;
                 ExpenseSource = expense.Source;
                 Amount = expense.Amount.ToString() ?? "";
                 EffectiveDate = new DateTimeOffset(expense.EffectiveDate.ToDateTime(TimeOnly.MinValue));
@@ -148,6 +174,7 @@ namespace MyBudget.UI.ViewModels
                 ActivateEditor();
                 ResetValidation();
                 SaveExpenseCommand.NotifyCanExecuteChanged();
+                editingExpenseId = expense.Id;
             }
         }
 
