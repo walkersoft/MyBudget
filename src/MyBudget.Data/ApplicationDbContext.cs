@@ -48,7 +48,7 @@ namespace MyBudget.Data
 
             if (category is null)
             {
-                throw new InvalidOperationException($"Cannot delete category with ID: {id} - The category does not exist");
+                throw new ArgumentException($"Cannot delete category with ID: {id} - The category does not exist");
             }
 
             if (Set<Expense>().Where(x => x.ExpenseCategoryId == category.Id).Any())
