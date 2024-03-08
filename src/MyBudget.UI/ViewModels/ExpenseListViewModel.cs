@@ -2,13 +2,13 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using DynamicData;
 using MyBudget.Application;
 using MyBudget.Application.Entities;
 using MyBudget.UI.Messages;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace MyBudget.UI.ViewModels
@@ -48,20 +48,17 @@ namespace MyBudget.UI.ViewModels
             var categories = await app.GetAllCategoriesAsync();
 
             Expenses.Clear();
-            foreach (var expense in expenses)
-            {
-                Expenses.Add(new ExpenseListing(
-                    expense.Id,
-                    expense.Source,
-                    expense.ExpenseType,
-                    expense.EffectiveDate,
-                    expense.ExpirationDate,
-                    expense.Amount,
-                    categories.FirstOrDefault(c => expense.ExpenseCategoryId == c.Id)?.Name,
-                    new AsyncRelayCommand<Guid>(DeleteExpense, _ => true),
-                    new RelayCommand<Guid>(EditExpense, _ => true)
-                ));
-            }
+            Expenses.AddRange(expenses.Select(expense => new ExpenseListing(
+                expense.Id,
+                expense.Source,
+                expense.ExpenseType,
+                expense.EffectiveDate,
+                expense.ExpirationDate,
+                expense.Amount,
+                categories.FirstOrDefault(c => expense.ExpenseCategoryId == c.Id)?.Name,
+                new AsyncRelayCommand<Guid>(DeleteExpense),
+                new RelayCommand<Guid>(EditExpense)
+            )));
         }
 
         private async Task DeleteExpense(Guid id)
