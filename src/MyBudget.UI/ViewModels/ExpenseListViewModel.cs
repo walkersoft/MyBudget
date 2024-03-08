@@ -21,7 +21,7 @@ namespace MyBudget.UI.ViewModels
         decimal? Amount,
         string? ExpenseCategory,
         IAsyncRelayCommand<Guid> DeleteExpenseCommand,
-        IAsyncRelayCommand<Guid> EditExpenseCommand
+        IRelayCommand<Guid> EditExpenseCommand
     );
 
     public class ExpenseListViewModel : ViewModelBase, IRecipient<ExpensesChanged>, IRecipient<CategoriesChanged>
@@ -57,7 +57,7 @@ namespace MyBudget.UI.ViewModels
                     expense.Amount,
                     categories.FirstOrDefault(c => expense.ExpenseCategoryId == c.Id)?.Name,
                     new AsyncRelayCommand<Guid>(DeleteExpense, _ => true),
-                    new AsyncRelayCommand<Guid>(EditExpense, _ => true)
+                    new RelayCommand<Guid>(EditExpense, _ => true)
                 ));
             }
         }
@@ -68,7 +68,7 @@ namespace MyBudget.UI.ViewModels
             Messenger.Send(new ExpensesChanged());
         }
 
-        private async Task EditExpense(Guid id) => await Task.Run(() => Thread.Sleep(1));
+        private void EditExpense(Guid id) => Messenger.Send(new EditExpense(id));
 
         async void IRecipient<ExpensesChanged>.Receive(ExpensesChanged message) => await LoadExpensesAsync();
 

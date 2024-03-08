@@ -10,13 +10,15 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MyBudget.UI.ViewModels
 {
-    public partial class ExpenseEditorViewModel : ViewModelBase, IRecipient<CategoriesChanged>
+    public partial class ExpenseEditorViewModel : ViewModelBase, IRecipient<CategoriesChanged>, IRecipient<EditExpense>
 	{
         private readonly BudgetApplication app;
+        private Guid editingExpenseId = default;
 
         [ObservableProperty]
         private bool isEditing = false;
@@ -130,6 +132,24 @@ namespace MyBudget.UI.ViewModels
         }
 
         async void IRecipient<CategoriesChanged>.Receive(CategoriesChanged message) => await LoadExpenseCategories();
+
+        async void IRecipient<EditExpense>.Receive(EditExpense message)
+        {
+            var expense = await app.GetExpenseAsync(message.Id);
+            if (expense != null)
+            {
+                SelectedExpenseType = (int)expense.ExpenseType;
+                ExpenseSource = expense.Source;
+                Amount = expense.Amount.ToString() ?? "";
+                EffectiveDate = new DateTimeOffset(expense.EffectiveDate.ToDateTime(TimeOnly.MinValue));
+                ExpirationDate = expense.ExpirationDate != null ? new DateTimeOffset(expense.ExpirationDate.Value.ToDateTime(TimeOnly.MinValue)) : null;
+                SelectedExpenseCategory = ExpenseCategories.SingleOrDefault(x => x.Id == expense.ExpenseCategoryId);
+
+                ActivateEditor();
+                ResetValidation();
+                SaveExpenseCommand.NotifyCanExecuteChanged();
+            }
+        }
 
         public static ValidationResult IsValidEffectiveDate(DateTimeOffset effectiveDate, ValidationContext context)
         {
