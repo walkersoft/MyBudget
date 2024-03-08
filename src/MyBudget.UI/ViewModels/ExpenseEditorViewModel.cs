@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace MyBudget.UI.ViewModels
 {
-    public partial class ExpenseEditorViewModel : ViewModelBase, IRecipient<CategoriesChanged>, IRecipient<EditExpense>
+    public partial class ExpenseEditorViewModel : ViewModelBase, IRecipient<CategoriesChanged>, IRecipient<EditExpense>, IRecipient<ExpensesChanged>
 	{
         private readonly BudgetApplication app;
         private Guid editingExpenseId = default;
@@ -143,9 +143,9 @@ namespace MyBudget.UI.ViewModels
             EffectiveDate = default;
             ExpirationDate = default;
             SelectedExpenseCategory = default;
-            editingExpenseId = default;
             ResetValidation();
             SaveExpenseCommand.NotifyCanExecuteChanged();
+            editingExpenseId = default;
         }
 
         async void IRecipient<CategoriesChanged>.Receive(CategoriesChanged message) => await LoadExpenseCategories();
@@ -164,8 +164,21 @@ namespace MyBudget.UI.ViewModels
 
                 ActivateEditor();
                 ResetValidation();
-                editingExpenseId = expense.Id;
                 SaveExpenseCommand.NotifyCanExecuteChanged();
+                editingExpenseId = expense.Id;
+            }
+        }
+
+        async void IRecipient<ExpensesChanged>.Receive(ExpensesChanged message)
+        {
+            // Reset the form when an expense that is being edited has been deleted
+            if (editingExpenseId != default)
+            {
+                var expenses = await app.GetAllExpensesAsync();
+                if (!expenses.Select(x => x.Id).Contains(editingExpenseId))
+                {
+                    ResetForm();
+                }
             }
         }
 
