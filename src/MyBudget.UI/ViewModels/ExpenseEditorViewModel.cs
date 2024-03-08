@@ -84,7 +84,7 @@ namespace MyBudget.UI.ViewModels
                 
                 if (editingExpenseId == default)
                 {
-                    var expense = await app.CreateExpenseAsync(
+                    await app.CreateExpenseAsync(
                         GetExpenseType(),
                         ExpenseSource,
                         DateOnly.FromDateTime(DateTime.Parse(EffectiveDate.Value.ToString())),
@@ -92,12 +92,6 @@ namespace MyBudget.UI.ViewModels
                         parsedAmount ? Math.Floor(parsedResult * 100) / 100 : null, // truncates decimal to 2 decimal places
                         SelectedExpenseCategory?.Id
                     );
-
-                    if (expense.Id != Guid.Empty)
-                    {
-                        Messenger.Send(new ExpensesChanged());
-                        ResetForm();
-                    }
                 }
                 else
                 {
@@ -112,14 +106,11 @@ namespace MyBudget.UI.ViewModels
                         ExpenseCategoryId = SelectedExpenseCategory?.Id
                     };
 
-                    expense = await app.UpdateExpenseAsync(expense);
-                    
-                    if (expense.Id != default)
-                    {
-                        Messenger.Send(new ExpensesChanged());
-                        ResetForm();
-                    }
+                    await app.UpdateExpenseAsync(expense);
                 }
+
+                Messenger.Send(new ExpensesChanged());
+                ResetForm();
             }
         }
 
@@ -173,8 +164,8 @@ namespace MyBudget.UI.ViewModels
 
                 ActivateEditor();
                 ResetValidation();
-                SaveExpenseCommand.NotifyCanExecuteChanged();
                 editingExpenseId = expense.Id;
+                SaveExpenseCommand.NotifyCanExecuteChanged();
             }
         }
 
