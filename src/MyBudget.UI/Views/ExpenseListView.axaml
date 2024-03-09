@@ -13,11 +13,12 @@
   </UserControl.DataContext>
   
   <StackPanel Orientation="Vertical" Margin="15">
-    <Label DockPanel.Dock="Top"
-           Content="Existing Expenses"
-           FontSize="24" />
+    <TextBlock DockPanel.Dock="Top"
+           Text="Existing Expenses"
+           Classes="theme-text-heading accent" />
     <DataGrid ItemsSource="{Binding Expenses}"
-              Margin="10">
+              IsReadOnly="True"
+              Margin="0 10">
       <DataGrid.Columns>
         <DataGridTextColumn Width="160" Header="Source" Binding="{Binding Source}"/>
         <DataGridTextColumn Width="110" Header="Type" Binding="{Binding ExpenseType}"/>
