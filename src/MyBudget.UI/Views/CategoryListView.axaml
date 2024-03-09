@@ -24,24 +24,22 @@
         <DataGridTemplateColumn Header="Actions">
           <DataGridTemplateColumn.CellTemplate>
             <DataTemplate>
-              <!--<StackPanel Orientation="Horizontal">                
-                <md:FloatingButton MinWidth="27" MinHeight="27" MaxWidth="27" MaxHeight="27" Margin="3"
-                                   Classes="Accent Mini"
-                                   Command="{Binding EditCategoryCommand}"
-                                   CommandParameter="{Binding Id}">
-                  <md:FloatingButton.Content>
+              <StackPanel Orientation="Horizontal" Spacing="5">                
+                <Button Classes="theme-link accent"
+                        Command="{Binding EditCategoryCommand}"
+                        CommandParameter="{Binding Id}">
+                  <Button.Content>
                     <icons:MaterialIcon Kind="Edit" />
-                  </md:FloatingButton.Content>
-                </md:FloatingButton>
-                <md:FloatingButton MinWidth="27" MinHeight="27" MaxWidth="27" MaxHeight="27" Margin="3"
-                                   Classes="Accent Mini"
-                                   Command="{Binding DeleteCategoryCommand}"
-                                   CommandParameter="{Binding Id}">
-                  <md:FloatingButton.Content>
+                  </Button.Content>
+                </Button>
+                <Button Classes="theme-link danger"
+                        Command="{Binding DeleteCategoryCommand}"
+                        CommandParameter="{Binding Id}">
+                  <Button.Content>
                     <icons:MaterialIcon Kind="TrashCan" />
-                  </md:FloatingButton.Content>
-                </md:FloatingButton>
-              </StackPanel>-->
+                  </Button.Content>
+                </Button>
+              </StackPanel>
             </DataTemplate>
           </DataGridTemplateColumn.CellTemplate>
         </DataGridTemplateColumn>
