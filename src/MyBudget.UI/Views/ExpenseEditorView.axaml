@@ -15,27 +15,30 @@
         <Style Selector="Button">
           <Setter Property="Width" Value="90" />
           <Setter Property="HorizontalContentAlignment" Value="Center" />
-          <Setter Property="Margin" Value="5 0 0 0" />
         </Style>
       </DockPanel.Styles>
-      <Label Content="Edit Expense"
-             FontSize="24" />
+      
+      <TextBlock Grid.Column="0"
+                 Classes="theme-text-heading accent"
+                 VerticalAlignment="Center"
+                 Text="Edit Expense" />
       <StackPanel Orientation="Horizontal"
                   DockPanel.Dock="Right"
-                  HorizontalAlignment="Right">
-        <Button Command="{Binding ActivateEditorCommand}" IsVisible="{Binding !IsEditing}">
+                  HorizontalAlignment="Right"
+                  Spacing="5">
+        <Button Command="{Binding ActivateEditorCommand}" IsVisible="{Binding !IsEditing}" Classes="theme-solid accent">
           <StackPanel Orientation="Horizontal" Spacing="5">
             <icons:MaterialIcon Kind="ReceiptTextPlus" />
             <TextBlock Text="Create" />
           </StackPanel>
         </Button>
-        <Button Command="{Binding SaveExpenseCommand}" IsVisible="{Binding IsEditing}">
+        <Button Command="{Binding SaveExpenseCommand}" IsVisible="{Binding IsEditing}" Classes="theme-solid accent">
           <StackPanel Orientation="Horizontal" Spacing="5">
             <icons:MaterialIcon Kind="ContentSaveCheckOutline" />
             <TextBlock Text="Save" />
           </StackPanel>
         </Button>
-        <Button Command="{Binding DeactivateEditorCommand}" IsVisible="{Binding IsEditing}">
+        <Button Command="{Binding DeactivateEditorCommand}" IsVisible="{Binding IsEditing}" Classes="theme-solid danger">
           <StackPanel Orientation="Horizontal" Spacing="5">
             <icons:MaterialIcon Kind="CloseCircleOutline" />
             <TextBlock Text="Cancel" />
@@ -45,63 +48,64 @@
     </DockPanel>
     <Grid ColumnDefinitions="Auto, *"
           RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto">
-      <Grid.Styles>
-        <Style Selector="ComboBox">
-          <Setter Property="Margin" Value="0 0 0 5" />
-        </Style>
-        <Style Selector="TextBox">
-          <Setter Property="Margin" Value="0 0 0 5" />
-        </Style>
-        <Style Selector="DatePicker">
-          <Setter Property="Margin" Value="0 0 0 5" />
-        </Style>
-      </Grid.Styles>
-      <ComboBox Grid.Column="1" Grid.Row="0"
-                HorizontalAlignment="Stretch"
-                SelectedIndex="{Binding SelectedExpenseType}"
-                IsEnabled="{Binding IsEditing}"
-                Theme="{StaticResource MaterialOutlineComboBox}">
-        <TextBlock Text="Variable" />
-        <TextBlock Text="Stable" />
-        <TextBlock Text="Fixed" />
-      </ComboBox>
-      
-      <TextBox Grid.Column="1" Grid.Row="1"
-               Watermark="e.g. Grocery, Mortgage..."
-               UseFloatingWatermark="True"
-               HorizontalAlignment="Stretch"
-               Text="{Binding ExpenseSource}"
-               IsEnabled="{Binding IsEditing}"/>
-      
-      <TextBox Grid.Column="1" Grid.Row="2"
-               Watermark="e.g. 123.45"
-               UseFloatingWatermark="True"
-               HorizontalAlignment="Stretch"
-               Text="{Binding Amount}"
-               IsEnabled="{Binding IsEditing}"/>
-      
-      <DatePicker Grid.Column="1" Grid.Row="3"
-                  HorizontalAlignment="Stretch"
-                  SelectedDate="{Binding EffectiveDate}"
-                  IsEnabled="{Binding IsEditing}"/>
-      
-      <DatePicker Grid.Column="1" Grid.Row="4"
-                  HorizontalAlignment="Stretch"
-                  SelectedDate="{Binding ExpirationDate}"
-                  IsEnabled="{Binding IsEditing}"/>
 
-      <ComboBox Grid.Column="1" Grid.Row="5"
-                HorizontalAlignment="Stretch"
-                SelectedItem="{Binding SelectedExpenseCategory}"
-                ItemsSource="{Binding ExpenseCategories}"
-                IsEnabled="{Binding IsEditing}"
-                Theme="{StaticResource MaterialOutlineComboBox}">
-        <ComboBox.ItemTemplate>
-          <DataTemplate>
-            <TextBlock Text="{Binding Name}" />
-          </DataTemplate>
-        </ComboBox.ItemTemplate>
-      </ComboBox>
+      <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical" Spacing="5" Margin="0 0 0 12">
+        <TextBlock Text="Expense Type" />
+        <ComboBox HorizontalAlignment="Stretch"
+                  SelectedIndex="{Binding SelectedExpenseType}"
+                  ItemsSource="{Binding ExpenseTypes}"
+                  IsEnabled="{Binding IsEditing}">
+          <ComboBox.ItemTemplate>
+            <DataTemplate>
+              <TextBlock Text="{Binding}"/>
+            </DataTemplate>
+          </ComboBox.ItemTemplate>
+        </ComboBox>
+      </StackPanel>
+
+      <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" Spacing="5" Margin="0 0 0 12">
+        <TextBlock Text="Expense Source" />
+        <TextBox Watermark="e.g. Grocery, Mortgage..."
+                 HorizontalAlignment="Stretch"
+                 Text="{Binding ExpenseSource}"
+                 IsEnabled="{Binding IsEditing}"/>
+      </StackPanel>
+
+      <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Vertical" Spacing="5" Margin="0 0 0 12">
+        <TextBlock Text="Amount" />
+        <TextBox Watermark="e.g. 123.45"
+                 HorizontalAlignment="Stretch"
+                 Text="{Binding Amount}"
+                 IsEnabled="{Binding IsEditing}"/>
+      </StackPanel>
+
+      <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Vertical" Spacing="5" Margin="0 0 0 12">
+        <TextBlock Text="Effective Date" />
+        <CalendarDatePicker HorizontalAlignment="Stretch"
+                            SelectedDate="{Binding EffectiveDate}"
+                            IsEnabled="{Binding IsEditing}"/>
+      </StackPanel>
+
+      <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Vertical" Spacing="5" Margin="0 0 0 12">
+        <TextBlock Text="Expiration Date" />
+        <CalendarDatePicker HorizontalAlignment="Stretch"
+                            SelectedDate="{Binding ExpirationDate}"
+                            IsEnabled="{Binding IsEditing}"/>
+      </StackPanel>
+
+      <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Vertical" Spacing="5" Margin="0 0 0 12">
+        <TextBlock Text="Expense Category" />
+        <ComboBox HorizontalAlignment="Stretch"
+                  SelectedItem="{Binding SelectedExpenseCategory}"
+                  ItemsSource="{Binding ExpenseCategories}"
+                  IsEnabled="{Binding IsEditing}">
+          <ComboBox.ItemTemplate>
+            <DataTemplate>
+              <TextBlock Text="{Binding Name}" />
+            </DataTemplate>
+          </ComboBox.ItemTemplate>
+        </ComboBox>
+      </StackPanel>
       
     </Grid>
   </DockPanel>

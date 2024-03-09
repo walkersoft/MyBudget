@@ -56,6 +56,9 @@ namespace MyBudget.UI.ViewModels
         [ObservableProperty]
         private ObservableCollection<ExpenseCategory> expenseCategories = [];
 
+        [ObservableProperty]
+        private ObservableCollection<string> expenseTypes = ["Variable", "Stable", "Fixed"];
+
         public ExpenseEditorViewModel()
         {
             if (!Design.IsDesignMode)
