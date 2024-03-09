@@ -3,7 +3,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:icons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-             xmlns:md="using:Material.Styles.Controls"
              mc:Ignorable="d"
              x:Name="CategoryListing"
              xmlns:vm="using:MyBudget.UI.ViewModels"
@@ -25,7 +24,7 @@
         <DataGridTemplateColumn Header="Actions">
           <DataGridTemplateColumn.CellTemplate>
             <DataTemplate>
-              <StackPanel Orientation="Horizontal">                
+              <!--<StackPanel Orientation="Horizontal">                
                 <md:FloatingButton MinWidth="27" MinHeight="27" MaxWidth="27" MaxHeight="27" Margin="3"
                                    Classes="Accent Mini"
                                    Command="{Binding EditCategoryCommand}"
@@ -42,7 +41,7 @@
                     <icons:MaterialIcon Kind="TrashCan" />
                   </md:FloatingButton.Content>
                 </md:FloatingButton>
-              </StackPanel>
+              </StackPanel>-->
             </DataTemplate>
           </DataGridTemplateColumn.CellTemplate>
         </DataGridTemplateColumn>

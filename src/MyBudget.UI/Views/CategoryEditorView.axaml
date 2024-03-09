@@ -2,7 +2,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:m="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
              mc:Ignorable="d"
              xmlns:icons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:vm="using:MyBudget.UI.ViewModels"
@@ -48,7 +47,6 @@
     <TextBox Grid.Row="1"
              Text="{Binding CategoryName}" 
              IsEnabled="{Binding IsEditorActive}"
-             m:TextFieldAssist.Label="Category Name"
              UseFloatingWatermark="True"/>
   </Grid>
 </UserControl>

@@ -3,7 +3,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             xmlns:md="using:Material.Styles.Controls"
              xmlns:icons="using:Material.Icons.Avalonia"
              x:Class="MyBudget.UI.Views.ExpenseListView"
              xmlns:vm="using:MyBudget.UI.ViewModels"
@@ -29,7 +28,7 @@
         <DataGridTemplateColumn Header="Actions">
           <DataGridTemplateColumn.CellTemplate>
             <DataTemplate>
-              <StackPanel Orientation="Horizontal">
+              <!--<StackPanel Orientation="Horizontal">
                 <md:FloatingButton MinWidth="27" MaxWidth="27" MinHeight="27" MaxHeight="27" Margin="3"
                                    Classes="Accent Mini"
                                    Command="{Binding EditExpenseCommand}"
@@ -46,7 +45,7 @@
                     <icons:MaterialIcon Kind="TrashCan" />
                   </md:FloatingButton.Content>
                 </md:FloatingButton>
-              </StackPanel>
+              </StackPanel>-->
             </DataTemplate>
           </DataGridTemplateColumn.CellTemplate>
         </DataGridTemplateColumn>
