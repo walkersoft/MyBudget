@@ -28,24 +28,24 @@
         <DataGridTemplateColumn Header="Actions">
           <DataGridTemplateColumn.CellTemplate>
             <DataTemplate>
-              <!--<StackPanel Orientation="Horizontal">
-                <md:FloatingButton MinWidth="27" MaxWidth="27" MinHeight="27" MaxHeight="27" Margin="3"
-                                   Classes="Accent Mini"
-                                   Command="{Binding EditExpenseCommand}"
-                                   CommandParameter="{Binding Id}">
-                  <md:FloatingButton.Content>
+              <StackPanel Orientation="Horizontal" Spacing="5">
+                <Button Classes="theme-link accent"
+                        Command="{Binding EditExpenseCommand}"
+                        CommandParameter="{Binding Id}">
+                  <Button.Content>
                     <icons:MaterialIcon Kind="Edit" />
-                  </md:FloatingButton.Content>
-                </md:FloatingButton>
-                <md:FloatingButton MinWidth="27" MaxWidth="27" MinHeight="27" MaxHeight="27" Margin="3"
-                                   Classes="Accent Mini"
-                                   Command="{Binding DeleteExpenseCommand}"
-                                   CommandParameter="{Binding Id}">
-                  <md:FloatingButton.Content>
-                    <icons:MaterialIcon Kind="TrashCan" />
-                  </md:FloatingButton.Content>
-                </md:FloatingButton>
-              </StackPanel>-->
+                  </Button.Content>
+                </Button>
+                <ThemeVariantScope RequestedThemeVariant="Light">
+                  <Button Classes="theme-link danger"
+                          Command="{Binding DeleteExpenseCommand}"
+                          CommandParameter="{Binding Id}">
+                    <Button.Content>
+                      <icons:MaterialIcon Kind="TrashCan" />
+                    </Button.Content>
+                  </Button>
+                </ThemeVariantScope>
+              </StackPanel>
             </DataTemplate>
           </DataGridTemplateColumn.CellTemplate>
         </DataGridTemplateColumn>

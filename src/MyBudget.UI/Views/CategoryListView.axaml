@@ -15,30 +15,33 @@
   </UserControl.DataContext>
 
   <DockPanel Margin="15">
-    <Label Content="Existing Categories" FontSize="24" DockPanel.Dock="Top" />
+    <TextBlock Text="Existing Categories" Classes="theme-text-heading accent" DockPanel.Dock="Top" />
     <DataGrid ItemsSource="{Binding Categories}"
-              Margin="10">
+              Margin="0 15"
+              IsReadOnly="True">
       <DataGrid.Columns>
         <DataGridTextColumn Width="160" Header="Name" Binding="{Binding Name}" />
         <DataGridTextColumn Header="Assignments" Binding="{Binding Assignments}"/>
         <DataGridTemplateColumn Header="Actions">
           <DataGridTemplateColumn.CellTemplate>
             <DataTemplate>
-              <StackPanel Orientation="Horizontal" Spacing="5">                
-                <Button Classes="theme-link accent"
+              <StackPanel Orientation="Horizontal">                
+                <Button Classes="theme-link accent" Margin="4"
                         Command="{Binding EditCategoryCommand}"
                         CommandParameter="{Binding Id}">
                   <Button.Content>
                     <icons:MaterialIcon Kind="Edit" />
                   </Button.Content>
                 </Button>
-                <Button Classes="theme-link danger"
-                        Command="{Binding DeleteCategoryCommand}"
-                        CommandParameter="{Binding Id}">
-                  <Button.Content>
-                    <icons:MaterialIcon Kind="TrashCan" />
-                  </Button.Content>
-                </Button>
+                <ThemeVariantScope RequestedThemeVariant="Light">                  
+                  <Button Classes="theme-link danger" Margin="4"
+                          Command="{Binding DeleteCategoryCommand}"
+                          CommandParameter="{Binding Id}">
+                    <Button.Content>
+                      <icons:MaterialIcon Kind="TrashCan" />
+                    </Button.Content>
+                  </Button>
+                </ThemeVariantScope>
               </StackPanel>
             </DataTemplate>
           </DataGridTemplateColumn.CellTemplate>
