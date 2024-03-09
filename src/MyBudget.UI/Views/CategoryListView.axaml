@@ -3,7 +3,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:icons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-             xmlns:md="using:Material.Styles.Controls"
              mc:Ignorable="d"
              x:Name="CategoryListing"
              xmlns:vm="using:MyBudget.UI.ViewModels"
@@ -16,9 +15,10 @@
   </UserControl.DataContext>
 
   <DockPanel Margin="15">
-    <Label Content="Existing Categories" FontSize="24" DockPanel.Dock="Top" />
+    <TextBlock Text="Existing Categories" Classes="theme-text-heading accent" DockPanel.Dock="Top" />
     <DataGrid ItemsSource="{Binding Categories}"
-              Margin="10">
+              Margin="0 15"
+              IsReadOnly="True">
       <DataGrid.Columns>
         <DataGridTextColumn Width="160" Header="Name" Binding="{Binding Name}" />
         <DataGridTextColumn Header="Assignments" Binding="{Binding Assignments}"/>
@@ -26,22 +26,22 @@
           <DataGridTemplateColumn.CellTemplate>
             <DataTemplate>
               <StackPanel Orientation="Horizontal">                
-                <md:FloatingButton MinWidth="27" MinHeight="27" MaxWidth="27" MaxHeight="27" Margin="3"
-                                   Classes="Accent Mini"
-                                   Command="{Binding EditCategoryCommand}"
-                                   CommandParameter="{Binding Id}">
-                  <md:FloatingButton.Content>
+                <Button Classes="theme-link accent" Margin="4"
+                        Command="{Binding EditCategoryCommand}"
+                        CommandParameter="{Binding Id}">
+                  <Button.Content>
                     <icons:MaterialIcon Kind="Edit" />
-                  </md:FloatingButton.Content>
-                </md:FloatingButton>
-                <md:FloatingButton MinWidth="27" MinHeight="27" MaxWidth="27" MaxHeight="27" Margin="3"
-                                   Classes="Accent Mini"
-                                   Command="{Binding DeleteCategoryCommand}"
-                                   CommandParameter="{Binding Id}">
-                  <md:FloatingButton.Content>
-                    <icons:MaterialIcon Kind="TrashCan" />
-                  </md:FloatingButton.Content>
-                </md:FloatingButton>
+                  </Button.Content>
+                </Button>
+                <ThemeVariantScope RequestedThemeVariant="Light">                  
+                  <Button Classes="theme-link danger" Margin="4"
+                          Command="{Binding DeleteCategoryCommand}"
+                          CommandParameter="{Binding Id}">
+                    <Button.Content>
+                      <icons:MaterialIcon Kind="TrashCan" />
+                    </Button.Content>
+                  </Button>
+                </ThemeVariantScope>
               </StackPanel>
             </DataTemplate>
           </DataGridTemplateColumn.CellTemplate>

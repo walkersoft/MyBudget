@@ -46,15 +46,18 @@ namespace MyBudget.UI.ViewModels
         [NotifyCanExecuteChangedFor(nameof(SaveExpenseCommand))]
         [Required(ErrorMessage = "Effective date is required for this expense type")]
         [CustomValidation(typeof(ExpenseEditorViewModel), nameof(IsValidEffectiveDate))]
-        private DateTimeOffset? effectiveDate;
+        private DateTime? effectiveDate;
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(SaveExpenseCommand))]
         [CustomValidation(typeof(ExpenseEditorViewModel), nameof(IsExpirationDateRequiredAndValid))]
-        private DateTimeOffset? expirationDate;
+        private DateTime? expirationDate;
 
         [ObservableProperty]
         private ObservableCollection<ExpenseCategory> expenseCategories = [];
+
+        [ObservableProperty]
+        private ObservableCollection<string> expenseTypes = ["Variable", "Stable", "Fixed"];
 
         public ExpenseEditorViewModel()
         {
@@ -158,8 +161,8 @@ namespace MyBudget.UI.ViewModels
                 SelectedExpenseType = (int)expense.ExpenseType - 1;
                 ExpenseSource = expense.Source;
                 Amount = expense.Amount.ToString() ?? "";
-                EffectiveDate = new DateTimeOffset(expense.EffectiveDate.ToDateTime(TimeOnly.MinValue));
-                ExpirationDate = expense.ExpirationDate != null ? new DateTimeOffset(expense.ExpirationDate.Value.ToDateTime(TimeOnly.MinValue)) : null;
+                EffectiveDate = expense.EffectiveDate.ToDateTime(TimeOnly.MinValue);
+                ExpirationDate = expense.ExpirationDate != null ? expense.ExpirationDate.Value.ToDateTime(TimeOnly.MinValue) : null;
                 SelectedExpenseCategory = ExpenseCategories.SingleOrDefault(x => x.Id == expense.ExpenseCategoryId);
 
                 ActivateEditor();
@@ -182,7 +185,7 @@ namespace MyBudget.UI.ViewModels
             }
         }
 
-        public static ValidationResult IsValidEffectiveDate(DateTimeOffset effectiveDate, ValidationContext context)
+        public static ValidationResult IsValidEffectiveDate(DateTime effectiveDate, ValidationContext context)
         {
             var instance = (ExpenseEditorViewModel)context.ObjectInstance;
 
@@ -194,7 +197,7 @@ namespace MyBudget.UI.ViewModels
             return ValidationResult.Success;
         }
 
-        public static ValidationResult IsExpirationDateRequiredAndValid(DateTimeOffset? expirationDate, ValidationContext context)
+        public static ValidationResult IsExpirationDateRequiredAndValid(DateTime? expirationDate, ValidationContext context)
         {
             var instance = (ExpenseEditorViewModel)context.ObjectInstance;
 

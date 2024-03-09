@@ -3,7 +3,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             xmlns:md="using:Material.Styles.Controls"
              xmlns:icons="using:Material.Icons.Avalonia"
              x:Class="MyBudget.UI.Views.ExpenseListView"
              xmlns:vm="using:MyBudget.UI.ViewModels"
@@ -14,11 +13,12 @@
   </UserControl.DataContext>
   
   <StackPanel Orientation="Vertical" Margin="15">
-    <Label DockPanel.Dock="Top"
-           Content="Existing Expenses"
-           FontSize="24" />
+    <TextBlock DockPanel.Dock="Top"
+           Text="Existing Expenses"
+           Classes="theme-text-heading accent" />
     <DataGrid ItemsSource="{Binding Expenses}"
-              Margin="10">
+              IsReadOnly="True"
+              Margin="0 10">
       <DataGrid.Columns>
         <DataGridTextColumn Width="160" Header="Source" Binding="{Binding Source}"/>
         <DataGridTextColumn Width="110" Header="Type" Binding="{Binding ExpenseType}"/>
@@ -29,23 +29,23 @@
         <DataGridTemplateColumn Header="Actions">
           <DataGridTemplateColumn.CellTemplate>
             <DataTemplate>
-              <StackPanel Orientation="Horizontal">
-                <md:FloatingButton MinWidth="27" MaxWidth="27" MinHeight="27" MaxHeight="27" Margin="3"
-                                   Classes="Accent Mini"
-                                   Command="{Binding EditExpenseCommand}"
-                                   CommandParameter="{Binding Id}">
-                  <md:FloatingButton.Content>
+              <StackPanel Orientation="Horizontal" Spacing="5">
+                <Button Classes="theme-link accent"
+                        Command="{Binding EditExpenseCommand}"
+                        CommandParameter="{Binding Id}">
+                  <Button.Content>
                     <icons:MaterialIcon Kind="Edit" />
-                  </md:FloatingButton.Content>
-                </md:FloatingButton>
-                <md:FloatingButton MinWidth="27" MaxWidth="27" MinHeight="27" MaxHeight="27" Margin="3"
-                                   Classes="Accent Mini"
-                                   Command="{Binding DeleteExpenseCommand}"
-                                   CommandParameter="{Binding Id}">
-                  <md:FloatingButton.Content>
-                    <icons:MaterialIcon Kind="TrashCan" />
-                  </md:FloatingButton.Content>
-                </md:FloatingButton>
+                  </Button.Content>
+                </Button>
+                <ThemeVariantScope RequestedThemeVariant="Light">
+                  <Button Classes="theme-link danger"
+                          Command="{Binding DeleteExpenseCommand}"
+                          CommandParameter="{Binding Id}">
+                    <Button.Content>
+                      <icons:MaterialIcon Kind="TrashCan" />
+                    </Button.Content>
+                  </Button>
+                </ThemeVariantScope>
               </StackPanel>
             </DataTemplate>
           </DataGridTemplateColumn.CellTemplate>
