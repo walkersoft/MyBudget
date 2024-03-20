@@ -23,7 +23,7 @@ public partial class MainWindowViewModel : ViewModelBase
     }
 
     [ObservableProperty]
-    private bool isPaneOpen = true;
+    private bool isPaneOpen;
 
     [ObservableProperty]
     private Visual activeView;
