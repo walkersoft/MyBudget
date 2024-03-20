@@ -8,6 +8,11 @@
              x:Class="MyBudget.UI.Views.ExpenseEditorView"
              x:DataType="vm:ExpenseEditorViewModel"
              MinWidth="380">
+
+  <UserControl.DataContext>
+    <vm:ExpenseEditorViewModel />
+  </UserControl.DataContext>
+  
   <DockPanel Margin="15">
     <DockPanel DockPanel.Dock="Top"
                Margin="0 0 0 10">
