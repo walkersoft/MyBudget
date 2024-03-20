@@ -23,13 +23,10 @@
       <Button Command="{Binding TogglePaneCommand}">Menu</Button>
       <TextBlock HorizontalAlignment="Center" Text="My Budget" />
     </StackPanel>
-    <SplitView Background="AliceBlue" DisplayMode="Inline" IsPaneOpen="{Binding IsPaneOpen}" OpenPaneLength="200" >
+    <SplitView DisplayMode="Inline" IsPaneOpen="{Binding IsPaneOpen}" OpenPaneLength="200" Content="{Binding ActiveView}">
       <SplitView.Pane>
         <views:NavigationView />
       </SplitView.Pane>
-      <TextBlock Classes="theme-text-heading size-xl accent">
-        A Lot of really cool text can go right in here and let's see what happens
-      </TextBlock>
     </SplitView>
   </DockPanel>
 
