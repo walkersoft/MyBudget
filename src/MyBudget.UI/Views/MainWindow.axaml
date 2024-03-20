@@ -1,8 +1,10 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:MyBudget.UI.ViewModels"
+        xmlns:actipro="http://schemas.actiprosoftware.com/avaloniaui"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="using:MyBudget.UI.Views"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="MyBudget.UI.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
@@ -15,6 +17,20 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-  <Button Content="Open expense editor" Command="{Binding OpenExpenseEditorCommand}"/>
+  <!--<Button Content="Open expense editor" Command="{Binding OpenExpenseEditorCommand}"/>-->
+  <DockPanel>
+    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+      <Button Command="{Binding TogglePaneCommand}">Menu</Button>
+      <TextBlock HorizontalAlignment="Center" Text="My Budget" />
+    </StackPanel>
+    <SplitView Background="AliceBlue" DisplayMode="Inline" IsPaneOpen="{Binding IsPaneOpen}" OpenPaneLength="200" >
+      <SplitView.Pane>
+        <views:NavigationView />
+      </SplitView.Pane>
+      <TextBlock Classes="theme-text-heading size-xl accent">
+        A Lot of really cool text can go right in here and let's see what happens
+      </TextBlock>
+    </SplitView>
+  </DockPanel>
 
 </Window>
