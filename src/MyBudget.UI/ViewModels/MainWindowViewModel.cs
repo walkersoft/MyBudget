@@ -1,4 +1,6 @@
-﻿using Avalonia.Controls;
+﻿using Avalonia;
+using Avalonia.Controls;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MyBudget.UI.Views;
 using System.Threading.Tasks;
@@ -12,7 +14,22 @@ public partial class MainWindowViewModel : ViewModelBase
     public MainWindowViewModel(Window parent)
     {
         parentWindow = parent;
+        ActiveView = new ExpenseEditorRootView();
     }
+
+    public MainWindowViewModel()
+    {
+        ActiveView = new ExpenseEditorRootView();
+    }
+
+    [ObservableProperty]
+    private bool isPaneOpen;
+
+    [ObservableProperty]
+    private Visual activeView;
+
+    [RelayCommand]
+    private void TogglePane() => IsPaneOpen ^= true;
 
     [RelayCommand]
     private async Task OpenExpenseEditor()

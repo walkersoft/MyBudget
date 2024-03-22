@@ -1,0 +1,30 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:views="using:MyBudget.UI.Views"
+             x:Class="MyBudget.UI.Views.ExpenseEditorRootView">
+  <Grid ColumnDefinitions="Auto, Auto, *, Auto, Auto">
+    <views:ExpenseEditorView Grid.Column="0"/>
+
+    <Rectangle Grid.Column="1"
+               VerticalAlignment="Stretch"
+               Width="1"
+               Margin="5, 20"
+               Fill="Gray"/>
+
+    <views:ExpenseListView Grid.Column="2"/>
+
+    <Rectangle Grid.Column="3"
+               VerticalAlignment="Stretch"
+               Width="1"
+               Margin="5, 20"
+               Fill="Gray"/>
+
+    <Grid Grid.Column="4" RowDefinitions="Auto, *">
+      <views:CategoryEditorView Grid.Row="0"/>
+      <views:CategoryListView Grid.Row="1"/>
+    </Grid>
+  </Grid>
+</UserControl>

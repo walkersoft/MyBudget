@@ -1,0 +1,29 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:actipro="http://schemas.actiprosoftware.com/avaloniaui"
+             xmlns:icons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MyBudget.UI.Views.NavigationView">
+  <StackPanel Orientation="Vertical" Spacing="15">
+    <Border />
+    <Button HorizontalContentAlignment="Left" Classes="theme-link">
+      <StackPanel Orientation="Horizontal" Spacing="10">
+        <icons:MaterialIcon Width="30" Height="30" Kind="HomeAnalytics" />
+        <TextBlock Classes="theme-text-body size-xl" Text="Home" />
+      </StackPanel>
+    </Button>
+    <Button HorizontalContentAlignment="Left" Classes="theme-link">
+      <StackPanel Orientation="Horizontal" Spacing="10">
+        <icons:MaterialIcon Width="30" Height="30" Kind="CurrencyUsd" />
+        <TextBlock Classes="theme-text-body size-xl" Text="Expenses" />
+      </StackPanel>
+    </Button>
+  </StackPanel>
+  <UserControl.Styles>
+    <Style Selector="StackPanel > Button > StackPanel">
+      <Setter Property="Margin" Value="15 0 0 0" />
+    </Style>
+  </UserControl.Styles>
+</UserControl>
