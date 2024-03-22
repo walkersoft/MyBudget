@@ -24,7 +24,10 @@
               Margin="7"
               Name="menuButton"
               Command="{Binding TogglePaneCommand}">
-        <icons:MaterialIcon Width="25" Height="25" Kind="Menu" />
+        <StackPanel Orientation="Horizontal" Spacing="5">
+          <icons:MaterialIcon Width="25" Height="25" Kind="Menu" />
+          <TextBlock VerticalAlignment="Center" Text="Menu" />
+        </StackPanel>
       </Button>
       <TextBlock VerticalAlignment="Center"
                  Classes="theme-text-heading"
