@@ -1,27 +1,36 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:MyBudget.UI.ViewModels"
         xmlns:actipro="http://schemas.actiprosoftware.com/avaloniaui"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:MyBudget.UI.ViewModels"
         xmlns:views="using:MyBudget.UI.Views"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:icons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+        mc:Ignorable="d" d:DesignWidth="1500" d:DesignHeight="450"
         x:Class="MyBudget.UI.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
         Title="MyBudget.UI">
 
     <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-        <vm:MainWindowViewModel/>
+      <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-  <!--<Button Content="Open expense editor" Command="{Binding OpenExpenseEditorCommand}"/>-->
   <DockPanel>
-    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-      <Button Command="{Binding TogglePaneCommand}">Menu</Button>
-      <TextBlock HorizontalAlignment="Center" Text="My Budget" />
+    <StackPanel DockPanel.Dock="Top" 
+                Orientation="Horizontal"
+                Background="{actipro:ThemeResource ControlBackgroundBrushSolidAccent}">
+      <Button Classes="theme-soft accent"
+              Margin="7"
+              Name="menuButton"
+              Command="{Binding TogglePaneCommand}">
+        <icons:MaterialIcon Width="25" Height="25" Kind="Menu" />
+      </Button>
+      <TextBlock VerticalAlignment="Center"
+                 Classes="theme-text-heading"
+                 Foreground="{actipro:ThemeResource ControlForegroundBrushSolidAccent}"
+                 Margin="10 0"
+                 Text="My Budget" />
     </StackPanel>
     <SplitView DisplayMode="Overlay"
                IsPaneOpen="{Binding IsPaneOpen}"
