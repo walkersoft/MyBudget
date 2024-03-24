@@ -1,0 +1,36 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="720"
+             x:Class="MyBudget.UI.Views.HomeRootView">
+
+  <Grid RowDefinitions="*, Auto, *" ColumnDefinitions="*, Auto, 400" Margin="20">
+    <!-- Separators -->
+    <Rectangle Grid.Row="0" Grid.Column="1" Grid.RowSpan="3"
+               VerticalAlignment="Stretch"
+               Width="1"
+               Margin="10 5"
+               Fill="Gray"/>
+
+    <Border Grid.Row="1" Grid.Column="2" />
+    
+    <!-- Left Side Pane -->
+    <DockPanel Grid.Row="0" Grid.Column="0" Grid.RowSpan="3">
+      <TextBlock Classes="theme-text-heading accent" Text="Expenses" DockPanel.Dock="Top"/>
+      <Rectangle Fill="DarkSalmon" HorizontalAlignment="Stretch" Margin="0 10"/>
+    </DockPanel>
+    
+    <!-- Right Side Pane -->
+    <DockPanel Grid.Row="0" Grid.Column="2">
+      <TextBlock Classes="theme-text-heading accent" Text="Expenses" DockPanel.Dock="Top"/>
+      <Rectangle Fill="Beige" HorizontalAlignment="Stretch" Margin="0 10"/>
+    </DockPanel>
+    
+    <DockPanel Grid.Row="2" Grid.Column="2">
+      <TextBlock Classes="theme-text-heading accent" Text="Expenses" DockPanel.Dock="Top"/>
+      <Rectangle Fill="Beige" HorizontalAlignment="Stretch" Margin="0 10"/>
+    </DockPanel>
+  </Grid>
+  
+</UserControl>
