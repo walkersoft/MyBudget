@@ -4,17 +4,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:actipro="http://schemas.actiprosoftware.com/avaloniaui"
              xmlns:icons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:vm="using:MyBudget.UI.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="MyBudget.UI.Views.NavigationView">
+             x:Class="MyBudget.UI.Views.NavigationView"
+             x:DataType="vm:NavigationViewViewModel">
+  <UserControl.DataContext>
+    <vm:NavigationViewViewModel />
+  </UserControl.DataContext>
   <StackPanel Orientation="Vertical" Spacing="15">
     <Border />
-    <Button HorizontalContentAlignment="Left" Classes="theme-link">
+    <Button HorizontalContentAlignment="Left" Classes="theme-link" Command="{Binding LoadHomeViewCommand}">
       <StackPanel Orientation="Horizontal" Spacing="10">
         <icons:MaterialIcon Width="30" Height="30" Kind="HomeAnalytics" />
         <TextBlock Classes="theme-text-body size-xl" Text="Home" />
       </StackPanel>
     </Button>
-    <Button HorizontalContentAlignment="Left" Classes="theme-link">
+    <Button HorizontalContentAlignment="Left" Classes="theme-link" Command="{Binding LoadExpenseEditorViewCommand}">
       <StackPanel Orientation="Horizontal" Spacing="10">
         <icons:MaterialIcon Width="30" Height="30" Kind="CurrencyUsd" />
         <TextBlock Classes="theme-text-body size-xl" Text="Expenses" />
