@@ -16,13 +16,13 @@
     <Button HorizontalContentAlignment="Left" Classes="theme-link" Command="{Binding LoadHomeViewCommand}">
       <StackPanel Orientation="Horizontal" Spacing="10">
         <icons:MaterialIcon Width="30" Height="30" Kind="HomeAnalytics" />
-        <TextBlock Classes="theme-text-body size-xl" Text="Home" />
+        <TextBlock Classes="theme-text-body size-xl" Text="Home" IsVisible="{Binding ShowLabels}" />
       </StackPanel>
     </Button>
     <Button HorizontalContentAlignment="Left" Classes="theme-link" Command="{Binding LoadExpenseEditorViewCommand}">
       <StackPanel Orientation="Horizontal" Spacing="10">
         <icons:MaterialIcon Width="30" Height="30" Kind="CurrencyUsd" />
-        <TextBlock Classes="theme-text-body size-xl" Text="Expenses" />
+        <TextBlock Classes="theme-text-body size-xl" Text="Expenses" IsVisible="{Binding ShowLabels} "/>
       </StackPanel>
     </Button>
   </StackPanel>

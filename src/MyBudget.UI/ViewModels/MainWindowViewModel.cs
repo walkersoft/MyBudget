@@ -33,7 +33,11 @@ public partial class MainWindowViewModel : ViewModelBase, IRecipient<LoadHomeVie
     private Visual activeView;
 
     [RelayCommand]
-    private void TogglePane() => IsPaneOpen ^= true;
+    private void TogglePane()
+    {
+        IsPaneOpen ^= true;
+        Messenger.Send(new NavigationPaneToggled(IsPaneOpen));
+    }
 
     [RelayCommand]
     private async Task OpenExpenseEditor()

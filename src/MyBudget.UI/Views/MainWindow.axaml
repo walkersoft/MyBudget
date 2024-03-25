@@ -38,7 +38,7 @@
     <SplitView DisplayMode="CompactInline"
                IsPaneOpen="{Binding IsPaneOpen}"
                OpenPaneLength="250"
-               CompactPaneLength="75"
+               CompactPaneLength="80"
                Content="{Binding ActiveView}">
       <SplitView.Pane>
         <views:NavigationView />
