@@ -35,11 +35,11 @@
                  Margin="10 0"
                  Text="My Budget" />
     </StackPanel>
-    <SplitView DisplayMode="Overlay"
+    <SplitView DisplayMode="CompactInline"
                IsPaneOpen="{Binding IsPaneOpen}"
                OpenPaneLength="250"
-               Content="{Binding ActiveView}"
-               UseLightDismissOverlayMode="True">
+               CompactPaneLength="75"
+               Content="{Binding ActiveView}">
       <SplitView.Pane>
         <views:NavigationView />
       </SplitView.Pane>

@@ -48,13 +48,11 @@ public partial class MainWindowViewModel : ViewModelBase, IRecipient<LoadHomeVie
 
     void IRecipient<LoadHomeView>.Receive(LoadHomeView message)
     {
-        TogglePane();
         ActiveView = new HomeRootView();
     }
 
     void IRecipient<LoadExpenseEditorView>.Receive(LoadExpenseEditorView message)
     {
-        TogglePane();
         ActiveView = new ExpenseEditorRootView();
     }
 }
