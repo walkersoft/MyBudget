@@ -16,19 +16,45 @@
     <Button HorizontalContentAlignment="Left" Classes="theme-link" Command="{Binding LoadHomeViewCommand}">
       <StackPanel Orientation="Horizontal" Spacing="10">
         <icons:MaterialIcon Width="30" Height="30" Kind="HomeAnalytics" />
-        <TextBlock Classes="theme-text-body size-xl" Text="Home" IsVisible="{Binding ShowLabels}" />
+        <TextBlock Classes="theme-text-body size-xl" Text="Home" IsEnabled="{Binding ShowLabels}" />
       </StackPanel>
     </Button>
     <Button HorizontalContentAlignment="Left" Classes="theme-link" Command="{Binding LoadExpenseEditorViewCommand}">
       <StackPanel Orientation="Horizontal" Spacing="10">
         <icons:MaterialIcon Width="30" Height="30" Kind="CurrencyUsd" />
-        <TextBlock Classes="theme-text-body size-xl" Text="Expenses" IsVisible="{Binding ShowLabels} "/>
+        <TextBlock Classes="theme-text-body size-xl" Text="Expenses" IsEnabled="{Binding ShowLabels}" />
       </StackPanel>
     </Button>
   </StackPanel>
   <UserControl.Styles>
     <Style Selector="StackPanel > Button > StackPanel">
       <Setter Property="Margin" Value="15 0 0 0" />
+    </Style>
+    <Style Selector="TextBlock[IsEnabled=True]">
+      <Style.Animations>
+        <Animation FillMode="Forward" Duration="0:0:0.5" Easing="QuadraticEaseOut">
+          <KeyFrame Cue="0%">
+            <Setter Property="Opacity" Value="0" />
+            <Setter Property="IsVisible" Value="True" />
+          </KeyFrame>
+          <KeyFrame Cue="100%">
+            <Setter Property="Opacity" Value="1" />
+          </KeyFrame>
+        </Animation>
+      </Style.Animations>
+    </Style>
+    <Style Selector="TextBlock[IsEnabled=False]">
+      <Style.Animations>
+        <Animation FillMode="Forward" Duration="0:0:0.3" Easing="QuinticEaseOut">
+          <KeyFrame Cue="0%">
+            <Setter Property="Opacity" Value="1" />
+          </KeyFrame>
+          <KeyFrame Cue="100%">
+            <Setter Property="Opacity" Value="0" />
+            <Setter Property="IsVisible" Value="False" />
+          </KeyFrame>
+        </Animation>
+      </Style.Animations>
     </Style>
   </UserControl.Styles>
 </UserControl>
