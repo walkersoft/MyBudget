@@ -2,24 +2,28 @@
 using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using MyBudget.UI.Messages;
 using MyBudget.UI.Views;
 using System.Threading.Tasks;
 
 namespace MyBudget.UI.ViewModels;
 
-public partial class MainWindowViewModel : ViewModelBase
+public partial class MainWindowViewModel : ViewModelBase, IRecipient<LoadHomeView>, IRecipient<LoadExpenseEditorView>
 {
     private readonly Window parentWindow;
     
     public MainWindowViewModel(Window parent)
     {
         parentWindow = parent;
-        ActiveView = new ExpenseEditorRootView();
+        Messenger.RegisterAll(this);
+        ActiveView = new HomeRootView();
     }
 
+    // This is so the Avalonia designer has something to work with
     public MainWindowViewModel()
     {
-        ActiveView = new ExpenseEditorRootView();
+        ActiveView = new HomeRootView();
     }
 
     [ObservableProperty]
@@ -40,5 +44,17 @@ public partial class MainWindowViewModel : ViewModelBase
         };
 
         await dialog.ShowDialog(parentWindow);
+    }
+
+    void IRecipient<LoadHomeView>.Receive(LoadHomeView message)
+    {
+        TogglePane();
+        ActiveView = new HomeRootView();
+    }
+
+    void IRecipient<LoadExpenseEditorView>.Receive(LoadExpenseEditorView message)
+    {
+        TogglePane();
+        ActiveView = new ExpenseEditorRootView();
     }
 }
