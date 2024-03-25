@@ -4,9 +4,9 @@ using MyBudget.UI.Messages;
 
 namespace MyBudget.UI.ViewModels
 {
-    public partial class NavigationViewViewModel : ViewModelBase
+    public partial class NavigationViewModel : ViewModelBase
     {
-        public NavigationViewViewModel()
+        public NavigationViewModel()
         {
             Messenger.RegisterAll(this);
         }

@@ -7,9 +7,9 @@
              xmlns:vm="using:MyBudget.UI.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MyBudget.UI.Views.NavigationView"
-             x:DataType="vm:NavigationViewViewModel">
+             x:DataType="vm:NavigationViewModel">
   <UserControl.DataContext>
-    <vm:NavigationViewViewModel />
+    <vm:NavigationViewModel />
   </UserControl.DataContext>
   <StackPanel Orientation="Vertical" Spacing="15">
     <Border />
